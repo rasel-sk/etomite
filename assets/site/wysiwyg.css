@@ -1,0 +1,43 @@
+/* WYSIWYG Styles - wysiwyg.css */
+
+.fancyRow {
+  background-image: url("../../manager/media/images/misc/buttonbar_gs.gif");
+  background-position: top;
+  background-repeat: repeat-x;
+}
+
+.fancyRow2 {
+  background-image: url("../../manager/media/images/misc/buttonbar.gif");
+  background-position: top;
+  background-repeat: repeat-x;
+  height:2em;
+}
+
+floatLeft { float:left; display:inline; }
+
+floatRight { float:right; display:inline; }
+
+.border { border: 1px solid #999999; }
+
+.contentBox1 {
+  background-color:#f0f0f0;
+  padding:20px;
+  border:1px solid #0000ff;
+  font-size:1.2em;
+}
+
+.contentBox2 {
+  background-color:#8888ff;
+  margin:0 15% 0 15%;
+  padding:10px;
+  border:2px solid #ff8888;
+  font-size:2em;
+}
+
+.contentarea {
+  background-color:#FFFFDD;
+  border:2px solid #7f0000;
+  font-size:1em;
+  margin:1em 1em 1em 1em;
+  padding:1em 1em 1em 1em;
+}

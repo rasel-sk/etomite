@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Etomite &raquo; Install</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+      @import url('../assets/site/style.css');
+      .ok
+      {
+        color:green;
+        font-weight: bold;
+      }
+      .notok
+      {
+        color:red;
+        font-weight: bold;
+      }
+      .labelHolder
+      {
+        width : 180px;
+        float : left;
+        font-weight: bold;
+      }
+    </style>
+  <script type="text/javascript" src="extLinks.js"> </script>
+</head>
+
+<body>
+<table border="0" cellpadding="0" cellspacing="0" class="mainTable">
+  <tr class="fancyRow">
+    <td><span class="headers">&nbsp;<img src="../manager/media/images/misc/dot.gif" alt="" style="margin-top: 1px;" />&nbsp;Etomite <?php echo $code_name." v".$release; ?></span></td>
+    <td align="right"><span class="headers">Configuration Upgrade</span></td>
+  </tr>
+  <tr class="fancyRow2">
+    <td colspan="2" class="border-top-bottom smallText" align="right">&nbsp;</td>
+  </tr>
+  <tr align="left" valign="top">
+    <td class="pad" id="content" colspan="2" style="padding:1em 2em;">
+
+      <h1>Etomite Prelude v1.1 installation and upgrade notes</h1>
+
+      <p>The Etomite Prelude v1.1 code base includes several database modifications which must be performed on any existing installations prior to v1.0 before the installation will perform properly. New installations will automatically include these modifications so no further action will be required after the installation is complete other than editing and saving the site configuration settings as prompted by the installer.</p>
+
+      <br />
+
+      <h1>New Installations</h1>
+
+      <p>IMPORTANT: As of Etomite Prelude v1.1 the code base no longer ships with a <span class="mono">manager/includes/config.inc.php</span> file. In order to make upgrades easier the package now contains a placeholder file named <span class="mono">manager/includes/config.php</span> which needs to be renamed or copied to <span class="mono">manager/includes/config.inc.php</span> and be set to have full read + write permissions before a new installation can be performed.</p>
+
+      <div>
+        <ul>
+          <li>Perform backups just in case something goes wrong. <span class="notok">YOU HAVE BEEN WARNED!</span></li>
+          <li>Upload all files to your web server</li>
+          <li>Follow the installation procedures described at <span class="mono">http://docs.etomite.com/installation.html</span></li>
+          <li>If you don't want to read the instructions simply point your browser to <span class="mono">http://your_etomite_server/</span> and follow the installation instructions. It'll be easier if you follow the instructions mentioned above, however.</li>
+          <li>If you have problems you can seek help in the support forums at <span class="mono">http://www.etomite.com/forums</span></li>
+        </ul>
+      </div>
+
+      <br />
+
+      <h1>Upgrading Previous Releases</h1>
+
+      <p>IMPORTANT: As of Etomite Prelude v1.1 you no longer have to manually perform any <span class="mono">manager/includes/config.inc.php</span> maintenance during upgrades. All that is required is that the existing file have write permissions so the installer can make any required changes.</p>
+
+      <div>
+        <ul>
+          <li>Perform backups just in case something goes wrong. <span class="notok">YOU HAVE BEEN WARNED!</span></li>
+          <li>Upload all files to your web server</li>
+          <li>Point your browser to <span class="mono">http://your_etomite_server/install/</span></li>
+          <li>Select: Upgrade an existing installation</li>
+          <li>Read the entire upgrade document before proceeding. <span class="notok">YOU HAVE BEEN WARNED!</span></li>
+          <li>Follow any instructions which pertain to your specific needs based on your previous release</li>
+          <li>Make sure you click on the link, <span class="mono">"v1_db_patches.php"</span>, to perform add database upgrades! <span class="notok">YOU HAVE BEEN WARNED!</span></li>
+          <li>If you didn't go into your <b>Etomite manager > Configuration</b> yet to verify and save your settings, do so now and then perform a <b>Clear site cache</b> from the Etomite Main Menu. <span class="notok">There are new settings that should be reviewed and set according to your needs!</span></li>
+          <li>You should have a fully functional Etomite Prelude v1.1 installation</li>
+          <li>If you have problems you can seek help in the support forums at <span class="mono">http://www.etomite.com/forums</span></li>
+        </ul>
+      </div>
+
+      <br />
+
+      <h1>PLEASE NOTE:</h1>
+
+      <p>When <span class="mono">v1_db_patches.php</span> is run it only sets the new chunk and export role permissions for Admin users. If other user roles require chunk or export permissions they must be assigned manually within the >Etomite Manager > Manage Users > Role Management section.</p>
+
+      <br />
+
+      <h1>GOOD LUCK...</h1>
+
+      <p>The Etomite CMS Project Development Team</p>
+
+    </td>
+  </tr>
+  <tr class="fancyRow2">
+    <td class="border-top-bottom smallText">&nbsp;</td>
+    <td class="border-top-bottom smallText" align="right">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

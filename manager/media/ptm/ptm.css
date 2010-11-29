@@ -1,0 +1,67 @@
+/* ptm.css - Persistent Tree Menu */
+/* Author: Ralph A. Dahlgren  */
+/* Rev. Date: 2005-06-16      */
+
+#nav {
+  background-color: #ffffff;
+  font-size: 9pt;
+  font-family:verdana,helvetica,arial;
+  margin:0;
+  padding:0;
+  background-image:url("../../media/images/bg/treeback.jpg");
+  background-position:top;
+  background-repeat:repeat-x;
+}
+
+#nav .open {
+  display: block;
+  margin:0;
+  padding:0;
+}
+
+#nav .closed {
+  display: none;
+  margin:0;
+  padding:0;
+}
+
+#nav li {
+  list-style: none;
+  list-style-image: none;
+  padding-top: .0em;
+  padding-bottom: .0em;
+  margin:0;
+  padding:0 0 0 1em;
+}
+
+#nav li img {
+  vertical-align: middle;
+  margin:0;
+  padding:0;
+}
+
+#nav ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+#nav a {
+  cursor:pointer;
+  text-decoration:none;
+}
+
+#nav a:active { background-color: red; }
+
+#nav a:hover { opacity:.75; filter: alpha(opacity=75); }
+
+#nav .scroll {
+  bottom:1;
+  width: 100%;
+  overflow: visible;
+  position:absolute;
+  top:25;
+}
+
+
+h1, h2, h3, h4 { margin:0; padding:0; }

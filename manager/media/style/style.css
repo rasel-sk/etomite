@@ -1,0 +1,715 @@
+/* Etomite Manager Cascading Style Sheet */
+/* Aggregated from all separate files by Ralph Dahlgren */
+/* Entire Etomite manage reskinned by Ian Smith for v1.0 */
+
+body {
+  color:#000;
+  background:url('../images/bg/body.jpg') repeat-x #FFF;
+  font-size:9pt;
+  font-weight:normal;
+  font-family:verdana,helvetica,arial;
+  margin:0;
+  padding:0;
+}
+
+body.topFrame {
+  margin:0;
+  font-size: 14px;
+  background:#50b5ff url(../images/bg/topframe.gif) repeat-x right top;
+}
+
+#tocText {
+  float:right;
+  margin: 5px 10px;
+/*
+  position:absolute;
+  left: 165px;
+  top: 2px;
+*/
+}
+.topBarLogo {
+  float: left;
+  margin-right: 1em;
+}
+
+table, tr, td, th, thead, tbody, ul, ol, li, dl, dt, dd, textarea, * { font-size:9pt; font-family:verdana,helvetica,arial;}
+
+thead td { color:white; font-weight:bold; }
+
+hr{
+  color:#821517;
+  background-color:#821517;
+  height:1px;
+}
+
+button {
+  color:#821517;
+  font-weight:bold;
+  width:112px;
+  margin-right:5px;
+  cursor:pointer;
+}
+
+a, a:active, a:visited, a:link { text-decoration:none; color:#0058B0; }
+a:hover { color:#000; text-decoration:underline; }
+a img { border:0; }
+
+ul { margin:0px 0px 0px 20px; }
+
+li {
+  padding:0px;
+  margin:0px 0px 0px 15px;
+  list-style:square outside;
+  list-style-image: url("../../media/images/misc/li.gif");
+}
+
+fieldset {
+  margin-bottom:5px;
+  border:1px solid black;
+  padding:5px;
+}
+
+legend {
+  font-weight:bold;
+  padding-left:5px;
+  padding-right:5px;
+  font-size:1em;
+}
+
+.screen { border:1px solid #ddd; text-align:center; }
+
+input,.inputBox { padding:0px; }
+
+/*.inputButton{
+  background-color:#ffffcc;
+  padding:0em .5em;
+  cursor:pointer;
+}*/
+
+#buildText, #workText {
+  float:right;
+  font-weight:900;
+  padding: 4px;
+  margin: 2px;
+}
+
+#appnameText {
+  color:#fff;
+  float:left;
+  font-weight:900;
+  position:relative;
+  top:6px;
+}
+
+#sloganText {
+  text-align:center;
+  font-weight:bold;
+}
+
+.warning {
+color:#821517;
+font-weight:bold;
+}
+
+.success {
+  color:#009900;
+  font-weight:bold;
+}
+
+.split {
+  background:#821517 url("../../media/images/misc/line.gif") repeat-x;
+  height:1px;
+  font-size:0;
+  clear:both;
+  margin:0;
+  padding:0;
+}
+
+.messageRead { color:Black; }
+.messageUnread { color:#7f0000; font-weight:bold; }
+
+.subTitle, .subTitleTree {
+  position:relative;
+  top:0;
+  left:0;
+  width:100%;
+  height:24px !important;
+  padding:0px;
+  margin-bottom:0px;
+  margin-right:0px;
+  z-index:950;
+  background:#40D100 url(../images/bg/buttonbar.gif) repeat-x 0 -3px;
+  color: #fff;
+}
+.subTitleTree{
+    padding: 1px;
+}
+
+.subTitlePad { height:30px; }
+
+.floatLeft {
+  float:left;
+}
+
+.floatRight {
+  font-weight:bold;
+  float:right;
+  padding:0px 10px 0px 0px;
+}
+
+.fakefieldset {
+  border:1px solid #78acff;
+  background:white;
+  padding:10px;
+}
+
+.fakefieldsetstrong,.fakefieldsettitle{
+  color:#990033;
+  font-weight:bold;
+}
+
+.sectionHeader,.showHideVisible {
+  margin:5px 5px 0px 5px;
+  padding:5px 5px 5px 5px;
+  font-weight:bold;
+  border:1px solid #003399;
+  border-bottom:none;
+  height:auto;
+  background:url("../images/misc/buttonbar_gs.gif") repeat-x top left #4791C5;
+}
+
+.sectionBody,.layerVisible {
+  display:none;
+  background:#d7e7fb;
+  background:#ddeeff;
+  border:1px solid #4791C5;
+  margin:0px 5px 5px 5px;
+  padding:10px;
+  background:url("../images/bg/body.jpg") repeat-x 0 -24px;
+  display:block;
+  z-index:900;
+}
+
+.showHideVisible,.layerVisible { margin:0px 10px 4px 10px; }
+
+.comment { color:#777; }
+
+thead,.fancyrow {
+  height:18px!important;
+  background-color:#3399ff;
+  border-bottom:1px solid rgb(120,172,255);
+}
+
+.fancyrow2 {
+  height:18px !important;
+  background:url("../images/misc/buttonbar.gif") repeat-x #4791C5;
+  border-bottom:1px solid rgb(120,172,255);
+}
+
+/* Start Sortable Table*/
+.sort-table {
+  font:Icon;
+  border:0px Solid ThreeDShadow;
+  color:WindowText;
+}
+
+.sort-tablethead {
+  height:18px !important;
+  background-image:url("../images/misc/thead.gif");
+  background-repeat:repeat-x;
+}
+
+.sort-tabletd { padding:2px 5px; }
+
+.sort-tabletheadtd { cursor:pointer; }
+
+.sort-tabletheadtd:active {
+  border-color:ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+  padding:3px 4px 1px 6px;
+}
+
+.sort-arrow {
+  width:12px;
+  height:12px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  margin:02px;
+}
+
+.sort-arrow.descending {
+  background-image:url("../images/icons/downsimple.png");
+}
+
+.sort-arrow.ascending {
+  background-image:url("../images/icons/upsimple.png");
+}
+
+.even {
+  background:#DAEAFD;
+}
+
+.odd {}
+/* End Sortable Table*/
+
+.disabledImage {
+  width:20px;
+  opacity: .5;
+/*  filter: alpha(opacity=50);*/
+}
+
+.disabledImage img {
+/*  filter:gray();*/
+}
+
+.editorCell {
+  border-top:1px solid #808080;
+  text-align:left;
+  vertical-align:baseline;
+}
+
+.row1 { background-color:#EEF5FD; }
+.row2 { background-color:#E5F0FD; }
+.row3 { background-color:#C6E0FE; }
+
+
+#treeHolder {
+  padding:5px 10px 0px 10px;
+}
+
+#floater {
+  display:none;
+  position:absolute;
+  width:150px;
+  height:40px;
+  top:28px;
+  left:4px;
+  margin:0px;
+  padding:10px;
+  background-position:top;
+  background-repeat:repeat-x;
+  background-color:#fff;
+  border:2px solid #4791C5;
+  z-index:500;
+}
+
+/* Main menu styles */
+
+.menuLink {
+  cursor:pointer;
+  font:menu;
+  color:MenuText;
+  padding:3px 16px 3px 2px;
+}
+
+.menuLinkOver {
+  cursor:pointer;
+  background-position:bottom left;
+  background-repeat:repeat-x;
+  background:white;
+  background-image:url("../../media/images/misc/buttonbar_gs.gif");
+  font:menu;
+  padding:2px 15px 2px 1px;
+  border:1px solid #003399;
+  border-left-color:ButtonHighlight;
+  border-right-color:ButtonShadow;
+  border-top-color:ButtonHighlight;
+  border-bottom-color:ButtonShadow;
+}
+
+.menuLinkDisabled {
+  cursor:default;
+  font:menu;
+  padding:3px 16px 3px 2px;
+  color:graytext;
+}
+
+.menuLink IMG, .menuLinkOver IMG, .menuLinkDisabled IMG {
+  margin-right:5px;
+  margin-left:5px;
+}
+
+.menuLink IMG, .menuLinkDisabled IMG {
+/*  filter:gray();*/
+}
+
+.menuLinkOver IMG {}
+
+#nameHolder {
+  text-align:center;
+  cursor:default;
+  font-weight:bold;
+  padding:2px 2px 2px 2px;
+  margin-bottom:2px;
+  border:1px solid #003399;
+  border-left-color:ButtonHighlight;
+  border-right-color:ButtonShadow;
+  border-top-color:ButtonHighlight;
+  border-bottom-color:ButtonShadow;
+  background-position:bottom left;
+  background-repeat:repeat-x;
+  background:#4791C5;
+  background-image:url("../../media/images/misc/buttonbar.gif");
+}
+
+.seperator {
+  font-size:0pt;
+  height:1px;
+  background-color:#6A8CCB;
+  margin:3px 1px 3px 1px;
+}
+/* End of Context sensitive menu for document tree */
+
+/* 2.php  Main Menu */
+.menuHeader {
+  margin:5px 0 0;
+  color:#000;
+  font-weight:900;
+}
+
+.menuSelect {
+  color:#003399;
+/*  font-size:12pt; */
+  cursor:pointer;
+  width:90%;
+}
+
+.menuContainer {
+  position:absolute;
+  left:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  margin:5px 5px 5px 5px;
+  padding: 15px 0 0 0;
+  background: #fff url("../images/bg/body.jpg") repeat-x top;
+
+}
+
+.menuContainer a, .menuContainer a:visited {
+  display:block;
+  font-weight:normal;
+  color:#003399;
+  font-size:9pt;
+/*  font-size:12pt; */
+  cursor:pointer;
+  width:100%;
+  text-decoration:none;
+}
+
+.menuContainer a:hover {
+  background-color:#000080;
+  color:#ffffff;
+  font-weight:normal;
+  text-decoration:none;
+}
+
+.menuContainer a img {
+  border:0px;
+  vertical-align:middle;
+}
+
+/* End of Main Menu */
+
+/* accesscontrol.inc.php - Login Page */
+.loginTbl {
+  width:500px;
+  border:1px solid #4791C5;
+  background:url('../images/bg/section.jpg') top right no-repeat #FFF;
+  padding:10px;
+  text-align:left;
+}
+
+/* Notification Pop-up */
+#preLoader {
+  position:absolute;
+  top:30%;
+  width:100%;
+/*  height:9em; */
+  text-align:center;
+  z-index:5000;
+}
+
+#preLoaderText {
+  height:auto;
+  background-color:#FFFFFF;
+  border:2px solid #47D500;
+  font-weight:bold;
+  padding:1.5em 1.5em 1.5em 3em;
+  margin:auto auto;
+  font-size:1.25em;
+  color: #fff;
+  background: #50D900 url(../images/bg/alertbg.gif) no-repeat left top;
+}
+/* End - Notification Pop-up */
+
+/* Jared's added in styles */
+input .doSomethingButton {
+  padding: 0;
+}
+.doSomethingButton {
+  margin:0px 0px 0px 10px;
+  padding:0px 8px 1px 8px;
+  border:1px solid #fff;
+  border-color: #fff #999 #999 #fff;
+  background:#efefef;
+  color:#000000;
+  font-weight:normal;
+  cursor:pointer;
+}
+a.doSomethingButton,
+a.doSomethingButton:visited {
+  color:#000000;
+  padding:0px 8px 1px 8px;
+  margin:0px 0px 0px 10px;
+}
+.doSomethingButton:hover {
+  /*border:1px solid #fff;*/
+  border-color: #ccc #eee #eee #ccc;
+  background:#fff;
+  text-decoration:none;
+  color:#000;
+}
+
+#documentTitle .doSomethingButton,
+#documentTitle a.doSomethingButton {
+  display: block;
+  overflow: hidden;
+  float: left;
+  background:#fff;
+  border:1px solid #999;
+  border-color: #fff #999 #999 #fff;
+  padding:2px 10px;
+  color: #000;
+  margin: 0px 0px 0px 4px;
+}
+#documentTitle .doSomethingButton:hover {
+  background:#eee;
+  border:1px solid #999;
+  border-color: #999 #ddd #ddd #999;
+}
+
+#documentTitle {
+  font-weight: 900;
+  margin:.5em;
+  padding: 0.6em 0.6em 0.6em 55px;
+  background: url(../images/bg/docTitle.gif) no-repeat left top;
+  border:1px solid #D9C179;
+  font-size: 1.2em;
+  color: #532C00;
+  border-width: 0 2px 2px 0;
+}
+.docTitleButtons{
+   padding-right: 1em;
+}
+
+/* ptm.css - Persistent Tree Menu */
+/* Author: Ralph A. Dahlgren  */
+/* Rev. Date: 2005-06-16      */
+
+#ptm {
+  background-color: #ffffff;
+  font-size: 10pt;
+  margin:0;
+  padding:0;
+  background-image:url("../../media/images/bg/treeback.jpg");
+  background-position:top;
+  background-repeat:repeat-x;
+}
+
+#ptm .open {
+  display: block;
+  margin:0;
+  padding:0;
+}
+
+#ptm .closed {
+  display: none;
+  margin:0;
+  padding:0;
+}
+
+#ptm li {
+  list-style: none;
+  list-style-image: none;
+  padding-top: .0em;
+  padding-bottom: .0em;
+  margin:0;
+  padding:0 0 0 1em;
+}
+
+#ptm li img {
+  vertical-align: middle;
+  margin:0;
+  padding:0;
+}
+
+#ptm ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+#ptm a {
+  cursor:pointer;
+  text-decoration:none;
+}
+
+#ptm a:active { }
+
+#ptm .mouseover { background-color:#ffc; cursor:pointer; }
+
+#ptm a:hover { }
+
+#ptm li div:hover {
+/*  color:#003399;*/
+  background-color:#ffc;;
+}
+
+#ptm li span:hover {
+/*  color:#003399;*/
+}
+
+/* END - ptm.css - Persistent Tree Menu */
+
+h1, h2, h3, h4 {
+  margin:0;
+  padding:0;
+}
+
+/* Document tree action button styles */
+/* Author: Ralph A. Dahlgren  */
+/* Rev. Date: 2005-11-09      */
+.docTreeBtn { padding:0px 0px 0px 5px; }
+.docTreeBtn img {  }
+.docTreeBtn img:hover { cursor:pointer; }
+/* END - Document tree action button styles */
+
+/* Context sensitive menu for document tree */
+/* Author: Ralph A. Dahlgren  */
+/* Rev. Date: 2005-08-28      */
+#contextmenu {
+  display:none;
+  position:absolute;
+  width:180px;
+  height:auto;
+  top:30px;
+  right:10px;
+  margin:0;
+  padding:0px;
+  background-image:url("../../media/images/bg/treeback.jpg");
+  background-position:top right;
+  background-repeat:repeat-x;
+  background-color:#ffffff;
+  color:#003399;
+  border:2px solid #4791C5;
+  z-index:1500;
+}
+
+#contextmenu tr td {
+  height:16px;
+  color:#008800;
+}
+
+#contextmenu tr td:hover {
+  height:16px;
+  color:#003399;
+}
+
+#contextmenu .titleText { color:#003399; }
+#contextmenu .mouseover { color:#003399; background-color:#c0c0c0; }
+#contextmenu .mouseout {}
+
+/* Document Tree */
+.rootNode,.treeNode,.treeNodeHover,.treeNodeSelected,.emptyNode {
+  font:icon;
+/*  font-size:12pt; */
+  color:#333;
+  padding:2px 2px 2px 2px;
+  margin:0px 0px 0px 0px;
+  cursor:pointer;
+  width:auto;
+}
+
+.treeNodeHover {
+  background-color:#CCC;
+  border:1px solid #777;
+  padding:1px 1px 1px 1px;
+}
+
+.treeNodeSelected {
+  background-color:#eee;
+  border:1px solid #777;
+  padding:1px 1px 1px 1px;
+}
+
+.deletedNode {
+  text-decoration:line-through;
+  color:#333;
+}
+
+.unpublishedNode {
+  color:#880000;
+}
+
+.publishedNode {
+  color:#008800;
+}
+
+.emptyNode {
+  color:#888888;
+  cursor:default;
+}
+
+
+.folderNode {
+  color:#7f0000;
+}
+
+.documentNode {
+  color:#008800;
+}
+
+.weblinkNode {
+}
+
+.hiddenNode {
+  color:#b5b5b5;
+}
+
+
+/* End - Document Tree */
+
+/* Start - No Symbol Page Layout */
+.noSymbolWrapper {
+  text-align:center;
+}
+/* End - No Symbol Page Layout */
+
+/* Start - No Symbol Page Layout */
+.noSymbolPage {
+  width:170px;
+  height:220px;
+  margin:auto auto;
+  padding:20px;
+  border:2px outset #000000;
+  text-align:center;
+  background-color:#ffffff;
+  background-image:url('../images/misc/No_symbol_2.png');
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+/* End - No Symbol Page Layout */
+
+/* Start - No Symbol Page Layout */
+.noSymbolText {
+  font-size:200%;
+  font-weight:bold;
+  height:inherit;
+  width:inherit;
+  margin:auto auto;
+  padding:35px 0px 35px 0px;
+}
+/* End - No Symbol Page Text */
+
+/* setting for aligning System Settings descriptions */
+#sysSettings .menuHeader { padding:6px 5px 0 5px; height:inherit; text-align:right; }

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+[!MetaTagsExtra!]
+<link rel="stylesheet" type="text/css" href="./templates/default/main.css" />
+<link rel="shortcut icon" href="./favicon.ico" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <h1>[(site_name)]</h1>
+        <h2>fast, free, ultimately flexible</h2>
+      </div>
+      <div id="strap">
+        <div id="menu">
+[!ListMenu?LM_node=0!]
+        </div>
+      </div>
+      <div id="content">
+      <h2>[*longtitle*]</h2>
+[*content*]
+      </div>
+      <div id="footer">
+        <p>Copyright &copy 2008, [(site_name)]. All Rights Reserved. Powered By <a href="http://www.etomite.com" title="Etomite CMS">Etomite</a>.</p>
+      </div>
+    </div>
+  </body>
+</html>

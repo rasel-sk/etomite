@@ -1,0 +1,66 @@
+README
+Modified 2008-05-08 [v1.1] by Ralph Dahlgren
+
+
+Etomite Prelude v1.1 installation and upgrade notes
+
+The Etomite Prelude v1.1 code base includes several database modifications
+which must be performed on any existing installations prior to v1.0 before the
+installation will perform properly. New installations will automatically
+include these modifications so no further action will be required after the
+installation is complete other than editing and saving the site configuration
+settings as prompted by the installer.
+
+
+New Installations
+
+IMPORTANT: As of Etomite Prelude v1.1 the code base no longer ships with a
+manager/includes/config.inc.php file. In order to make upgrades easier the
+package now contains a placeholder file named manager/includes/config.php
+which needs to be renamed or copied to manager/includes/config.inc.php
+and be set to have full read + write permissions before a new installation
+can be performed.
+
+* Perform backups just in case something goes wrong. YOU HAVE BEEN WARNED!
+* Upload all files to your web server
+* Follow the installation procedures described at
+  http://docs.etomite.com/installation.html
+* If you don't want to read the instructions simply point your browser to
+  http://your_etomite_server/ and follow the installation instructions.
+  It'll be easier if you follow the instructions mentioned above, however.
+* If you have problems you can seek help in the support forums at
+  http://www.etomite.com/forums
+
+
+Upgrading Previous Releases
+
+IMPORTANT: As of Etomite Prelude v1.1 you no longer have to manually perform
+any manager/includes/config.inc.php maintenance during upgrades. All that is
+required is that the existing file have write permissions so the installer can
+make any required changes.
+
+* Perform backups just in case something goes wrong. YOU HAVE BEEN WARNED!
+* Upload all files to your web server
+* Point your browser to http://your_etomite_server/install/
+* Select: Upgrade an existing installation
+* Read the entire upgrade document before proceeding. YOU HAVE BEEN WARNED!
+* Follow any instructions which pertain to your specific needs based on your
+  previous release
+* Make sure you click on the link, "v1_db_patches.php", to perform add
+  database upgrades! YOU HAVE BEEN WARNED!
+* If you didn't go into your [Etomite manager > Configuration] yet to verify
+  and save your settings, do so now and then perform a [Clear site cache]
+  from the Etomite Main Menu. (There are new settings that should be reviewed
+  and set according to your needs!)
+* You should have a fully functional Etomite Prelude v1.1 installation
+* If you have problems you can seek help in the support forums at
+  http://www.etomite.com/forums
+
+PLEASE NOTE: When v1_db_patches.php is run it only sets the new chunk and
+export role permissions for Admin users. If other user roles require chunk or
+export permissions they must be assigned manually within the
+[Etomite Manager > Manage Users > Role Management] section.
+
+
+GOOD LUCK...
+The Etomite CMS Project Development Team

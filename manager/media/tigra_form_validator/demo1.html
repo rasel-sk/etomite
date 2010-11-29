@@ -1,0 +1,265 @@
+<html>
+<head>
+	<title>JavaScript Form Validator</title>
+	<meta name="description" content="Free JavaScript component for HTML form validation at client-side">
+	<meta name="keywords" content="JavaScript validator, javascript, html, form, client side, netscape, explorer, IE, opera, form, fill, validation, format, date, time, submit, check, pattern, match">
+	<meta name="robots" content="index,follow">
+
+<style>
+	a, A:link, a:visited, a:active
+		{color: #0000aa; text-decoration: none; font-family: Tahoma, Verdana; font-size: 11px}
+	A:hover
+		{color: #ff0000; text-decoration: none; font-family: Tahoma, Verdana; font-size: 11px}
+	p, tr, td, ul, li
+		{color: #000000; font-family: Tahoma, Verdana; font-size: 11px}
+	th
+		{background: #DBEAF5; color: #000000;}
+	.header1, h1
+		{color: #ffffff; background: #4682B4; font-weight: bold; font-family: Tahoma, Verdana; font-size: 13px; margin: 0px; padding-left: 2px; height: 21px}
+	.header2, h2
+		{color: #000000; background: #DBEAF5; font-weight: bold; font-family: Tahoma, Verdana; font-size: 12px;}
+	.intd
+		{color: #000000; font-family: Tahoma, Verdana; font-size: 11px; padding-left: 15px;}
+	.wcell
+		{background: #FFFFFF; vertical-align: top}
+	.ctrl
+		{font-family: Tahoma, Verdana, sans-serif; font-size: 12px; width: 100%;}
+	.btnform
+		{border: 0px; font-family: tahoma, verdana; font-size: 12px; background-color: #DBEAF5; width: 100%; height:18px; text-align: center; cursor: hand;}
+	.btn
+		{background-color: #DBEAF5; padding: 0px;}
+	textarea, select,input
+		{font: 9px Verdana, arial, helvetica, sans-serif; background-color: #DBEAF5;}
+		
+	/* classes for validator */
+	.tfvHighlight
+		{font-weight: bold; color: red;}
+	.tfvNormal
+		{font-weight: normal;	color: black;}
+</style>
+<script language="JavaScript" src="validator.js"></script>
+</head>
+
+<body bottommargin="15" topmargin="15" leftmargin="15" rightmargin="15" marginheight="15" marginwidth="15" bgcolor="white">
+
+<!-- Header -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+	<td width="350" rowspan="2"><img src="tfv.gif" width="350" height="80" border="0" alt="Tigra Form Validator"></td>
+	<td align="right" valign="top"><img src="logo.gif" width="178" height="30" border="0" alt="Softcomplex logo"></td>
+</tr>
+<tr>
+	<td align="right" valign="bottom" nowrap>
+	<b>
+	|&nbsp;<a href="http://www.softcomplex.com/">About&nbsp;Us</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/services.html">Services</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/download.html">Download</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/order.html">Order</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/support.html">Support</a>&nbsp;
+	|
+	</b>
+	</td>
+</tr>
+<tr><td><img src="img/pixel.gif" width="1" height="5" border="0"></td></tr>
+</table>
+<!-- /Header -->
+
+<!-- Body -->
+<table cellpadding="0" cellspacing="0" border="0" bgcolor="#4682B4" width="100%"><tr><td>
+<table cellpadding="0" cellspacing="1" width="100%" border="0">
+<tr>
+	<td class="header1" height="21">Tigra Form Validator</td>
+	<td class="header1">Demo #1 - Registration Form Validation</td>
+</tr>
+<tr>
+	<td valign="top" bgcolor="#FFFFFF" width="250">
+	<table cellpadding="3" cellspacing="1" border="0" width="100%">
+	<tr><td class="header2">Notes</td></tr>
+	<tr><td class="intd">Please, check out the form on the right hand side. Its input is validated by Tigra Form Validator. Feel free to test the form in all possible ways.</td></tr>
+	<tr><td><img src="img/pixel.gif" width="250" height="1" border="0"></td></tr>
+	<tr><td class="header2">Advantages</td></tr>
+	<tr>
+		<td class="intd">
+		<p><b>Various data formats</b> - Tigra Form Validator can be set up to verify form field entered data to meet most frequently used patterns
+		<p><b>Set Up Error Reporting</b> - customize Tigra Form Validator to report of errors while adding it to your HTML document 
+		<p><b>Cost Saving Component</b> - Don't waste your time coding validation routine all over again for each new project. Find universal solution in Tigra Form Validator easy and flexibly customization
+		</td>
+	</tr>
+	<tr><td><img src="img/pixel.gif" width="1" height="1" border="0"></td></tr>
+	<tr><td class="header2">Links</td></tr>
+	<tr>
+		<td class="intd">
+		<b>
+		<ul>
+			<li><a href="./">Back to welcome page</a>
+			<li><a href="demo2.html">Next demo</a>
+			<li><a href="http://www.softcomplex.com/products/tigra_form_validator/">Product page</a>
+			<li><a href="http://www.softcomplex.com/products/tigra_form_validator/docs/">Product documentation</a>
+			<li><a href="http://www.softcomplex.com/forum/forumdisplay_78/">Product forum</a>
+		</ul>
+		</b>
+		</td>
+	</tr>
+	<tr><td><img src="img/pixel.gif" width="1" height="1" border="0"></td></tr>
+	</table>
+	</td>
+	<!-- Content -->
+	<td valign="top" bgcolor="#FFFFFF">
+	<table cellpadding="3" cellspacing="1" border="0" width="100%">
+	<tr>
+		<td class="intd"><br>
+<!-- Form -->
+<form action="demo1.html" method="get" name="registration" onsubmit="return v.exec()">
+<table cellpadding="0" cellspacing="0" border="0" width="600" align="center">
+<tr>
+	<td bgcolor="#4682B4" width="10"><img src="img/pixel.gif" width="10" height="1" border="0"></td>
+	<td class="header1" nowrap>Register User<img src="img/pixel.gif" width="10" height="1" border="0"></td>
+	<td><img src="img/formtab_r.gif" width="10" height="21" border="0"></td>
+	<td background="img/line_t.gif" width="100%">&nbsp;</td>
+	<td background="img/line_t.gif"><img src="img/pixel.gif" width="10" height="1" border="0"></td>
+</tr>
+<tr>
+	<td background="img/line_l.gif"><img src="img/pixel.gif" border="0"></td>
+	<td colspan="3">
+	<img src="img/pixel.gif" width="1" height="10" border="0"><br>
+	<div align="center"
+	 id="error_registration" style="display: block;"></div>
+	<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td bgcolor="#DBEAF5">
+		<table cellspacing="1" cellpadding="2" border="0" width="100%">
+		<tr bgcolor="#ffffff">
+			<td id="t_title" width="6%">&nbsp;Title:</td>
+			<td width="8%"><input  type="text" name="title" size="5" class="ctrl"></td>
+			<td id="t_first_name" width="10%">&nbsp;First Name:</td>
+			<td width="20%"><input type="text" name="first_name" size="10" class="ctrl"></td>
+			<td id="t_last_name" width="16%">&nbsp;Last Name:</td>
+			<td width="40%" colspan="2"><input type="text" name="last_name" size="10" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td colspan="2" id="t_company">&nbsp;Company:</td>
+			<td colspan="2" valign=top><input type="text" name="company" size="12" class="ctrl"></td>
+			<td id="t_company_number">&nbsp;Company&nbsp;Number:</td>
+			<td colspan="2"><input type="text" name="company_number" class="ctrl" size="10"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td colspan="2" id="t_street_address">&nbsp;Street address:</td>
+			<td bgcolor="#ffffff" colspan="5"><input type="text" name="street_address" size="35" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td colspan="2" id="t_street_address_ln2" nowrap>&nbsp;Street Address ln2:</td>
+			<td colspan="5"><input type="text" name="street_address_ln2" size="35" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td colspan="2" id="t_city">&nbsp;City:</td>
+			<td><input type="text" name="city" size="10" class="ctrl"></td>
+			<td id="t_county">&nbsp;County:</td>
+			<td><input type="text" name="county" size="10" class="ctrl"></td>
+			<td id="t_post_code" width="10%">&nbsp;Post&nbsp;Code:</td>
+			<td width="10%"><input type="text" name="post_code" class="ctrl" size="5"></td>	
+		</tr>
+		<tr bgcolor="#ffffff">
+			<td colspan="2" id="t_country">&nbsp;Country:</td>
+			<td colspan="2">
+				<select name="country" class="ctrl" >
+				<option value="" selected>-- select --
+<option value="AF">Afghanistan<option value="AL">Albania<option value="DZ">Algeria<option value="AS">American Samoa<option value="AD">Andorra<option value="AO">Angola<option value="AI">Anguilla<option value="AQ">Antarctica<option value="AG">Antigua and Barbuda<option value="AR">Argentina<option value="AM">Armenia<option value="AW">Aruba<option value="AU">Australia<option value="AT">Austria<option value="AZ">Azerbaijan<option value="BS">Bahamas<option value="BH">Bahrain<option value="BD">Bangladesh<option value="BB">Barbados<option value="BY">Belarus<option value="BE">Belgium<option value="BZ">Belize<option value="BJ">Benin<option value="BM">Bermuda<option value="BT">Bhutan<option value="BO">Bolivia<option value="BA">Bosnia and Herzegovina<option value="BW">Botswana<option value="BV">Bouvet Island<option value="BR">Brazil<option value="IO">British Indian Ocean Territory<option value="BN">Brunei<option value="BG">Bulgaria<option value="BF">Burkina Faso<option value="BI">Burundi<option value="KH">Cambodia<option value="CM">Cameroon<option value="CA">Canada<option value="CV">Cape Verde<option value="KY">Cayman Islands<option value="CF">Central African Republic<option value="TD">Chad<option value="CL">Chile<option value="CN">China<option value="CX">Christmas Island<option value="CC">Cocos &#40;Keeling&#41; Islands<option value="CO">Colombia<option value="KM">Comoros<option value="CG">Congo<option value="CK">Cook Islands<option value="CR">Costa Rica<option value="CI">C?te d&#39;Ivoire<option value="HR">Croatia &#40;Hrvatska&#41;<option value="CU">Cuba<option value="CY">Cyprus<option value="CZ">Czech Republic<option value="CD">Congo &#40;DRC&#41;<option value="DK">Denmark<option value="DJ">Djibouti<option value="DM">Dominica<option value="DO">Dominican Republic<option value="TP">East Timor<option value="EC">Ecuador<option value="EG">Egypt<option value="SV">El Salvador<option value="GQ">Equatorial Guinea<option value="ER">Eritrea<option value="EE">Estonia<option value="ET">Ethiopia<option value="FK">Falkland Islands &#40;Islas Malvinas&#41;<option value="FO">Faroe Islands<option value="FJ">Fiji Islands<option value="FI">Finland<option value="FR">France<option value="GF">French Guiana<option value="PF">French Polynesia<option value="TF">French Southern and Antarctic Lands<option value="GA">Gabon<option value="GM">Gambia<option value="GE">Georgia<option value="DE">Germany<option value="GH">Ghana<option value="GI">Gibraltar<option value="GR">Greece<option value="GL">Greenland<option value="GD">Grenada<option value="GP">Guadeloupe<option value="GU">Guam<option value="GT">Guatemala<option value="GN">Guinea<option value="GW">Guinea-Bissau<option value="GY">Guyana<option value="HT">Haiti<option value="HM">Heard Island and McDonald Islands<option value="HN">Honduras<option value="HK">Hong Kong SAR<option value="HU">Hungary<option value="IS">Iceland<option value="IN">India<option value="ID">Indonesia<option value="IR">Iran<option value="IQ">Iraq<option value="IE">Ireland<option value="IL">Israel<option value="IT">Italy<option value="JM">Jamaica<option value="JP">Japan<option value="JO">Jordan<option value="KZ">Kazakhstan<option value="KE">Kenya<option value="KI">Kiribati<option value="KR">Korea<option value="KW">Kuwait<option value="KG">Kyrgyzstan<option value="LA">Laos<option value="LV">Latvia<option value="LB">Lebanon<option value="LS">Lesotho<option value="LR">Liberia<option value="LY">Libya<option value="LI">Liechtenstein<option value="LT">Lithuania<option value="LU">Luxembourg<option value="MO">Macao SAR<option value="MK">Macedonia, Former Yugoslav Republic of<option value="MG">Madagascar<option value="MW">Malawi<option value="MY">Malaysia<option value="MV">Maldives<option value="ML">Mali<option value="MT">Malta<option value="MH">Marshall Islands<option value="MQ">Martinique<option value="MR">Mauritania<option value="MU">Mauritius<option value="YT">Mayotte<option value="MX">Mexico<option value="FM">Micronesia<option value="MD">Moldova<option value="MC">Monaco<option value="MN">Mongolia<option value="MS">Montserrat<option value="MA">Morocco<option value="MZ">Mozambique<option value="MM">Myanmar<option value="NA">Namibia<option value="NR">Nauru<option value="NP">Nepal<option value="NL">Netherlands<option value="AN">Netherlands Antilles<option value="NC">New Caledonia<option value="NZ">New Zealand<option value="NI">Nicaragua<option value="NE">Niger<option value="NG">Nigeria<option value="NU">Niue<option value="NF">Norfolk Island<option value="KP">North Korea<option value="MP">Northern Mariana Islands<option value="NO">Norway<option value="OM">Oman<option value="PK">Pakistan<option value="PW">Palau<option value="PA">Panama<option value="PG">Papua New Guinea<option value="PY">Paraguay<option value="PE">Peru<option value="PH">Philippines<option value="PN">Pitcairn Islands<option value="PL">Poland<option value="PT">Portugal<option value="PR">Puerto Rico<option value="QA">Qatar<option value="RE">Reunion<option value="RO">Romania<option value="RU">Russia<option value="RW">Rwanda<option value="WS">Samoa<option value="SM">San Marino<option value="ST">S?o Tom? and Pr?ncipe<option value="SA">Saudi Arabia<option value="SN">Senegal<option value="YU">Serbia and Montenegro<option value="SC">Seychelles<option value="SL">Sierra Leone<option value="SG">Singapore<option value="SK">Slovakia<option value="SI">Slovenia<option value="SB">Solomon Islands<option value="SO">Somalia<option value="ZA">South Africa<option value="GS">South Georgia and the South Sandwich Islands<option value="ES">Spain<option value="LK">Sri Lanka<option value="SH">St. Helena<option value="KN">St. Kitts and Nevis<option value="LC">St. Lucia<option value="PM">St. Pierre and Miquelon<option value="VC">St. Vincent and the Grenadines<option value="SD">Sudan<option value="SR">Suriname<option value="SJ">Svalbard and Jan Mayen<option value="SZ">Swaziland<option value="SE">Sweden<option value="CH">Switzerland<option value="SY">Syria<option value="TW">Taiwan<option value="TJ">Tajikistan<option value="TZ">Tanzania<option value="TH">Thailand<option value="TG">Togo<option value="TK">Tokelau<option value="TO">Tonga<option value="TT">Trinidad and Tobago<option value="TN">Tunisia<option value="TR">Turkey<option value="TM">Turkmenistan<option value="TC">Turks and Caicos Islands<option value="TV">Tuvalu<option value="UG">Uganda<option value="UA">Ukraine<option value="AE">United Arab Emirates<option value="UK">United Kingdom<option value="US">United States<option value="UM">United States Minor Outlying Islands<option value="UY">Uruguay<option value="UZ">Uzbekistan<option value="VU">Vanuatu<option value="VA">Vatican City<option value="VE">Venezuela<option value="VN">Viet Nam<option value="VG">Virgin Islands &#40;British&#41;<option value="VI">Virgin Islands<option value="WF">Wallis and Futuna<option value="YE">Yemen<option value="ZM">Zambia<option value="ZW">Zimbabwe
+				</select>						
+			</td>
+			<td id="t_telephone_number">&nbsp;Telephone&nbsp;Number:</td>
+			<td colspan="2"><input type="text" name="telephone_number" size="10" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td colspan="2" id="t_email">&nbsp;Email:</td>
+			<td colspan="5"><input type="text" name="email" size="35" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td colspan="2" id="t_general_information">&nbsp;General info:</td>
+			<td bgcolor="#ffffff" colspan="5"><textarea name="general_information" rows="5" cols="32" class="ctrl"></textarea></td>
+		</tr>
+		</table></td></tr></table>
+		<img src="img/pixel.gif" width="1" height="10" border="0"><br>
+	</td>
+	<td background="img/line_r.gif"><img src="img/pixel.gif" border="0"></td>
+	</tr>
+<tr>
+	<td width="10"><img src="img/formtab_b.gif" width="10" height="20" border="0"></td>
+	<td bgcolor="#4682B4" colspan="4" align="right">
+	<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td class="btn" width="100"><input type="reset" name="Reset" value="Reset" class="btnform"></td>
+		<td width="1"><img src="img/pixel.gif" width="1" height="18" border="0"></td>
+		<td class="btn" width="100"><input type="submit" name="Submit" value="Submit" class="btnform"></td>
+		<td width="1"><img src="img/pixel.gif" width="1" height="18" border="0"></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</form>
+<!-- Form end -->
+		<li>The above is a sample complex registration form. Despite a number of fields Tigra Validator helps to fill it easily step-by-step - just fill the first field, press "Enter" and fill focus will be shifted to next required or misfilled field
+		<li>Captions of wrongly filled fields are highlighted with red colored bold font on form submit try
+		<li>"First Name", "Last Name", "Company", "Company Number", "Street Address", "City", "Post Code", "Country", "Telephone Number", "E-mail" and "General information" are required fields
+		<li>See that select-boxes are checked if a value selected in them as well 
+		<li>"Submit" and "Reset" button go disabled when form validation is successfull
+		<br><br>
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</td></tr></table>
+<!-- /Body -->
+
+<!-- Footer -->
+<table cellpadding="3" cellspacing="0" width="100%" border="0" height="22">
+<tr bgcolor="#4682B4">
+	<td nowrap><font color="white">Copyright &copy;2002-2005 SoftComplex Inc. All rights reserved.</font></td>
+	<td align="right">
+	| <a href="http://www.softcomplex.com/"><font color="white">company info</font></a>
+	| <a href="http://www.softcomplex.com/site_agreement.html"><font color="white">terms of service</font></a>
+	| <a href="http://www.softcomplex.com/privacy_policy.html"><font color="white">privacy policy</font></a>
+	|
+	</td>
+</tr>
+</table>
+<!-- /Footer -->
+
+<script>
+// form fields description structure
+var a_fields = {
+	'title': {
+		'l': 'Title',  // label
+		'r': false,    // required
+		'f': 'alpha',  // format (see below)
+		't': 't_title',// id of the element to highlight if input not validated
+		
+		'm': null,     // must match specified form field
+		'mn': 2,       // minimum length
+		'mx': 10       // maximum length
+	},
+	'first_name':{'l':'First Name','r':true,'f':'alpha','t':'t_first_name'},
+	'last_name':{'l':'Last Name','r':true,'f':'alpha','t':'t_last_name'},
+	'company':{'l':'Company','r': true,'t':'t_company'},
+	'company_number':{'l':'Company Number','r':true,'f':'unsigned','t':'t_company_number'},
+	'street_address':{'l':'Street Address','r':true,'t':'t_street_address'},
+	'city':{'l':'City','r':true,'f':'alpha','t':'t_city'},
+	'county':{'l':'County','r':false,'f':'alphanum','t':'t_county'},
+	'post_code':{'l':'Post Code','r':true,'f':'unsigned','t':'t_post_code'},
+	'country':{'l':'Country','r':true,'t':'t_country'},
+	'telephone_number':{'l':'Telephone Number','r':true,'f':'phone','t':'t_telephone_number'},
+	'email':{'l':'E-mail','r':true,'f':'email','t':'t_email'},
+	'general_information':{'l':'General information','r':true,'t':'t_general_information'}
+},
+
+o_config = {
+	'to_disable' : ['Submit', 'Reset'],
+	'alert' : 1
+}
+
+// validator constructor call
+var v = new validator('registration', a_fields, o_config);
+
+</script>
+</body>
+</html>

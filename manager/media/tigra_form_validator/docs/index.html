@@ -1,0 +1,470 @@
+<html><head><title>Tigra Form Validator - Documentation</title>
+
+	<meta name="description" content="Free JavaScript component for HTML form validation at client-side">
+	<meta name="keywords" content="JavaScript validator, javascript, html, form, client side, netscape, explorer, IE, opera, form, fill, validation, format, date, time, submit, check, pattern, match">
+	<meta name="robots" content="index,follow">
+	<style>
+	a, A:link, a:visited, a:active
+		{color: #0000aa; text-decoration: none; font-family: Tahoma, Verdana; font-size: 12px}
+	A:hover
+		{color: #ff0000; text-decoration: none; font-family: Tahoma, Verdana; font-size: 12px}
+	tr, td, ul, ol, li
+		{color: #000000; font-family: Tahoma, Verdana; font-size: 12px}
+	p
+		{color: #000000; font-family: Tahoma, Verdana; font-size: 12px; text-align: justify; padding-left: 25px; padding-right: 25px;}
+	h1
+		{color: #ffffff; background: #4682B4; font-weight: bold; font-family: Tahoma, Verdana; font-size: 14px; margin-top: 5px; padding: 5px;}
+	h2
+		{color: #000000; background: #DBEAF5; font-weight: bold; font-family: Tahoma, Verdana; font-size: 13px; padding: 5px; text-align: right; }
+	h3
+		{color: #000000; font-weight: bold; font-family: Tahoma, Verdana; font-size: 13px; margin: 2px; }
+	.wcell
+		{background: #FFFFFF; vertical-align: top}
+	.com
+		{color: gray;}
+	th
+		{background: #DBEAF5; color: #000000;}
+	pre
+		{ background: #dddddd; border: 1px solid black; color: black; padding-top: 1em; white-space: pre; padding: 10px;}
+	</style></head>
+<body leftmargin="15" topmargin="15" bgcolor="#ffffff" marginheight="15" marginwidth="15">
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+	<td valign="top"><img src="tfv.gif" alt="Tigra Form Validator" border="0" height="80" width="350"></td>
+	<td align="right" valign="top"><img src="logo.gif" alt="Softcomplex Logo" border="0" height="30" width="178">
+</td>
+</tr></tbody></table>
+
+<h1>Tigra Form Validator v1.0 Documentation<a name="top"></a></h1>
+
+<h2>Table of Contents<a name="table_of_contents"></a></h2>
+<ul>
+	<li><a href="#top">Tigra Form Validator Documentation</a>
+	</li><li><a href="#table_of_contents">Table of Contents</a>
+	</li><li><a href="#features">Features</a>
+	</li><li><a href="#compatibility">Compatibility Table</a>
+	</li><li><a href="#files">Files</a>
+	</li><li><a href="#initialization">Adding Form Validator to HTML Page</a>
+	</li><li><a href="#fields_structure">Describing Fields</a>
+	<ul>
+		<li><a href="#field_attribs">Field Attributes</a>
+		</li><li><a href="#field_highlight">Field Label Highlighting</a>
+		</li><li><a href="#field_format">Field Format</a>
+		</li><li><a href="#fds_sample">Sample Field Description Structure</a>
+	</li></ul>
+	</li><li><a href="#settings">Validator Settings</a>
+	</li><li><a href="#terms_cond">Terms and Conditions</a>
+	</li><li><a href="#links_and_references">Links and References</a>
+</li></ul>
+
+<h2>Description<a name="description"></a></h2>
+<p align="justify">Tigra Form Validator is free JavaScript component
+performing client side form validation. With its rich feature set the
+script can be used with HTML forms of virtually any complexity. This
+component is a simple way to improve visitors' experience, robustness
+and resource efficiency of your web application.
+</p><h2>Features<a name="features"></a></h2>
+<ul>
+	<li>Multiple forms per page supported
+	</li><li>Number of verified form fields is not limited
+	</li><li>Form fields can be verified to match predefined formats:
+	<ul>
+		<li>alphabetic (i.e. full name)
+		</li><li>alphanumeric (i.e. nickname)
+		</li><li>unsigned integer
+		</li><li>integer
+		</li><li>real (float) number
+		</li><li>e-mail address
+		</li><li>phone number (incl. hyphens &amp; dots)
+		</li><li>date dd-mm-yyyy - (customizable)
+		</li><li>time hh:mm:ss - (customizable)
+	</li></ul>
+	</li><li>Relation checks across form fields (i.e. password match)
+	</li><li>Highlights form field labels on error
+	</li><li>Prevents multiple submits by blocking specified controls
+	</li><li>Error reporting via alert box
+	<ul>
+		<li>Optional set up error reporting
+	</li></ul>
+	</li><li>Minimum efforts to set up and maintain
+	</li><li>All popular browsers supported (<a href="#compatibility_list">compatibility table</a>)
+	</li><li>Future browser's versions ready
+	</li><li>The script is <font color="red"><b>free</b></font> for any applications
+</li></ul>
+
+<h2>Compatibility Table<a name="compatibility"></a></h2>
+	<p>Tigra Form Validaror can work with any browser capable of generic DHTML.<br>
+	Here is a table of the application compatibility:
+	</p><p>
+<table align="center" bgcolor="#4682b4" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>
+	<table border="0" cellpadding="3" cellspacing="1" width="100%">
+	<tbody><tr align="center">
+		<th rowspan="2">Platform</th>
+		<th colspan="6">Browser</th>
+	</tr>
+	<tr align="center">
+		<th width="60">MS IE</th>
+		<th width="60">Netscape</th>
+		<th width="60">Mozilla</th>
+		<th width="60">Opera</th>
+		<th width="60">Safari</th>
+	</tr>
+	<tr align="center">
+		<td class="wcell"><b>Windows 95/98/ME/2000/XP</b></td>
+		<td class="wcell">4.0+</td>
+		<td class="wcell">4.08+</td>
+		<td class="wcell">0.9+</td>
+		<td class="wcell">6.0+</td>
+		<td class="wcell">n/a</td>
+	</tr>
+	<tr align="center">
+		<td class="wcell"><b>Mac OS 8/9/X</b></td>
+		<td class="wcell">5.0+</td>
+		<td class="wcell">4.7+</td>
+		<td class="wcell">0.9+</td>
+		<td class="wcell">6.0+</td>
+		<td class="wcell">1.0+</td>
+	</tr>
+	</tbody></table></td></tr>
+</tbody></table><br>
+
+</p><h2><a name="files"></a>Files</h2>
+<p>Tigra Form Validator distribution package contains the following files:</p>
+<ul>
+	<li><b>img/*</b> - Images used in Tigra Form Validator demos; are not required by script itself
+	</li><li><b>demo?.html</b> - Tigra Form Validator demo pages
+	</li><li><b>*.gif</b> - Logotype images for demo pages; are not required by script itself
+	</li><li><b>validator.js</b> - Tigra Form Validator script file
+</li></ul>
+<p>Where ? and * are wildcards for single character and substring respectively.</p>
+
+<h2>Adding Form Validator to HTML Page<a name="initialization"></a></h2>
+<p>First thing to be done to the document where Tigra Form Validator
+will be used than is attaching product core script to a header with
+appropriate tag:</p>
+
+<pre>&lt;head&gt;
+  &lt;!-- some header data --&gt;
+  &lt;script language="javascript" src="validator.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</pre>
+
+<p>To validate fields of a HTML form Tigra Form Validator script has to
+create a JavaScript object instance for that form. Such a creation is
+done with a JavaScript line called "constructor call". So the number of
+constructor calls in a HTML document should be equal to a number of
+HTML forms the script is desired to serve.</p>
+
+<p>Here is sample Tigra Form Validator constructor call:</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+  &lt;!-- some header data --&gt;
+  &lt;script language="javascript" src="validator.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+...
+&lt;!--A form for validation--&gt;
+&lt;form name="a_form" onsubmit="return v.exec()"&gt;
+...
+&lt;/form&gt;
+...
+&lt;script language="JavaScript"&gt;
+var o_fields =	{
+		...
+		//A structure describing fields
+		...
+		},
+o_config =	{
+		...
+		//A structure describing validator configuration
+		...
+		}
+
+//Constructor call
+<b>var v = new validator('a_form', o_fields, o_config)</b>
+...
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>The constructor is supplied with 3 parameters:
+</p><p><table align="center" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td bgcolor="#4682b4">
+	<table border="0" cellpadding="5" cellspacing="1" width="100%">
+	<tbody><tr><th>Index</th><th>Description</th><th>Type</th><th>If required</th><th>In above sample</th>
+	</tr>
+	<tr>
+		<td class="wcell" align="right">1</td>
+		<td class="wcell">a string name of the form inputs to fields of which are to be validated by the script</td>
+		<td class="wcell">string</td><td class="wcell" align="center">yes</td><td class="wcell">'a_form'</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="right">2</td>
+		<td class="wcell">a JavaScript structure or a reference to a <a href="#fields_structure">structure describing fields</a> inputs of those are to be validated</td>
+		<td class="wcell">object</td><td class="wcell" align="center">yes</td><td class="wcell">o_fields</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="right">3</td>
+		<td class="wcell">a JavaScript structure or a reference to a <a href="#settings">structure describing validator settings</a></td>
+		<td class="wcell">object</td><td class="wcell" align="center">no</td><td class="wcell">o_config</td>
+	</tr>
+	</tbody></table>
+	</td></tr></tbody></table></p>
+
+<p>The constructor is a function returning a reference to created
+object instance once being called. It is necessary to store that
+reference in a variable because it will be used than. In above sample
+such variable name is <i>v</i>.</p>
+
+<p>Note that each constructor call has to be placed only after closing
+&lt;/form&gt; tag of the corresponding form otherwise the form to work
+with will be not found by the script. Since that it is a good practice
+to place all validator constructor calls just before closing
+&lt;/body&gt; tag.</p>
+
+<p></p>
+
+<h2><a name="#fields_structure"></a>Describing Fields</h2>
+<p>Form fields inputs of those you would wish to validate are described
+with Fields Describing Structure, a JavaScript structure that contains
+names and attributes of those fields. Each form field you need to
+validate corresponds to one record of the structure - a descriptor -
+named exactly as that field. A descriptor is made up of a key
+(descriptor name) - a string containing corresponding field name, a
+colon (:) and a <a href="#field_attribs">structure of field attributes</a>:<br>
+
+</p><pre>&lt;field name&gt; : {&lt;structure of field attributes&gt;}</pre>
+
+<p>All descriptors are enclosed in curly brackets ({}) and separated with commas (,).</p>
+
+<h3><a name="#field_attribs"></a>Field Attributes</h3>
+
+<p>To tell validator script in which way an input of the field has to
+be validated each descriptor contains field attribute structure. The
+structure is a set of field attribute descriptors enclosed in curly
+brackets ({}) and separated with commas (,). Each field attribute
+descriptor consists of a name (string), colon (:) and value:</p>
+
+<pre>&lt;field name&gt; : {
+  // structure of field attributes
+  &lt;attribute 1&gt; : &lt;value of attribute 1&gt;,
+  &lt;attribute 2&gt; : &lt;value of attribute 1&gt;,
+  ....
+  // any attributes here
+  ....
+  &lt;attribute n&gt; : &lt;value of attribute n&gt;
+}</pre>
+
+<p>Below is a table of field attribute descriptors currently supported:
+</p><p><table align="center" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td bgcolor="#4682b4">
+	<table border="0" cellpadding="5" cellspacing="1" width="100%">
+	<tbody><tr><th rowspan="2">Key</th><th rowspan="2">Description</th><th colspan="2">Values</th>
+	</tr>
+	<tr><th>accepted</th><th>default</th></tr>
+	<tr><td class="wcell" colspan="4">&nbsp;</td></tr>
+	<tr>
+		<td class="wcell" align="center">l</td>
+		<td class="wcell">Field label to refer the field in messages</td>
+		<td class="wcell" align="center">a string</td>
+		<td class="wcell">(required attribute)</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="center">r</td>
+		<td class="wcell">If the field is required</td>
+		<td class="wcell" align="center">boolean</td>
+		<td class="wcell">false</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="center">f</td>
+		<td class="wcell"><a href="#field_format">Field format</a> the input has to meet</td>
+		<td class="wcell">predefined format name</td>
+		<td class="wcell">(is not used)</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="center">t</td>
+		<td class="wcell">id of a HTML element to highlight if input is not valid</td>
+		<td class="wcell" align="center">a string</td>
+		<td class="wcell">(is not used)</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="center">m</td>
+		<td class="wcell">A name of another form field this field input must match. Useful for password copies</td>
+		<td class="wcell" align="center">a string</td>
+		<td class="wcell">(is not used)</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="center">mn</td>
+		<td class="wcell">The least number of characters the field can contain</td>
+		<td class="wcell" align="center">a positive integer number</td>
+		<td class="wcell">(is not used)</td>
+	</tr>
+	<tr>
+		<td class="wcell" align="center">mx</td>
+		<td class="wcell">The most number of characters the field can contain</td>
+		<td class="wcell" align="center">a positive integer number</td>
+		<td class="wcell">(is not used)</td>
+	</tr>
+	</tbody></table>
+	</td></tr></tbody></table></p>
+
+<h3><a name="#field_highlight"></a>Field Label Highlighting</h3>
+<p>Tigra Form Validator highlights labels of fields if ones have been
+filled with errors by just changing CSS classes to be applied to those
+labels. </p><p>The name of a class to be applied to highlight a label is always <i>tfvHighlight</i>.<br>
+The name of a class to be applied to unhighlight (normalize) a label is always <i>tfvNormal</i>.
+</p><p>So just declare both <i>tfvHighlight</i> and <i>tfvNormal</i> classes between &lt;style&gt;&lt;/style&gt; tags in the document header or in an external CSS file attached to the document.</p>
+<p>Below are sample declarations for <i>tfvHighlight</i> and <i>tfvNormal</i> classes:</p>
+<pre>...
+&lt;style&gt;
+/* classes for validator */
+  .tfvHighlight
+    {color: #CEA639;}
+  .tfvNormal
+    {color: black;}
+&lt;/style&gt;
+...
+</pre>
+<p></p>
+
+<h3><a name="#field_format"></a>Field Format</h3>
+<p>Tigra Form Validator supports a feature of checking if form field
+input meets certain pattern (format). The script contains several
+predefined formats those can be refereed by the following names: </p><p><table align="center" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td bgcolor="#4682b4">
+	<table border="0" cellpadding="5" cellspacing="1" width="100%">
+	<tbody><tr><th>Format name</th><th>Description</th></tr>
+	<tr>
+		<td class="wcell">alpha</td>
+		<td class="wcell">A string of characters of Latin alphabet, a dot (.) and a hyphen (-)</td>
+	</tr>
+	<tr>
+		<td class="wcell">alphanum</td>
+		<td class="wcell">Alphanumeric characters and an underline (_)</td>
+	</tr>
+	<tr>
+		<td class="wcell">unsigned</td>
+		<td class="wcell">Unsigned integer number</td>
+	</tr>
+	<tr>
+		<td class="wcell">integer</td>
+		<td class="wcell">An integer number</td>
+	</tr>
+	<tr>
+		<td class="wcell">real</td>
+		<td class="wcell">A number with a decimal point</td>
+	</tr>
+	<tr>
+		<td class="wcell">email</td>
+		<td class="wcell">E-mail address format</td>
+	</tr>
+	<tr>
+		<td class="wcell">phone</td>
+		<td class="wcell">Phone number consisting of digits, spaces ( ), dots (.) and hyphens (-)</td>
+	</tr>
+	<tr>
+		<td class="wcell">date</td>
+		<td class="wcell">Date value formatted as DD-MM-YYYY</td>
+	</tr>
+	<tr>
+		<td class="wcell">time</td>
+		<td class="wcell">Time value formatted as HH:MM:SS</td>
+	</tr>
+	</tbody></table>
+	</td></tr></tbody></table></p>
+
+<h3><a name="#fds_sample"></a>Sample Field Description Structure</h3>
+<p>Suppose there is a form named <i>myForm</i> containing 3 fields: <i>first_name</i>, <i>last_name</i> and <i>email</i>:</p><br>
+
+<pre>&lt;form name="myForm"&gt;
+  &lt;input type="text" name="first_name"&gt;&lt;br&gt;
+  &lt;input type="text" name="last_name"&gt;&lt;br&gt;
+  &lt;input type="text" name="email"&gt;
+&lt;/form&gt;
+</pre>
+
+<p>We have to set up the validator to check if:
+</p><ul>
+	<li>first two fields are not empty,
+	</li><li>first two fields contain alphabetic characters only,
+	</li><li>last_name contains 3 letters as minimum,
+	</li><li>email value meets e-mail format.
+</li></ul>
+<p>Here is sample Fields Describing structure for the case:</p>
+<pre>var myFields = {
+  // first_name field description line (descriptor)
+  'first_name' : {
+    // the field is required
+    'r' : true,
+    // field format: alphabetic characters only
+    'f' : 'alpha'
+  }
+  // last_name field description line (descriptor)
+  'last_name' : {
+    // the field is required
+    'r' : true,
+    // field format: alphabetic characters only
+    'f' : 'alpha'
+    'mn' : 3
+  },
+  // email field description line (descriptor)
+  'email' : {
+    // field format: predefined
+    'f' : 'email',
+    'mn' : 3
+  }
+}</pre>
+
+<h2>Validator Settings<a name="settings"></a></h2>
+<p><a name="settings">Tigra Form Validator behavior can be controlled by Validator Setting Structure, the third optional parameter of the </a><a href="#initialization">constructor</a>.
+Validator Setting Structure is a JavaScript structure consisting of
+records enclosed in curly brackets ({}) and separated with commas (,).
+Each record controls certain validator behavior aspect and contains a
+key (string name), a colon (:) and a value. Below is a table of keys
+currently supported by the structure and their meanings.</p>
+<p><table align="center" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td bgcolor="#4682b4">
+	<table border="0" cellpadding="5" cellspacing="1" width="100%">
+	<tbody><tr><th rowspan="2">Key</th><th rowspan="2" colspan="2">Description</th><th colspan="2">Values</th>
+	</tr>
+	<tr><th>accepted</th><th>default</th></tr>
+	<tr>
+		<td class="wcell">alert</td>
+		<td class="wcell" colspan="2">Defines if errors raised during script set up are displayed. It is useful to turn this option on when <a href="#initialization">adding validator to the document</a></td>
+		<td class="wcell" align="center">Boolean</td>
+		<td class="wcell" align="center">false</td>
+	</tr>
+	<tr>
+		<td class="wcell">to_disable</td>
+		<td class="wcell" colspan="2">A list of names of form fields to be blocked on successful submit. Useful to prevent multiple form posts before load</td>
+		<td class="wcell" align="center">Array of strings</td>
+		<td class="wcell" nowrap="nowrap">(is not used)</td>
+	</tr>
+	</tbody></table>
+	</td></tr></tbody></table></p>
+<p>Here is a sample code for Validator Setting Structure:</p>
+<pre>o_config = {
+  'to_disable' : ['Submit'],
+  'alert' : 1
+}
+</pre>
+
+<h2>Terms and Conditions<a name="terms_cond"></a></h2>
+<p><b>There is no license fee or royalty fee to be paid at any time for using the Tigra Form Validator v1.x</b><br>
+You may include the source code or modified source code within your own
+projects for either personal or commercial use but excluding the
+restrictions outlined below. The following restrictions apply to all
+parts of the component, including all source code, samples and
+documentation.</p>
+<ul>
+  <li>The above items CAN NOT be sold as are, either individually or together.
+	</li><li>The above items CAN NOT be modified and then sold as a library component, either individually or together.
+</li></ul>
+
+<h2>Links and References<a name="links_and_references"></a></h2>
+<ul>
+	<li><a href="http://www.softcomplex.com/products/tigra_form_validator/">Tigra Form Validator product page</a></li>
+	<li><a href="http://www.softcomplex.com/products/tigra_form_validator/docs/changelog.html">Tigra Form Validator Change Log</a></li>
+	<li><a href="http://www.softcomplex.com/">Softcomplex Inc. site</a></li>
+	<li><a href="http://www.softcomplex.com/support.html">Contact support dept</a></li>
+</ul>
+<h2>&nbsp;</h2>
+
+</body></html>

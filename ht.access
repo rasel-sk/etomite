@@ -1,0 +1,10 @@
+# URL rewriting for Etomite CMS
+# Last Modified: 2006-03-30 by Ralph Dahlgren
+#
+# You must be running on Apache mod_rewrite to use this.
+# Remember, you must rename this file to .htaccess
+#
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]

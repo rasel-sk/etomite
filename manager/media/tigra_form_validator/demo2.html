@@ -1,0 +1,224 @@
+<html>
+<head>
+	<title>JavaScript Form Validator</title>
+	<meta name="description" content="Free JavaScript component for HTML form validation at client-side">
+	<meta name="keywords" content="JavaScript validator, javascript, html, form, client side, netscape, explorer, IE, opera, form, fill, validation, format, date, time, submit, check, pattern, match">
+	<meta name="robots" content="index,follow">
+
+<style>
+	a, A:link, a:visited, a:active
+		{color: #0000aa; text-decoration: none; font-family: Tahoma, Verdana; font-size: 11px}
+	A:hover
+		{color: #ff0000; text-decoration: none; font-family: Tahoma, Verdana; font-size: 11px}
+	p, tr, td, ul, li
+		{color: #000000; font-family: Tahoma, Verdana; font-size: 11px}
+	th
+		{background: #DBEAF5; color: #000000;}
+	.header1, h1
+		{color: #ffffff; background: #4682B4; font-weight: bold; font-family: Tahoma, Verdana; font-size: 13px; margin: 0px; padding-left: 2px; height: 21px}
+	.header2, h2
+		{color: #000000; background: #DBEAF5; font-weight: bold; font-family: Tahoma, Verdana; font-size: 12px;}
+	.intd
+		{color: #000000; font-family: Tahoma, Verdana; font-size: 11px; padding-left: 15px;}
+	.wcell
+		{background: #FFFFFF; vertical-align: top}
+	.ctrl
+		{font-family: Tahoma, Verdana, sans-serif; font-size: 12px; width: 100%;}
+	.btnform
+		{border: 0px; font-family: tahoma, verdana; font-size: 12px; background-color: #DBEAF5; width: 100%; height:18px; text-align: center; cursor: hand;}
+	.btn
+		{background-color: #DBEAF5; padding: 0px;}
+	textarea, select,input
+		{font: 9px Verdana, arial, helvetica, sans-serif; background-color: #DBEAF5;}
+		
+	/* classes for validator */
+	.tfvHighlight
+		{color: #CEA639;}
+	.tfvNormal
+		{color: black;}
+	.inputHighlighted
+		{color: #CEA639;}
+	.inputNormal
+		{color: black;}
+</style>
+<script language="JavaScript" src="validator.js"></script>
+</head>
+
+<body bottommargin="15" topmargin="15" leftmargin="15" rightmargin="15" marginheight="15" marginwidth="15" bgcolor="white">
+
+<!-- Header -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+<tr>
+	<td width="350" rowspan="2"><img src="tfv.gif" width="350" height="80" border="0" alt="Tigra Form Validator"></td>
+	<td align="right" valign="top"><img src="logo.gif" width="178" height="30" border="0" alt="Softcomplex logo"></td>
+</tr>
+<tr>
+	<td align="right" valign="bottom" nowrap>
+	<b>
+	|&nbsp;<a href="http://www.softcomplex.com/">About&nbsp;Us</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/services.html">Services</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/download.html">Download</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/order.html">Order</a>&nbsp;
+	|&nbsp;<a href="http://www.softcomplex.com/support.html">Support</a>&nbsp;
+	|
+	</b>
+	</td>
+</tr>
+<tr><td><img src="img/pixel.gif" width="1" height="5" border="0"></td></tr>
+</table>
+<!-- /Header -->
+
+<!-- Body -->
+<table cellpadding="0" cellspacing="0" border="0" bgcolor="#4682B4" width="100%"><tr><td>
+<table cellpadding="0" cellspacing="1" width="100%" border="0">
+<tr>
+	<td class="header1" height="21">Tigra Form Validator</td>
+	<td class="header1">Demo #2 - Login Form Validation</td>
+</tr>
+<tr>
+	<!-- Products -->
+	<td valign="top" bgcolor="#FFFFFF" width="250">
+	<table cellpadding="3" cellspacing="1" border="0" width="100%">
+	<tr><td class="header2">Notes</td></tr>
+	<tr><td class="intd">Here it goes! Check out the form on the right hand side. Its input is validated by Tigra Form Validator. Feel free to test the form in all possible ways.</td></tr>
+	<tr><td><img src="img/pixel.gif" width="250" height="1" border="0"></td></tr>
+	<tr><td class="header2">Advantages</td></tr>
+	<tr>
+		<td class="intd">
+		<p><b>Various data formats</b> - Tigra Form Validator can be set up to verify form field entered data to meet most frequently used patterns
+		<p><b>Set Up Error Reporting</b> - customize Tigra Form Validator to report of errors while adding it to your HTML document 
+		<p><b>Cost Saving Component</b> - Don't waste your time coding validation routine all over again for each new project. Find universal solution in Tigra Form Validator easy and flexibly customizable
+		</td>
+	</tr>
+	<tr><td><img src="img/pixel.gif" width="1" height="1" border="0"></td></tr>
+	<tr><td class="header2">Links</td></tr>
+	<tr>
+		<td class="intd">
+		<b>
+		<ul>
+			<li><a href="./">Back to welcome page</a>
+			<li><a href="demo1.html">Previous demo</a>
+			<li><a href="http://www.softcomplex.com/products/tigra_form_validator/">Product page</a>
+			<li><a href="http://www.softcomplex.com/products/tigra_form_validator/docs/">Product documentation</a>
+			<li><a href="http://www.softcomplex.com/forum/forumdisplay_78/">Product forum</a>
+		</ul>
+		</b>
+		</td>
+	</tr>
+	<tr><td><img src="img/pixel.gif" width="1" height="1" border="0"></td></tr>
+	</table>
+	</td>
+	<!-- Content -->
+	<td valign="top" bgcolor="#FFFFFF">
+	<table cellpadding="3" cellspacing="1" border="0" width="100%">
+	<tr>
+		<td class="intd"><br>
+
+<form action="demo2.html" method="get" name="login" onsubmit="return v.exec()">
+<table cellpadding="0" cellspacing="0" border="0" width="300" align="center">
+<tr>
+	<td width="8"><img src="img/blue1_l.gif" alt="" width="8" height="23" border="0"></td>
+	<td background="img/blue1_m.gif" nowrap>Register User</td>
+	<td width="8"><img src="img/blue1_r.gif" alt="" width="8" height="23" border="0"></td>
+	<td background="img/table_bg.gif" width="100%">&nbsp;</td>
+	<td background="img/table_bg.gif"><img src="img/pixel.gif" width="10" height="1" border="0"></td>
+</tr>
+<tr>
+	<td background="img/line_l.gif"><img src="img/pixel.gif" border="0"></td>
+	<td colspan="3">
+	<img src="img/pixel.gif" width="1" height="10" border="0"><br>
+	<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td bgcolor="#DBEAF5">
+		<table cellspacing="1" cellpadding="2" border="0" width="100%">
+		<tr bgcolor="#ffffff">
+			<td id="t_uname" width="10%">&nbsp;Name:</td>
+			<td><input type="text" name="uname" size="10" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td id="t_email">&nbsp;Email:<span class="inputHighlighted">*</span></td>
+			<td><input type="text" name="email" size="35" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td id="t_password">&nbsp;Password:<span class="inputHighlighted">*</span></td>
+			<td><input type="password" name="pass" size="35" class="ctrl"></td>
+		</tr>
+		<tr bgcolor="#ffffff"> 
+			<td id="t_password_copy" nowrap>&nbsp;Password copy:<span class="inputHighlighted">*</span>&nbsp;</td>
+			<td><input type="password" name="pass_copy" size="35" class="ctrl"></td>
+		</tr>
+		</table></td></tr></table>
+	<img src="img/pixel.gif" width="1" height="10" border="0"><br>
+	<div align="center" id="error_registration" style="display: block;"></div>
+	</td>
+	<td background="img/line_r.gif"><img src="img/pixel.gif" border="0"></td>
+	</tr>
+<tr>
+	<td colspan="5" bgcolor="#4682B4"><img src="img/pixel.gif" width="1" height="1" border="0"></td>
+</tr>
+<tr>
+	<td colspan="5" align="right">
+	<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td class="btn" width="1"><input type="image" src="img/submit1.gif" alt="" width="79" height="22" border="0" name="Submit"></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</form><br>
+	<li>Simple registration form with two password fields to be copies each of another is shown on this demo.
+	<li>Captions of wrongly filled fields are highlighted with orange colored font on form submit try
+	<li>"E-mail", "Password" and "Password copy" fields are set to be required
+	<li>"Name" field is checked to be filled with letters only, "Password" and "Password copy" are expected to contain alphanumeric (letters, digits and _) characters, "E-mail" field is checked to meet e-mail address pattern:<br>
+	&lt;a combination of alphanumeric chars, hyphens and dots&gt;@&lt;a combination of alphanumeric chars, hyphens and dots&gt;.&lt;from 2 to 4 letters&gt;
+	<li>Password copies are checked for exact match
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</td></tr></table>
+<!-- /Body -->
+
+<!-- Footer -->
+<table cellpadding="3" cellspacing="0" width="100%" border="0" height="22">
+<tr bgcolor="#4682B4">
+	<td nowrap><font color="white">Copyright &copy;2002-2005 SoftComplex Inc. All rights reserved.</font></td>
+	<td align="right">
+	| <a href="http://www.softcomplex.com/"><font color="white">company info</font></a>
+	| <a href="http://www.softcomplex.com/site_agreement.html"><font color="white">terms of service</font></a>
+	| <a href="http://www.softcomplex.com/privacy_policy.html"><font color="white">privacy policy</font></a>
+	|
+	</td>
+</tr>
+</table>
+<!-- /Footer -->
+
+<script>
+// form fields description structure
+var a_fields = {
+	'uname' : {
+		'l': 'Name',  // label
+		'r': false,    // required
+		'f': 'alpha',  // format (see below)
+		't': 't_uname',// id of the element to highlight if input not validated
+		
+		'm': null,     // must match specified form field
+		'mn': 2,       // minimum length
+		'mx': null       // maximum length
+	},
+	'email' : {'l':'E-mail','r':true,'f':'email','t':'t_email'},
+	'pass' : {'l':'Password','r':true,'f':'alphanum','t':'t_password','m':'pass_copy'},
+	'pass_copy' : {'l':'Password copy','r':true,'f':'alphanum','t':'t_password_copy'}
+},
+o_config = {
+	'to_disable' : ['Submit'],
+	'alert' : 1
+}
+
+// validator constructor call
+var v = new validator('login', a_fields, o_config);
+
+</script>
+</body>
+</html>

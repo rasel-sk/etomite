@@ -1,0 +1,1266 @@
+2008-05-10
+Etomite Prelude v1.1 Released
+Ralph (many more than listed)
+[*] Globally changed to EOL character for all text based files in the code base for better cross-platform compatibility. This fix addresses the v1.0 english.inc.php problem discussed in the forums.
+[*] Re-wrote the installer to allow less error-prone upgrades.
+[*] The code base no longer comes with the manager/includes/config.inc.php file. It now contains the file, manager/includes/config.php, which is only a placeholder for the actual file. This file must be renamed or copied to manager/includes/config.inc.php before performing a New Installation.
+[*] Fixed lingering HTML markup errors in several manager scripts.
+[*] Modified the TinyMCE integration files for better functionality.
+[*] Modified the Xinha integration configuration file for better functionality.
+[*] Modified the parser, index.php, file to account for installer and config changes.
+[*] Removed all PHP short_open_tags from the code base to eliminate potential variable display problems.
+[*] Modified the intTableExists() API function by adding the FROM clause to resolve ongoing issues.
+
+
+2008-05-01
+Etomite Prelude v1.0 Released
+
+
+2008-03-xx - 2008-04-xx (entire months)
+Ralph (far too many items to list individually)
+[*]The entire manager has been re-skinned by Ian Smith (Cathode)
+[*] Incorporated new GPL-3.0 (2007-06-29) documents
+[*] Implemented jscalendar-1.0 in place of the old Tigra calendar as it can handle timestamps, with some minor tweaking by me, which eliminates extraneous Javascript and PHP code.
+[*] All scripts listed below had changes made either to improve performance or to integrate new features.
+[*] Fixed all outstanding issues reported in the Bug Tracker unless otherwise noted in Bug Tracker.
+
+>> index.php
+>> manager/index.php
+>> manager/actions/dynamic/manage_keywords.dynamic.action.php
+>> manager/actions/dynamic/mutate_content.dynamic.action.php
+>> manager/actions/dynamic/mutate_role.dynamic.action.php
+>> manager/actions/dynamic/mutate_settings.dynamic.action.php
+>> manager/actions/static/document_data.dynamic.action.php
+>> manager/actions/static/files.static.action.php
+>> manager/actions/static/logging.static.action.php
+>> manager/actions/static/messages.static.action.php
+>> manager/actions/static/online_now.static.action.php
+>> manager/actions/static/site_logging.static.action.php
+>> manager/actions/static/site_schedule.static.action.php
+>> manager/actions/static/sysinfo.static.action.php
+>> manager/actions/static/welcome.static.action.php
+>> manager/frames/2.php
+>> manager/includes/header.inc.php
+>> manager/includes/version.inc.php
+>> manager/includes/lang/english.inc.php
+>> manager/processors/delete_htmlsnippet.processor.php
+>> manager/processors/login.processor.php
+>> manager/processors/save_content.processor.php
+>> manager/processors/save_role.processor.php
+>> manager/processors/showinmenu.processor.php
+
+
+2008-02-26
+Ralph
+[*] Modified index.php by adding $refresh=[false|true] to getCaptchaCode() so it doesn't automatically render the refresh link which causes problems on some sites. The default setting is false.
+
+2007-11-15
+Ralph
+[*] Modified default config.inc.php to properly point to the install directory.
+[*] Modified the manager to implement a paid modification of the createdon input control so that documents can be back-dated. This modification also removes the "Reset creation date" checkbox as that functionality is now built into the new control.
+The follwoing files were either modified or added:
+>> manager/actions/dynamic/mutate_content.dynamic.action.php
+>> manager/processors/save_content.processor.php
+>> manager/includes/lang/english.inc.php
+>> manager/media/images/icons/icon_today.gif
+
+2007-11-06
+Ralph
+[*] Implemented the newest Tigra Calendar code base from SoftComplex, replacing older code.
+[*] Added in the modified parseChunk() API function which allows looping
+
+2007-10-21
+Nalagar
+[*] Modified manager/frames/3.php. Fixed a bug that caused all documents in the tree to be displayed as "not in menu" after a drag & drop move.
+
+2007-10-20
+Nalagar
+[*] Modified manager/include/header.inc.php. No EditArea reference when the EditArea folder is removed.
+[*] Modified manager/actions/dynamic/mutate_settings.dynamic.action.php. The EditArea folder is no longer required.
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php. The EditArea folder is no longer required.
+[*] Modified manager/actions/dynamic/mutate_snippte.dynamic.action.php. The EditArea folder is no longer required.
+[*] Modified manager/actions/dynamic/mutate_template.dynamic.action.php. The EditArea folder is no longer required.
+[*] Modified manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php. The EditArea folder is no longer required.
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php. EditArea no longer saves blank content as a space. (EA still has to display a space in order to work well but it is now removed before the page is saved.)
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php. The Noneditable plugin is removed from TinyMCE. That plugin sometimes made it impossible to save content when using FireFox.
+
+2007-08-27
+Dean
+[*] Modified version.inc.php file to reflect current version number.
+
+2007-08-21
+Ralph
+[EBTIN-12]
+[*] Modified index.php so getCaptchaNumber() sends session_id to the external script.
+[*] Modified manager/includes/captchanumbers/captchaNumber.php to use sent session_id.
+[*] Modified manager/actions/dynamic/mutate_settings.dynamic.action.php to use "p_" as the default prefix for FURL's and Friendly Aliases. Also updated the language file, manager/includes/lang/english.inc.php, to convey the need for an underscore.
+
+2007-08-20
+Ralph
+[*] Modified manager/actions/dynamic/manage_keywords.dynamic.action.php to function properly by displaying the entry form when there are no keywords entered.
+
+2007-08-15
+Ralph
+[*] Modified manager/includes/form_class.php for proper select drop-down handling
+[*] Modified manager/frames/3.php and manager/media/style/style.css to signify showinmenu being disabled
+
+2007-08-15 - Etomite Prelude 0.6.1.5 Subversion Repository Created
+
+
+
+2007-05-15 - Etomite Prelude 0.6.1.4 Released
+
+2007-05-14
+Ralph
+[*] Modified manager/actions/dynamic/mutate_settings.dynamic.action.php for better EditArea functionality
+
+Nalagar
+[*] Modified manager/actions/static/files.static.action.php and manager/includes/lang/english.inc.php. Added translation for creation of new directories.
+[*] Modified manager/media/edit_area/reg_syntax/html.js. Added html syntax highlighting for Etomite's snippets, chunks, attributes and settings tags.
+[*] Modified manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php. EditArea's highlighting scheme is now based on the chunk's name (.js for javascript etc).
+
+2007-05-13
+Nalagar
+[*] Modified manager/media/edit_area/reg_syntax/html.js to improve syntax highlighting for html. Now a single quote (') within a page doesn't stop the highlighting. Highlighting was buggy for snippets with arguments, fixed.
+
+2007-05-11
+Nalagar
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php. Made the highlighting in EditArea match the selected content type. Fixed bug that caused EditArea to be initiated when it shouldn't. Made the EditArea contain a space if a new document is created (otherwise it can be very difficult to set focus). Fixed layout bug when editing webblinks in IE7.
+
+2007-05-09
+Nalagar
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php to fix the "submitForm not set" bug. The bug occurred if we used RTE and disabled the  richtext option.
+[*] Added EditArea integration to manager/actions/dynamic/mutate_content.dynamic.action.php. Initial scroll position set to the top.
+[*] Modified manager/actions/static/files.static.action.php. EditArea's initial scroll position is now set to the top.
+[*] Modified manager/actions/static/site_logging.static.action.php for better layout in IE.
+[*] Removed ending </body></html> tags from manager/includes/header.inc.php. They used to appear twice on all manager pages.
+[*] Added minor bug fix in manager/frames/scriptaculous/dragsort_etomite.js.
+[*] Added translations for the whole menu tree and duplicated aliases. Modified files: manager/frames/scriptaculous/dragsort_etomite.js, manager/frames/3.php, manager/actions/dynamic/mutate_content.dynamic.action.php and manager/includes/lang/english.inc.php.
+
+2007-05-07
+Nalagar
+[*] Modified manager/includes/header.inc.php so that doctype is xhtml where IE7 and RTE are used. Now RTE works ok in IE 7.
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php so that the layout looks ok in IE7 when using the xhtml doctype. If the client use IE 7, the width of the tab pages gets dynamicly defined in pixels by the resizer() js function.
+
+2007-05-04
+Ralph
+[*] Modified index.php putIntTableRow() and updIntTableRows() API functions to include the $addPrefix flag that was previously added to getIntTableRows().
+[*] Modified install/index.php
+[*] Modified install/newInstallStart.php.php
+[*] Modified install/upgradeStart.php.php
+[*] Created install/pre_061_notes.php
+[*] Created install/extLinks.js file for use by installer scripts
+[*] Created README file with 0614 installation/upgrade instructions
+
+2007-05-04
+Nalagar
+[*] Modified manager/frames/scriptaculous/dragsort_etomite.js. Link insertion from the menu tree now works with TinyMCE 2.1.0.
+[*] Modified manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php to get persistant EditArea/textarea scroll and cursor positions if the "continue editing after saving" option is checked. Default scroll and cursor position is now set to the top when using EditArea.
+[*] Modified manager/actions/dynamic/mutate_snippet.dynamic.action.php to get persistant EditArea/textarea scroll and cursor positions if the "continue editing after saving" option is checked. Default scroll and cursor position is now set to the top when using EditArea.
+[*] Modified manager/actions/dynamic/mutate_template.dynamic.action.php to get persistant EditArea/textarea scroll and cursor positions if the "continue editing after saving" option is checked. Default scroll and cursor position is now set to the top when using EditArea.
+
+2007-05-03
+Ralph
+[*] Fixed addNotice() bug in etomite class so it properly inserts the notice when using uppercase </BODY> tag
+[*] Created install/0614_db_patches.php file which combines the following:
+[+] Changes some int() columns to bigint() in the logging tables to resolve 64-bit server problems
+[+] Removal of the redundant `id` index for site_content
+[+] Adds the new showinmenu column to site_content
+[+] Includes old alter_site_content.php code for adding `authenticate` column
+[*] Modified install/upgradeStart.php upgrade instructions for 0614 release
+
+2007-05-02
+Ralph
+[*] TinyMCE 2.1.0 Integration
+[*] Modified manager/actions/dynamic/manage_keywords.dynamic.action.php by removing redundant code
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php TinyMCE integration code
+[*] Added 'object' mode to fetchRow($rs, $mode=[{'assoc'},'num','both','object'])
+[*] Modified mergeCodeVariables() API function default $tag to null from $tag="div"
+[*] Fixed render method notification bug for [^s^] tag falsely returning cache instead of database
+
+2007-04-20
+Dean
+[*] Repaired Typo in the Authentication Part in the Config Pages
+
+Ralph
+[*] Modified SQL file to include id's for all rows
+
+2007-04-11
+Dean
+[*] Repaired ShowInMenu Checkbox to save upon original save - I think :)
+[*] Made some changes to the Language File - removed obsolete stuff, and changed the Help links
+[*] Re-Added the welcome message to the Welcome Page
+[*] Removed case-sensitive upload extension block - Thanks Ed!
+
+2007-04-06
+Ralph
+Modified all of the SQL files to use bigint() where logging data includes crc32() data to account for potential 64bit problems and added showinmenu column into the site_content table. Also modified the data INSERT commands to reflect the additional column.
+
+2007-04-04
+Dean
+[*] Removed iBrowser, as it's a security hole - allows for anyone outside of Etomite to delete images from the site, and potentially upload corrupted/security risk ones.
+
+2007-03-25
+2007-04-02
+Randy
+Changed file editor to only editor or viewer is visible to provide more space
+Added editarea syntax highlighting to the file editor in the file manager
+Added path translation so windows will work correctly with file editor
+Added file type detection in file editor to use correct hightlighting
+Added automagic textarea resize js code so editor takes all available space
+
+Randy
+Added JS necessary to allow template editor and content editors to save documents properly
+
+Randy
+Fixed a JS bug I created in the previous update.  Had renamed a HTML label incorrectly. Fixed.
+Fixed a reference to use_editor site setting to use_doc_editor in mutate_content.dynmaic.aciton.php line 439
+
+2007-03-18
+Randy
+Summary: These are changes to the previous mod...these allow you to activate/deactivate the code editor and also to turn the highlighing on or off.  The 'unofficial mod' from Sean (Elephant) was also included
+Modified /manager/actions/dynamic/mutate_snippet.dynamic.action.php to include boolean check if code_highlight is to be turned on or left off
+Modified /manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php to boolean check if code_highlight is to be turned on or left off
+Modified /manager/actions/dynamic/mutate_template.dynamic.action.php to include boolean check if code_highlight is to be turned on or left off
+Modified /manager/includes/lang/english.inc.php - added new references to code_highlight_title and _message
+Modified /manager/actions/dynamic/mutate_settings.dynamic.action.php to include the option to turn this feature on or off
+Modified /manager/actions/dynamic/mutate_snippet.dynamic.action.php,/manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php,/manager/actions/dynamic/mutate_template.dynamic.action.php,/manager/actions/dynamic/mutate_content.dynamic.action.php, and /manager/actions/static/document_data.static.action.php, to include necessary js to resize the editor window on load to take up available browser viewport
+
+2007-03-10
+Randy
+Modified /manager/actions/dynamic/mutate_snippet.dynamic.action.php to include js necessary to load editarea code editor to html textarea
+		 This change includes a bool comparison to turn this on or off
+		 added textarea id = snippet_editor
+Modified /manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php to include js necessary to load editarea code editor to html textarea
+		 This change includes a bool comparison to turn this on or off
+		 added textarea id = html_editor
+Modified /manager/actions/dynamic/mutate_template.dynamic.action.php to include js necessary to load editarea code editor to html textarea
+		 This change includes a bool comparison to turn this on or off
+		 added textarea id = html_editor
+Modified /manager/includes/header.inc.php to include a <script> tag for  /manager/media/edit_area/edit_area_full.js required for above mod
+Modified /manager/includes/lang/english.inc.php - changed all use_editor_* references to use_doc_editor_* names
+Modified /manager/includes/lang/english.inc.php - added new references to use_code_editor_* similar to use_doc_editor_* names
+Modified /manager/actions/dynamic/mutate_settings.dynamic.action.php to include the option to turn this feature on or off
+
+2007-03-07
+Randy & Ralph
+Modified the checkPermissions() API function in the main index.php parser script for better overall performance.
+
+2007-03-06
+Ralph:
+Modified /manager/includes/captchaClass.php for better ttf directory path translation and set to ignore subdirectories
+Modified /manager/actions/static/document_data.static.action.php files preview panel message display logic
+
+2007-03-04
+Dean:
+Updated Copyright Info in main index.php
+Removed some excess files - thumbs.db's etc
+
+2007-03-01
+Randy:
+Updated getIntTableRows() to check for empty table_prefix
+
+2007-02-28
+Ralph:
+Added Security Patch posted in forums
+Modified CaptchaClass.php for better path management to ttf directory
+
+2007-02-21
+Dean:
+Added robots.txt file for Google (yes, it still needs them)
+
+2007-01-26
+Dean:
+Updated version file to 0614
+Removed out of date templates from installer + files
+Added Version Check in welcome.static.action.php
+Fixed grammar typo on login page+ added hover text on image and xhtml correction
+Removed a lot of the legal stuff from the parser, reworded the content managed by stuff, and changed all .org to .com in /index.php
+Updated etomite.org to etomite.com in the base
+Updated ht.access file so its not got all that stuff in that sometimes gets wrapped when a user edits it.
+Updated settings varchar to 500, so that users can use a longer unavailable message
+
+
+Ralph:
+
+
+
+2006-12-22 - Released 0.6.1.3
+(Thanks to everyone who helped with testing and fixes)
+
+manager/includes/accesscontrol.inc.php
+We now send the realm constant IN_ETOMITE_SYSTEM and session_id() to captchaCode.php
+More compact licensing related text
+Added nextfield fix From: http://www.etomite.com/forums/index.php?showtopic=6287
+
+manager/includes/captchaCode.php and captchaClass.php
+Extensive changes. $realm and $sessid are extracted from $_GET within captchaCode.php. Database settings from config.inc.php are now sent to VeriWord in captchaClass.php via captchaCode.php for better database access implementation.
+
+manager/includes/config.inc.php
+Major changes. The configuration file now has the ability for custom sessions handling which includes custom session.save_path, session.cookie_path, session.cookie_lifetime, and session.gc_maxlifetime.
+
+inatall/installNewDB.php
+The installer now reads a config.inc.php template file and populates the placeholders with the correct values rather than having the code embedded within the installer file itself which allows for much easier maintenance.
+
+manager/processors/move_document.processor.php
+bug fix - document moved to subfolder of itself
+From: http://www.etomite.com/forums/index.php?showtopic=6191
+You can no longer corrupt your document tree by assigning a documents parent to be one of its children.
+
+manager/index.php
+Modified file to avoid XSS attack attempts
+From: http://www.etomite.com/forums/index.php?showtopic=6190
+
+user_documents_permissions.class.php
+No root access despite correct settings
+From: http://www.etomite.com/forums/index.php?showtopic=6122
+
+Drag Sort Patches
+From: Strange Site Tree icon-loading problem
+http://www.etomite.com/forums/index.php?showtopic=5934
+
+index.php
+* Wrong redirect to 404 causes loop, Wrong redirect to 404 causes loop
+  From: http://www.etomite.com/forums/index.php?showtopic=5122
+* Modified file to avoid XSS attack attempts
+  From: http://www.etomite.com/forums/index.php?showtopic=6190
+* Added $basepath to log() function to resolve errors with some installations
+* getCaptchaCode() function now sends session_id() and realm variable to the external scripts.
+* outputContent() no longer sends header() for "text/html" because this should be handled by the page template.
+
+GoogleSiteMap_XML snippet updated to the most recent version in the installer SQL
+
+And many minor fixes that weren't documented...
+
+
+2006-10-03 - Released 0.6.1.2
+(Thanks Lloyd and Nalagar)
+* Corrected <p /> and <br> tags to <br /> in various files Lloyd reported errors in.
+* Modified Menu Layout 2 for IE, so it now works
+* Added in Nalagar's RTE fixed file.
+* Modified version.inc.php file for version number
+
+
+2006-10-02
+
+(Thanks Dean, Mikef, Nalagar, mmjaeger, and anyone else who helped out)
+
+* Added syncsite() function to the API, called using $etomite->syncsite();, which clears and rebuilds the site cache.
+* Modified checkPermissions() for proper visitor permissions checks. See source for additional info.
+* Not documented previously: additional API functions intTableExists($table) and extTableExists($table) for testing to see if a database table exists.
+* Modified getIntTableRows() and getExtTableRows() to have a $push variable parameter. $push = ( true = [default] array_push results into a multi-demensional array | false = return MySQL resultset )
+* Modified getIntTableRows() to include $addPrefix = whether to check for and/or add $this->dbConfig['table_prefix'] to the table name. (true=default | false)
+* Modified getParent() API function. Now works properly when an $id is passed or when parent id is the root of the doc tree.
+* Corrected index.php defaults.
+* Fixed Forms class issues.
+* Added patches that have been released via the forums.
+* Alternate language file selection and config for the Xinha WYSIWYG text editor fixed.
+* Fixed problem where users could move documents to a folder which they do not have premission to access.
+* FCKeditor config Fixed,
+* TinyMCE Tab issues Fixed.
+* iBrowser Security Vulnerability Fixed.
+* SQL injection exploit Fixed.
+* Added Nalagar's Drag and Drop and Sortable Menu Mod - thanks Nalagar.
+* Added Nalagar's Duplicate and Invalid Character Mod - thanks Nalagar.
+* Integrated new RTE Editor (including Nalagar's fix for converting [~ ~] back) - thanks Ralph and Nalagar.
+* Updated the installer to correct || to && for IIS installs - thanks MikeF.
+* Add more than one keyword at a time Mod.
+* Changed Version Numbers in version.inc.php
+* Added notice in installer reminding users to chmod the config.inc.php file so it is unwriteable after install
+
+
+2006-04-13
+
+Etomite Prelude Final released
+
+
+2006-04-12
+
+Finalized which resources would be included in the Final release. Due to the increased package size with the newly included resources only the TinyMCE editor will be included in the download. FCKeditor and Xinha will be available for download and will work without modifications as add-in resources. FCKeditor integration is still somewhat limited due to inherent limitations of the package itself.
+
+
+2006-04-[09-11]
+
+Modified the installer to reflect recent changes. Tested the installer to assure proper functionality.
+Modified the etomite.sql file to include the most recent resource additions. Testing, testing, and more testing.
+
+
+2006-04-08
+
+Made further modifications to the makeURL() API function by reinstating the ability to send an alias to the function and also adding suffixes to friendly aliases.
+
+Created a DB upgrade script, alter_site_content.php, which adds a new field, authenticate, into existing databases to take advantage of the new capabilities added into Etomite Prelude Final.
+
+Added three new $etomite->config[] variables (absolute_base_path, relative_base_path, www_base_path) which, as their names suggest, offer pre-calculated paths for use in snippets.
+
+Modified save_settings.processor.php to disable friendly URL aliases when friendly URL's are disabled.
+
+
+2006-04-07
+
+Final testing and modifications to all resources, with Lloyds help, which will be included in Etomite 0.6.1 Final.
+
+
+2006-04-06
+
+Modifed the userLogin() API function for more predictable results over a broader range of uses.
+Made modificiations to the CaptchaCode functionality for improved performance.
+
+
+2006-04-05
+
+Added additonal code into the parser, index.php, visitor authentication checking so that a custom permission denied message can be displayed in place of the default system-wide plain text message. Also added a textarea in manager/actions/mutate_settings.dynamic.action.php for entry of this custom message which can also contain HTML and/or Javascript code. Additional entries were also added to manager/includes/lang/english.inc.php to support this feature.
+
+
+2006-04-04
+
+Modified userLogout() API function for more predictable performance. Previous logic did not account for a broad enough range of parameter possibilities which could lead to unexpected results.
+
+
+2006-04-03
+
+Added:
+The following API functions were added to allow use of the CaptchaCode functionality that is already available for Etomite Manager logins. Developers now have their option of Captcha technologies, CaptchaNumbers or CaptchaCodes.
+* getCaptchaCode($alt='CaptchaCode', $title='Security Code', $width="148", $height="80")
+* validCaptchaCode($captchaCode) - returns true or false
+
+
+2006-04-[01-02]
+
+Added:
+The following changes have been made to allow for site visitor permissions authentication which, essentially, allows Etomite to be used to develop community portal systems. The necessary tools are now in place. Granted, I did state previously that I wouldn't be making any changes to the database structure, but the added benefits of adding one simple toggle flag far outweighed any previous agruments.
+* [`authenticate` int(1) NOT NULL default '0'] to the site_content table
+* code for caching authenticate value to manager/processors/cache_sync.class.processor.php
+* authentication checking to executeParser() function in index.php
+* authentication option code to manager/actions/dynamic/mutate_content.dynamic.action.php
+* code saving authentication changes to manager/processors/save_content.processor.php
+* authentication input field label text and help text into manager/includes/lang/english.inc.php
+* code for enabling visitor document permissions to manager/actions/dynamic/mutate_settings.dynamic.action.php
+
+
+2006-03-19
+
+Modified manager/includes/accesscontrol.inc.php to check for proper permissions before allowing users to login to the Etomite manager interface. If the user role setting "Request manager frames" is unchecked any users assigned to this role will not be allowed access and will receive an error alert.
+
+Modified manager/processors/save_role.processor.php for better handling of group role settings record saves.
+
+
+2006-03-17
+
+Modified the index.php parser file for greater data handling flexibility. Added $push=true to both the getIntTableRows() and getExtTableRows() extended API database functions. Leaving $push=true retains backward compatibility by performing an array_push() on all rows and returns them as a multi-dimensional array. Changing to $push=false will force the functions to return raw MySQL resultsets without additional processing so that conventional resultset handling can be performed. This added feature allows these functions to be more easily retrofitted in place of other query functions such as dbQuery() or any other of the other query functions.
+
+
+2006-03-16
+
+Modified insertId($rs) and affectedRows($rs) API functions to perform as intended rather than causing parser errors when called.
+
+
+2006-03-15
+
+Modified mergeCodeVariables() API function for better handling of alternating row styles. Data can now be sent to the function a row at a time and still have the rows style alternate. Before this fix only complete resultsets sent to the function would have alternating styles.
+
+
+2006-02-28
+
+Corrected previously modified manager/frames/3.php document tree window code so the trash can properly displays whether it contains deleted items or not... Recent modifications had caused the recycle bin to falsely show as always being empty...
+
+
+2006-02-26
+
+Modified manager/actions/static/logging.static.action.php to include a button to allow the manager audit trail table to be emptied without the need to generate a report in order to access the old prompt. The old text based link was removed from the language file and button text and a confirmation alert popup prompt was added.
+
+Modified manager/actions/static/site_logging.static.action.php to include a button to allow the visitor statistics logging tables to be emptied. Button text and a confirmation alert popup prompt were also added to the language file.
+
+Created the /manager/processors/empty_visitor_logs.processor.php script which performs the truncate operation on the appropriate logging tables.
+
+Added code to manager/index.php so that action code index.php?a=56 activates the /manager/processors/empty_visitor_logs.processor.php script.
+
+Modified index.php script to correct a minor error which could cause cached pages to not switch to using the Printable Page template depending on previous operations.
+
+
+2006-02-21
+
+Added Enable Previews option to the site configuration module so previews can be disabled for faster module load times as well as for sites where previews within the module creates problems.
+
+
+2006-02-17 thru 2006-02-20
+
+Developed a form class for Etomite which allows the use of object oriented code to create form elements, labels, and Tigra Form Validation code. Elements are stored in objects and/or variables which can later be inserted into template code. This class allows for the separation of form logic from form presentation.
+
+
+2006-02-12
+
+Modified checkPublishStatus() function to properly publish and unpublish documents without the need to clear the site cache.
+
+Modified visitor logging by moving the log() code to manager/includes/visitor_logging.inc.php and adding the $etomite->useVisitorLogging system variable. Turning off logging can save rendering times by approximately 20%.
+
+
+2006-02-02 thru 2006-02-11
+
+Testing, testing, and more testing on multiple server platforms...
+
+
+2006-01-30
+
+Modified the checkPermissions() API function to be a converted version of the same code that the manager uses which further enhances permissions checking to a document level.
+
+Converted the original checkPermissions() function to be checkUserRole().
+
+Modified the outputContent() function for better handling of headers which should resolve several PHP 5 issues.
+
+Minor modifications were made to the manager/includes/config.inc.php file for proper operation without throwing unseen PHP warnings.
+
+
+2006-01-29
+
+Modified the getKeywords() API function to use $this->documentIdentifier instead of $this->documentObject['id'] for proper functionality with cached documents.
+
+Modified manager/processors/cache_sync.class.processor.php to store document parent id's and getSettings() for retrieval via $this->parents[$this->documentIdentifier] for use in snippets as well as by the modified getParent() function.
+
+Modified the getParent() API function to use $this->documentIdentifier instead of $this->documentObject['id'] for proper functionality with cached documents.
+
+
+2006-01-28
+
+Modified makeURL() API function to include changes suggested by mikef related to how URL args are appended.
+
+Streamlined the cleanDocumentIdentifier() function for better performance. Also added the capability for a numeric value of "404" to be used for the sites error_page only. The use of numeric values for any other pages could result in redirect errors.
+
+
+2006-01-26
+
+Modified manager/actions/dynamic/mutate_templates.dynamic.action.php to display the template id in the header bar.
+
+Modified manager/actions/dynamic/mutate_content.dynamic.action.php for proper integration of FCKeditor based on the guide provided by pelleke.
+
+Modified the index.php file to use the correct revision of the getParent() API function.
+
+Modified the index.php file so numeric value can be used in aliases without receiving a redirect timeout. The practice of using numeric friendly aliases without using a suffix could possibly lead to identification problems due to possible confusion between a numeric id along with an alias from another document having the same numeric value.
+
+
+2006-01-22
+
+Removed encrypted potential exploit code from the following files:
+crypt.class.inc.php,
+login.processor.inc.php,
+log.class.inc.php,
+quotes_stripper.inc.php,
+settings.inc.php,
+save_content.processor.inc.php,
+save_snippet.processor.inc.php
+
+Modified code modules so a page can be previewed when the site status is set to offline.
+
+
+2006-01-20
+
+Fixed bug that caused a blank page to be returned if a non-existent tamplate was requested using ?tpl=<##>.
+
+Fixed bug which would cause a "headers already sent" error when setting the error page to the same id as the site start page.
+
+Modified manager/actions/dynamic/resources.dynamic.action.php file so that template id's are displayed.
+
+
+2006-01-19
+
+Debugged several member installations which mainly had configuration or upload issues.
+
+
+2006-01-18
+
+Fixed manager/actions/dynamic/mutate_content.dynamic.action.php for proper data loading with HTMLArea and FCKeditor
+
+Removed extra blockLogging() check from index.php as reported by mikef
+
+
+2006-01-17
+
+Fixed problem with sendRedirect() causing 404 errors with web links.
+
+Fixed manager/includes/captchanumbers/captchaNumber.php file to properly receive and use custom result lengths and assign the resulting value to the correct session variable.
+
+Fixed manager/media/xinha/plugins/ImageManager/config.inc.php file to properly point to the directory assigned in the Etomite configurations Image Manager settings.
+
+Fixed manager/frames/3.php to guarantee removal of the "Loading document tree" message upon completion.
+
+Fixed index.php bug in getParent() to properly return parent information for any document id passed.
+
+Fixed index.php bug in clearCache() to properly delete all currently cached pages from assets/cache/ regardless of the Etomite installation path.
+
+<<< RC2 - RTM Changelog Data Was Accidentally Lost >>>
+
+This file shows the changes in recent releases of Etomite. The most current release is usually the
+development release, and is only shown to give an idea of what's currently in the pipeline.
+References to 'Bug xxxxxxxx' refer to bugs reported in the Bugtracker on the main Etomite site.
+
+0.6.1-RC1 [Prelude] - released 22-07-2005
+ - Features a new document tree with better cross-browser compatibility as well as being fully persistent
+ - Features a new document tree context menu
+ - Xinha and FCKeditor WYSIWYG editor integrations
+ - Additional API functions added for use within snippets
+ - Added tabbed panels throughout the manager modules
+ - Replaced all WebFX buttons for better cross-browser compatibility
+ - Aggregated all manager styles into a single style.css file for maintainability
+ - Increased size of document keywords list
+ - Added Un-Delete button to the View Document Data module
+ - Added document ID to the View Document Data module
+ - Resolved several security issues
+ - Applied corrections to several API functions
+ - Improved 404 error handling
+ - Added Greens template created by Karen Atherholt which utilizes Jared Carlos ListMenu snippet
+ - Added several new snippets to the default snippet list, most demonstrating new API functions
+ - Cleaned up and added documentation to numerous HTML and PHP scripts
+ - Added LIMIT clause capability to getDocuments API function as well as into all applicable new functions
+ - Added the ability to use embedded PHP code within templates, documents, and chunks (thanks SniperX)
+ - Removed more hard-coded text within modules and added required text variables to the language file
+ - Countless minor fixes that I can't remember at the time of this writing
+
+0.6 [Heliades] - released 20-09-2004
+ - Features an improved site parser.
+ - Features an API for use in snippets.
+ - Allows passing of variables to snippet: [[Gallery?folder=test&page=2]].
+ - ContextMenu in tree is now widened to fit text in menu.
+ - Access permissions. (!)
+ - New logging engine and reports
+ - Removed ADOdb for greatly improved performance
+ - Added sorting options to document tree
+ - Added keywords to documents (thanks Stevew!)
+ - Added 'Chunks' - Raw HTML insertable in documents
+ - Added longtitle to documents, better for search engines (thanks Sniper!)
+ - Improved speed by caching snippets, chunks, settings and some document information.
+   Documents retrieved from cache now require no database access!
+ - Lots more stuff I forgot to write down here.
+
+0.5.3 [Euryphaessa] - released 28-05-2004
+ - Fixed a number of bugs.
+ - Improved Etomite user experience a little (e.g. saving a snippet takes you to the resource
+   manager instead of the home page).
+ - Added some extra configuration options: charset(!), e-mail options, ImageManager directories.
+ - Fixed editor, loads much faster now.
+ - Fixed apostrophe in document titles crash Tree bugs.
+ - Removed Edit Parsers function (obsolete).
+ - Removed expand/ collapse functions on sections.
+ - Added default options to Etomite configuration page.
+ - Changes to a role are immediately propogated in the session, not after logging out and
+   logging in again.
+ - Added a horizontal navigation menu for IE users, Moz users will get one soon :)
+ - Lots more stuff I forgot to write down here.
+
+0.5.2 [Euryphaessa] - released 16-05-2004
+ - Fixed Bug 00000007 : 'Initial loading of Etomite Manager Home Page causes + buttons on each
+   section although open'.
+ - Fixed Bug 00000008 : 'Initial opening of Etomite Manager Homepage shows slightly illogical
+   Pinned attributes'.
+ - Fixed Bug 00000009 : 'Etomite configuration page of Etomite Manager causes horizontal scrollbar
+   in IE6SP1'.
+ - Fixed Bug 00000023 : 'Referrers not being logged'.
+ - Etomite Installer now does a check on PHP version (will be expanded in future).
+ - Etomite compatible with PHP version 4.1.0 and higher.
+ - Saving templates, snippets or users without names not possible anymore.
+ - Previewing the site is now possible for Etomite users even if the site is 'offline'.
+ - Improved Friendly URLs, these can now be of type: yoursite/news or news.html (depending on
+   your settings and aliases. Also, htaccess files don't need to be changed anymore if
+   friendly_url_prefix and suffix are changed.
+ - Fixed bad link in error pop-up.
+ - Fixed an error in the install routine that screwed the systems info page up.
+ - Added more functionality to the document editor.
+ - Improved editing of Etomite configuration.
+ - Removed the need to update Etomite settings in update script (easier upgrades).
+ - Replaced Java menu with HTML menu.
+ - Added referrer report - shows top 30 referrers to your site.
+ - Replaced default template with nicer design - thanks Helder!
+
+0.5.1.2 [Artemis] - released 02-05-2004
+ - Fixed Bug 00000005 : 'User confusion when adding/editing users' again. Properly this time.
+
+0.5.1.1 [Artemis] - released 28-04-2004
+ - Fixed Bug 00000012 : 'Installer halts before creating Template tables, gives MySQL error'.
+ - Fixed Bug 00000011 : 'Installer-stopping redundant semi-colon follows "AUTO-INCR" value'.
+ - Etomite Manager now does a check on PHP version (will be expanded in future).
+
+0.5.1 [Artemis] - released 25-04-2004
+ - Moved settings to the database.
+ - Added the option to specify a user's password yourself, as an alternative to having Etomite
+   generate a password.
+ - Fixed Bug 00000002 : 'Resizing in Manager, Horizontal Scrollbar in Messenger'.
+ - Fixed Bug 00000004 : 'Can right-click on recycle bin entries in menu tree'.
+ - Fixed Bug 00000005 : 'User confusion when adding/editing users'.
+ - Editor now resizes along with page resizes.
+ - JavaMenu reloads when browser is resized - this way all options stay visible on screen.
+ - Added Search Engine Friendly URLs :) Only works in Apache, and needs .htaccess file.
+ - Added internationalisation. Dutch language file is being prepared by Demmin :)
+ - Did a little work on the installer and updater, now even easier to install.
+ - Reordered includes in the manager, which generates 50% faster than version 0.5.
+
+0.5 [Eutychia] - released 04-04-2004
+ - Added 'type' field to the contents database.
+ - Added WebLink content type.
+ - Dropped tabs in favor of homebrew collapsable DOM sections (for future XHTML compliance).
+ - Dropped bulky buttons for new lite CSS DOM buttons (for future XHTML compliance).
+ - Upgraded HTMLArea 3 to latest release.
+ - Added site statistics page (generates reports, needs GD library).
+ - Improved parsing of pages.
+ - Improved installer (no more needing to write .htaccess files).
+ - Can be installed in subdirs instead of just the document_root.
+ - Rewrote filemanager (not finished yet), currently allows browsing and viewing.
+ - Added site schedule (shows list of publishing events).
+ - Removed a couple of bugs in messaging system.
+ - Fixed some bugs (can't remember which ones though...).
+ - Added a config check to see if the Etomite configuration is ok.
+ - Fixed stupid bug in caching mechanism, which threw an error at the first request of the day.
+ - Documents can be unpublished at any time of the day, not just at the start of the day (making
+   the previous fix unnecessary :) ).
+ - Removed the cache variable file. No need for it anymore.
+
+0.4.5 and earlier
+ - Built the system. Too much detail to describe here!
+=======
+2007-05-04
+Nalagar
+[*] Modified manager/frames/scriptaculous/dragsort_etomite.js. Link insertion from the menu tree now works with TinyMCE 2.1.0.
+
+2007-05-02
+Ralph
+[*] TinyMCE 2.1.0 Integration
+[*] Modified manager/actions/dynamic/manage_keywords.dynamic.action.php by removing redundant code
+[*] Modified manager/actions/dynamic/mutate_content.dynamic.action.php TinyMCE integration code
+[*] Added 'object' mode to fetchRow($rs, $mode=[{'assoc'},'num','both','object'])
+[*] Modified mergeCodeVariables() API function default $tag to null from $tag="div"
+[*] Fixed render method notification bug for [^s^] tag falsely returning cache instead of database
+
+2007-04-20
+Dean
+[*] Repaired Typo in the Authentication Part in the Config Pages
+
+Ralph
+[*] Modified SQL file to include id's for all rows
+
+2007-04-11
+Dean
+[*] Repaired ShowInMenu Checkbox to save upon original save - I think :)
+[*] Made some changes to the Language File - removed obsolete stuff, and changed the Help links
+[*] Re-Added the welcome message to the Welcome Page
+[*] Removed case-sensitive upload extension block - Thanks Ed!
+
+2007-04-06
+Ralph
+Modified all of the SQL files to use bigint() where logging data includes crc32() data to account for potential 64bit problems and added showinmenu column into the site_content table. Also modified the data INSERT commands to reflect the additional column.
+
+2007-04-04
+Dean
+[*] Removed iBrowser, as it's a security hole - allows for anyone outside of Etomite to delete images from the site, and potentially upload corrupted/security risk ones.
+
+2007-03-25
+2007-04-02
+Randy
+Changed file editor to only editor or viewer is visible to provide more space
+Added editarea syntax highlighting to the file editor in the file manager
+Added path translation so windows will work correctly with file editor
+Added file type detection in file editor to use correct hightlighting
+Added automagic textarea resize js code so editor takes all available space
+
+Randy
+Added JS necessary to allow template editor and content editors to save documents properly
+
+Randy
+Fixed a JS bug I created in the previous update.  Had renamed a HTML label incorrectly. Fixed.
+Fixed a reference to use_editor site setting to use_doc_editor in mutate_content.dynmaic.aciton.php line 439
+
+2007-03-18
+Randy
+Summary: These are changes to the previous mod...these allow you to activate/deactivate the code editor and also to turn the highlighing on or off.  The 'unofficial mod' from Sean (Elephant) was also included
+Modified /manager/actions/dynamic/mutate_snippet.dynamic.action.php to include boolean check if code_highlight is to be turned on or left off
+Modified /manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php to boolean check if code_highlight is to be turned on or left off
+Modified /manager/actions/dynamic/mutate_template.dynamic.action.php to include boolean check if code_highlight is to be turned on or left off
+Modified /manager/includes/lang/english.inc.php - added new references to code_highlight_title and _message
+Modified /manager/actions/dynamic/mutate_settings.dynamic.action.php to include the option to turn this feature on or off
+Modified /manager/actions/dynamic/mutate_snippet.dynamic.action.php,/manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php,/manager/actions/dynamic/mutate_template.dynamic.action.php,/manager/actions/dynamic/mutate_content.dynamic.action.php, and /manager/actions/static/document_data.static.action.php, to include necessary js to resize the editor window on load to take up available browser viewport
+
+2007-03-10
+Randy
+Modified /manager/actions/dynamic/mutate_snippet.dynamic.action.php to include js necessary to load editarea code editor to html textarea
+		 This change includes a bool comparison to turn this on or off
+		 added textarea id = snippet_editor
+Modified /manager/actions/dynamic/mutate_htmlsnippet.dynamic.action.php to include js necessary to load editarea code editor to html textarea
+		 This change includes a bool comparison to turn this on or off
+		 added textarea id = html_editor
+Modified /manager/actions/dynamic/mutate_template.dynamic.action.php to include js necessary to load editarea code editor to html textarea
+		 This change includes a bool comparison to turn this on or off
+		 added textarea id = html_editor
+Modified /manager/includes/header.inc.php to include a <script> tag for  /manager/media/edit_area/edit_area_full.js required for above mod
+Modified /manager/includes/lang/english.inc.php - changed all use_editor_* references to use_doc_editor_* names
+Modified /manager/includes/lang/english.inc.php - added new references to use_code_editor_* similar to use_doc_editor_* names
+Modified /manager/actions/dynamic/mutate_settings.dynamic.action.php to include the option to turn this feature on or off
+
+2007-03-07
+Randy & Ralph
+Modified the checkPermissions() API function in the main index.php parser script for better overall performance.
+
+2007-03-06
+Ralph:
+Modified /manager/includes/captchaClass.php for better ttf directory path translation and set to ignore subdirectories
+Modified /manager/actions/static/document_data.static.action.php files preview panel message display logic
+
+2007-03-04
+Dean:
+Updated Copyright Info in main index.php
+Removed some excess files - thumbs.db's etc
+
+2007-03-01
+Randy:
+Updated getIntTableRows() to check for empty table_prefix
+
+2007-02-28
+Ralph:
+Added Security Patch posted in forums
+Modified CaptchaClass.php for better path management to ttf directory
+
+2007-02-21
+Dean:
+Added robots.txt file for Google (yes, it still needs them)
+
+2007-01-26
+Dean:
+Updated version file to 0614
+Removed out of date templates from installer + files
+Added Version Check in welcome.static.action.php
+Fixed grammar typo on login page+ added hover text on image and xhtml correction
+Removed a lot of the legal stuff from the parser, reworded the content managed by stuff, and changed all .org to .com in /index.php
+Updated etomite.org to etomite.com in the base
+Updated ht.access file so its not got all that stuff in that sometimes gets wrapped when a user edits it.
+Updated settings varchar to 500, so that users can use a longer unavailable message
+
+
+Ralph:
+
+
+
+2006-12-22 - Released 0.6.1.3
+(Thanks to everyone who helped with testing and fixes)
+
+manager/includes/accesscontrol.inc.php
+We now send the realm constant IN_ETOMITE_SYSTEM and session_id() to captchaCode.php
+More compact licensing related text
+Added nextfield fix From: http://www.etomite.com/forums/index.php?showtopic=6287
+
+manager/includes/captchaCode.php and captchaClass.php
+Extensive changes. $realm and $sessid are extracted from $_GET within captchaCode.php. Database settings from config.inc.php are now sent to VeriWord in captchaClass.php via captchaCode.php for better database access implementation.
+
+manager/includes/config.inc.php
+Major changes. The configuration file now has the ability for custom sessions handling which includes custom session.save_path, session.cookie_path, session.cookie_lifetime, and session.gc_maxlifetime.
+
+inatall/installNewDB.php
+The installer now reads a config.inc.php template file and populates the placeholders with the correct values rather than having the code embedded within the installer file itself which allows for much easier maintenance.
+
+manager/processors/move_document.processor.php
+bug fix - document moved to subfolder of itself
+From: http://www.etomite.com/forums/index.php?showtopic=6191
+You can no longer corrupt your document tree by assigning a documents parent to be one of its children.
+
+manager/index.php
+Modified file to avoid XSS attack attempts
+From: http://www.etomite.com/forums/index.php?showtopic=6190
+
+user_documents_permissions.class.php
+No root access despite correct settings
+From: http://www.etomite.com/forums/index.php?showtopic=6122
+
+Drag Sort Patches
+From: Strange Site Tree icon-loading problem
+http://www.etomite.com/forums/index.php?showtopic=5934
+
+index.php
+* Wrong redirect to 404 causes loop, Wrong redirect to 404 causes loop
+  From: http://www.etomite.com/forums/index.php?showtopic=5122
+* Modified file to avoid XSS attack attempts
+  From: http://www.etomite.com/forums/index.php?showtopic=6190
+* Added $basepath to log() function to resolve errors with some installations
+* getCaptchaCode() function now sends session_id() and realm variable to the external scripts.
+* outputContent() no longer sends header() for "text/html" because this should be handled by the page template.
+
+GoogleSiteMap_XML snippet updated to the most recent version in the installer SQL
+
+And many minor fixes that weren't documented...
+
+
+2006-10-03 - Released 0.6.1.2
+(Thanks Lloyd and Nalagar)
+* Corrected <p /> and <br> tags to <br /> in various files Lloyd reported errors in.
+* Modified Menu Layout 2 for IE, so it now works
+* Added in Nalagar's RTE fixed file.
+* Modified version.inc.php file for version number
+
+
+2006-10-02
+
+(Thanks Dean, Mikef, Nalagar, mmjaeger, and anyone else who helped out)
+
+* Added syncsite() function to the API, called using $etomite->syncsite();, which clears and rebuilds the site cache.
+* Modified checkPermissions() for proper visitor permissions checks. See source for additional info.
+* Not documented previously: additional API functions intTableExists($table) and extTableExists($table) for testing to see if a database table exists.
+* Modified getIntTableRows() and getExtTableRows() to have a $push variable parameter. $push = ( true = [default] array_push results into a multi-demensional array | false = return MySQL resultset )
+* Modified getIntTableRows() to include $addPrefix = whether to check for and/or add $this->dbConfig['table_prefix'] to the table name. (true=default | false)
+* Modified getParent() API function. Now works properly when an $id is passed or when parent id is the root of the doc tree.
+* Corrected index.php defaults.
+* Fixed Forms class issues.
+* Added patches that have been released via the forums.
+* Alternate language file selection and config for the Xinha WYSIWYG text editor fixed.
+* Fixed problem where users could move documents to a folder which they do not have premission to access.
+* FCKeditor config Fixed,
+* TinyMCE Tab issues Fixed.
+* iBrowser Security Vulnerability Fixed.
+* SQL injection exploit Fixed.
+* Added Nalagar's Drag and Drop and Sortable Menu Mod - thanks Nalagar.
+* Added Nalagar's Duplicate and Invalid Character Mod - thanks Nalagar.
+* Integrated new RTE Editor (including Nalagar's fix for converting [~ ~] back) - thanks Ralph and Nalagar.
+* Updated the installer to correct || to && for IIS installs - thanks MikeF.
+* Add more than one keyword at a time Mod.
+* Changed Version Numbers in version.inc.php
+* Added notice in installer reminding users to chmod the config.inc.php file so it is unwriteable after install
+
+
+2006-04-13
+
+Etomite Prelude Final released
+
+
+2006-04-12
+
+Finalized which resources would be included in the Final release. Due to the increased package size with the newly included resources only the TinyMCE editor will be included in the download. FCKeditor and Xinha will be available for download and will work without modifications as add-in resources. FCKeditor integration is still somewhat limited due to inherent limitations of the package itself.
+
+
+2006-04-[09-11]
+
+Modified the installer to reflect recent changes. Tested the installer to assure proper functionality.
+Modified the etomite.sql file to include the most recent resource additions. Testing, testing, and more testing.
+
+
+2006-04-08
+
+Made further modifications to the makeURL() API function by reinstating the ability to send an alias to the function and also adding suffixes to friendly aliases.
+
+Created a DB upgrade script, alter_site_content.php, which adds a new field, authenticate, into existing databases to take advantage of the new capabilities added into Etomite Prelude Final.
+
+Added three new $etomite->config[] variables (absolute_base_path, relative_base_path, www_base_path) which, as their names suggest, offer pre-calculated paths for use in snippets.
+
+Modified save_settings.processor.php to disable friendly URL aliases when friendly URL's are disabled.
+
+
+2006-04-07
+
+Final testing and modifications to all resources, with Lloyds help, which will be included in Etomite 0.6.1 Final.
+
+
+2006-04-06
+
+Modifed the userLogin() API function for more predictable results over a broader range of uses.
+Made modificiations to the CaptchaCode functionality for improved performance.
+
+
+2006-04-05
+
+Added additonal code into the parser, index.php, visitor authentication checking so that a custom permission denied message can be displayed in place of the default system-wide plain text message. Also added a textarea in manager/actions/mutate_settings.dynamic.action.php for entry of this custom message which can also contain HTML and/or Javascript code. Additional entries were also added to manager/includes/lang/english.inc.php to support this feature.
+
+
+2006-04-04
+
+Modified userLogout() API function for more predictable performance. Previous logic did not account for a broad enough range of parameter possibilities which could lead to unexpected results.
+
+
+2006-04-03
+
+Added:
+The following API functions were added to allow use of the CaptchaCode functionality that is already available for Etomite Manager logins. Developers now have their option of Captcha technologies, CaptchaNumbers or CaptchaCodes.
+* getCaptchaCode($alt='CaptchaCode', $title='Security Code', $width="148", $height="80")
+* validCaptchaCode($captchaCode) - returns true or false
+
+
+2006-04-[01-02]
+
+Added:
+The following changes have been made to allow for site visitor permissions authentication which, essentially, allows Etomite to be used to develop community portal systems. The necessary tools are now in place. Granted, I did state previously that I wouldn't be making any changes to the database structure, but the added benefits of adding one simple toggle flag far outweighed any previous agruments.
+* [`authenticate` int(1) NOT NULL default '0'] to the site_content table
+* code for caching authenticate value to manager/processors/cache_sync.class.processor.php
+* authentication checking to executeParser() function in index.php
+* authentication option code to manager/actions/dynamic/mutate_content.dynamic.action.php
+* code saving authentication changes to manager/processors/save_content.processor.php
+* authentication input field label text and help text into manager/includes/lang/english.inc.php
+* code for enabling visitor document permissions to manager/actions/dynamic/mutate_settings.dynamic.action.php
+
+
+2006-03-19
+
+Modified manager/includes/accesscontrol.inc.php to check for proper permissions before allowing users to login to the Etomite manager interface. If the user role setting "Request manager frames" is unchecked any users assigned to this role will not be allowed access and will receive an error alert.
+
+Modified manager/processors/save_role.processor.php for better handling of group role settings record saves.
+
+
+2006-03-17
+
+Modified the index.php parser file for greater data handling flexibility. Added $push=true to both the getIntTableRows() and getExtTableRows() extended API database functions. Leaving $push=true retains backward compatibility by performing an array_push() on all rows and returns them as a multi-dimensional array. Changing to $push=false will force the functions to return raw MySQL resultsets without additional processing so that conventional resultset handling can be performed. This added feature allows these functions to be more easily retrofitted in place of other query functions such as dbQuery() or any other of the other query functions.
+
+
+2006-03-16
+
+Modified insertId($rs) and affectedRows($rs) API functions to perform as intended rather than causing parser errors when called.
+
+
+2006-03-15
+
+Modified mergeCodeVariables() API function for better handling of alternating row styles. Data can now be sent to the function a row at a time and still have the rows style alternate. Before this fix only complete resultsets sent to the function would have alternating styles.
+
+
+2006-02-28
+
+Corrected previously modified manager/frames/3.php document tree window code so the trash can properly displays whether it contains deleted items or not... Recent modifications had caused the recycle bin to falsely show as always being empty...
+
+
+2006-02-26
+
+Modified manager/actions/static/logging.static.action.php to include a button to allow the manager audit trail table to be emptied without the need to generate a report in order to access the old prompt. The old text based link was removed from the language file and button text and a confirmation alert popup prompt was added.
+
+Modified manager/actions/static/site_logging.static.action.php to include a button to allow the visitor statistics logging tables to be emptied. Button text and a confirmation alert popup prompt were also added to the language file.
+
+Created the /manager/processors/empty_visitor_logs.processor.php script which performs the truncate operation on the appropriate logging tables.
+
+Added code to manager/index.php so that action code index.php?a=56 activates the /manager/processors/empty_visitor_logs.processor.php script.
+
+Modified index.php script to correct a minor error which could cause cached pages to not switch to using the Printable Page template depending on previous operations.
+
+
+2006-02-21
+
+Added Enable Previews option to the site configuration module so previews can be disabled for faster module load times as well as for sites where previews within the module creates problems.
+
+
+2006-02-17 thru 2006-02-20
+
+Developed a form class for Etomite which allows the use of object oriented code to create form elements, labels, and Tigra Form Validation code. Elements are stored in objects and/or variables which can later be inserted into template code. This class allows for the separation of form logic from form presentation.
+
+
+2006-02-12
+
+Modified checkPublishStatus() function to properly publish and unpublish documents without the need to clear the site cache.
+
+Modified visitor logging by moving the log() code to manager/includes/visitor_logging.inc.php and adding the $etomite->useVisitorLogging system variable. Turning off logging can save rendering times by approximately 20%.
+
+
+2006-02-02 thru 2006-02-11
+
+Testing, testing, and more testing on multiple server platforms...
+
+
+2006-01-30
+
+Modified the checkPermissions() API function to be a converted version of the same code that the manager uses which further enhances permissions checking to a document level.
+
+Converted the original checkPermissions() function to be checkUserRole().
+
+Modified the outputContent() function for better handling of headers which should resolve several PHP 5 issues.
+
+Minor modifications were made to the manager/includes/config.inc.php file for proper operation without throwing unseen PHP warnings.
+
+
+2006-01-29
+
+Modified the getKeywords() API function to use $this->documentIdentifier instead of $this->documentObject['id'] for proper functionality with cached documents.
+
+Modified manager/processors/cache_sync.class.processor.php to store document parent id's and getSettings() for retrieval via $this->parents[$this->documentIdentifier] for use in snippets as well as by the modified getParent() function.
+
+Modified the getParent() API function to use $this->documentIdentifier instead of $this->documentObject['id'] for proper functionality with cached documents.
+
+
+2006-01-28
+
+Modified makeURL() API function to include changes suggested by mikef related to how URL args are appended.
+
+Streamlined the cleanDocumentIdentifier() function for better performance. Also added the capability for a numeric value of "404" to be used for the sites error_page only. The use of numeric values for any other pages could result in redirect errors.
+
+
+2006-01-26
+
+Modified manager/actions/dynamic/mutate_templates.dynamic.action.php to display the template id in the header bar.
+
+Modified manager/actions/dynamic/mutate_content.dynamic.action.php for proper integration of FCKeditor based on the guide provided by pelleke.
+
+Modified the index.php file to use the correct revision of the getParent() API function.
+
+Modified the index.php file so numeric value can be used in aliases without receiving a redirect timeout. The practice of using numeric friendly aliases without using a suffix could possibly lead to identification problems due to possible confusion between a numeric id along with an alias from another document having the same numeric value.
+
+
+2006-01-22
+
+Removed encrypted potential exploit code from the following files:
+crypt.class.inc.php,
+login.processor.inc.php,
+log.class.inc.php,
+quotes_stripper.inc.php,
+settings.inc.php,
+save_content.processor.inc.php,
+save_snippet.processor.inc.php
+
+Modified code modules so a page can be previewed when the site status is set to offline.
+
+
+2006-01-20
+
+Fixed bug that caused a blank page to be returned if a non-existent tamplate was requested using ?tpl=<##>.
+
+Fixed bug which would cause a "headers already sent" error when setting the error page to the same id as the site start page.
+
+Modified manager/actions/dynamic/resources.dynamic.action.php file so that template id's are displayed.
+
+
+2006-01-19
+
+Debugged several member installations which mainly had configuration or upload issues.
+
+
+2006-01-18
+
+Fixed manager/actions/dynamic/mutate_content.dynamic.action.php for proper data loading with HTMLArea and FCKeditor
+
+Removed extra blockLogging() check from index.php as reported by mikef
+
+
+2006-01-17
+
+Fixed problem with sendRedirect() causing 404 errors with web links.
+
+Fixed manager/includes/captchanumbers/captchaNumber.php file to properly receive and use custom result lengths and assign the resulting value to the correct session variable.
+
+Fixed manager/media/xinha/plugins/ImageManager/config.inc.php file to properly point to the directory assigned in the Etomite configurations Image Manager settings.
+
+Fixed manager/frames/3.php to guarantee removal of the "Loading document tree" message upon completion.
+
+Fixed index.php bug in getParent() to properly return parent information for any document id passed.
+
+Fixed index.php bug in clearCache() to properly delete all currently cached pages from assets/cache/ regardless of the Etomite installation path.
+
+<<< RC2 - RTM Changelog Data Was Accidentally Lost >>>
+
+This file shows the changes in recent releases of Etomite. The most current release is usually the
+development release, and is only shown to give an idea of what's currently in the pipeline.
+References to 'Bug xxxxxxxx' refer to bugs reported in the Bugtracker on the main Etomite site.
+
+0.6.1-RC1 [Prelude] - released 22-07-2005
+ - Features a new document tree with better cross-browser compatibility as well as being fully persistent
+ - Features a new document tree context menu
+ - Xinha and FCKeditor WYSIWYG editor integrations
+ - Additional API functions added for use within snippets
+ - Added tabbed panels throughout the manager modules
+ - Replaced all WebFX buttons for better cross-browser compatibility
+ - Aggregated all manager styles into a single style.css file for maintainability
+ - Increased size of document keywords list
+ - Added Un-Delete button to the View Document Data module
+ - Added document ID to the View Document Data module
+ - Resolved several security issues
+ - Applied corrections to several API functions
+ - Improved 404 error handling
+ - Added Greens template created by Karen Atherholt which utilizes Jared Carlos ListMenu snippet
+ - Added several new snippets to the default snippet list, most demonstrating new API functions
+ - Cleaned up and added documentation to numerous HTML and PHP scripts
+ - Added LIMIT clause capability to getDocuments API function as well as into all applicable new functions
+ - Added the ability to use embedded PHP code within templates, documents, and chunks (thanks SniperX)
+ - Removed more hard-coded text within modules and added required text variables to the language file
+ - Countless minor fixes that I can't remember at the time of this writing
+
+0.6 [Heliades] - released 20-09-2004
+ - Features an improved site parser.
+ - Features an API for use in snippets.
+ - Allows passing of variables to snippet: [[Gallery?folder=test&page=2]].
+ - ContextMenu in tree is now widened to fit text in menu.
+ - Access permissions. (!)
+ - New logging engine and reports
+ - Removed ADOdb for greatly improved performance
+ - Added sorting options to document tree
+ - Added keywords to documents (thanks Stevew!)
+ - Added 'Chunks' - Raw HTML insertable in documents
+ - Added longtitle to documents, better for search engines (thanks Sniper!)
+ - Improved speed by caching snippets, chunks, settings and some document information.
+   Documents retrieved from cache now require no database access!
+ - Lots more stuff I forgot to write down here.
+
+0.5.3 [Euryphaessa] - released 28-05-2004
+ - Fixed a number of bugs.
+ - Improved Etomite user experience a little (e.g. saving a snippet takes you to the resource
+   manager instead of the home page).
+ - Added some extra configuration options: charset(!), e-mail options, ImageManager directories.
+ - Fixed editor, loads much faster now.
+ - Fixed apostrophe in document titles crash Tree bugs.
+ - Removed Edit Parsers function (obsolete).
+ - Removed expand/ collapse functions on sections.
+ - Added default options to Etomite configuration page.
+ - Changes to a role are immediately propogated in the session, not after logging out and
+   logging in again.
+ - Added a horizontal navigation menu for IE users, Moz users will get one soon :)
+ - Lots more stuff I forgot to write down here.
+
+0.5.2 [Euryphaessa] - released 16-05-2004
+ - Fixed Bug 00000007 : 'Initial loading of Etomite Manager Home Page causes + buttons on each
+   section although open'.
+ - Fixed Bug 00000008 : 'Initial opening of Etomite Manager Homepage shows slightly illogical
+   Pinned attributes'.
+ - Fixed Bug 00000009 : 'Etomite configuration page of Etomite Manager causes horizontal scrollbar
+   in IE6SP1'.
+ - Fixed Bug 00000023 : 'Referrers not being logged'.
+ - Etomite Installer now does a check on PHP version (will be expanded in future).
+ - Etomite compatible with PHP version 4.1.0 and higher.
+ - Saving templates, snippets or users without names not possible anymore.
+ - Previewing the site is now possible for Etomite users even if the site is 'offline'.
+ - Improved Friendly URLs, these can now be of type: yoursite/news or news.html (depending on
+   your settings and aliases. Also, htaccess files don't need to be changed anymore if
+   friendly_url_prefix and suffix are changed.
+ - Fixed bad link in error pop-up.
+ - Fixed an error in the install routine that screwed the systems info page up.
+ - Added more functionality to the document editor.
+ - Improved editing of Etomite configuration.
+ - Removed the need to update Etomite settings in update script (easier upgrades).
+ - Replaced Java menu with HTML menu.
+ - Added referrer report - shows top 30 referrers to your site.
+ - Replaced default template with nicer design - thanks Helder!
+
+0.5.1.2 [Artemis] - released 02-05-2004
+ - Fixed Bug 00000005 : 'User confusion when adding/editing users' again. Properly this time.
+
+0.5.1.1 [Artemis] - released 28-04-2004
+ - Fixed Bug 00000012 : 'Installer halts before creating Template tables, gives MySQL error'.
+ - Fixed Bug 00000011 : 'Installer-stopping redundant semi-colon follows "AUTO-INCR" value'.
+ - Etomite Manager now does a check on PHP version (will be expanded in future).
+
+0.5.1 [Artemis] - released 25-04-2004
+ - Moved settings to the database.
+ - Added the option to specify a user's password yourself, as an alternative to having Etomite
+   generate a password.
+ - Fixed Bug 00000002 : 'Resizing in Manager, Horizontal Scrollbar in Messenger'.
+ - Fixed Bug 00000004 : 'Can right-click on recycle bin entries in menu tree'.
+ - Fixed Bug 00000005 : 'User confusion when adding/editing users'.
+ - Editor now resizes along with page resizes.
+ - JavaMenu reloads when browser is resized - this way all options stay visible on screen.
+ - Added Search Engine Friendly URLs :) Only works in Apache, and needs .htaccess file.
+ - Added internationalisation. Dutch language file is being prepared by Demmin :)
+ - Did a little work on the installer and updater, now even easier to install.
+ - Reordered includes in the manager, which generates 50% faster than version 0.5.
+
+0.5 [Eutychia] - released 04-04-2004
+ - Added 'type' field to the contents database.
+ - Added WebLink content type.
+ - Dropped tabs in favor of homebrew collapsable DOM sections (for future XHTML compliance).
+ - Dropped bulky buttons for new lite CSS DOM buttons (for future XHTML compliance).
+ - Upgraded HTMLArea 3 to latest release.
+ - Added site statistics page (generates reports, needs GD library).
+ - Improved parsing of pages.
+ - Improved installer (no more needing to write .htaccess files).
+ - Can be installed in subdirs instead of just the document_root.
+ - Rewrote filemanager (not finished yet), currently allows browsing and viewing.
+ - Added site schedule (shows list of publishing events).
+ - Removed a couple of bugs in messaging system.
+ - Fixed some bugs (can't remember which ones though...).
+ - Added a config check to see if the Etomite configuration is ok.
+ - Fixed stupid bug in caching mechanism, which threw an error at the first request of the day.
+ - Documents can be unpublished at any time of the day, not just at the start of the day (making
+   the previous fix unnecessary :) ).
+ - Removed the cache variable file. No need for it anymore.
+
+0.4.5 and earlier
+ - Built the system. Too much detail to describe here!
