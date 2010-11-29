@@ -44,13 +44,13 @@ $etomite_maxuploadsize = $etomite_maxuploadsize * $multiplier;
 
 $uploadmaxsize = ($etomite_maxuploadsize < $php_maxuploadsize && $etomite_maxuploadsize != "") ? $etomite_maxuploadsize : $php_maxuploadsize;
 // define allowable filetypes based on configuration settings
-$excludes =  split(",", $exclude_paths);
-$editablefiles = split(",", $edit_files);
+$excludes =  explode(",", $exclude_paths);
+$editablefiles = explode(",", $edit_files);
 $editablefiles[] = $friendly_url_suffix;
-$inlineviewablefiles = split(",", $inlineview_files);
+$inlineviewablefiles = explode(",", $inlineview_files);
 $inlineviewablefiles[] = $friendly_url_suffix;
-$viewablefiles = split(",", $view_files);
-$uploadablefiles = split(",", $upload_files);
+$viewablefiles = explode(",", $view_files);
+$uploadablefiles = explode(",", $upload_files);
 //fix path for windows
 $_REQUEST['path'] = strtr($_REQUEST['path'],"\\",'/');
 $filemanager_path = $filemanager_path != '' ? strtr($filemanager_path,"\\",'/') : $_SERVER['DOCUMENT_ROOT'];

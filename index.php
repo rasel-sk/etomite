@@ -554,7 +554,7 @@ class etomite {
       if(!empty($currentSnippetParams)) {
         $tempSnippetParams = str_replace("?", "", $currentSnippetParams);
         $splitter = strpos($tempSnippetParams, "&amp;")>0 ? "&amp;" : "&";
-        $tempSnippetParams = split($splitter, $tempSnippetParams);
+        $tempSnippetParams = explode($splitter, $tempSnippetParams);
 
         for($x=0; $x<count($tempSnippetParams); $x++) {
           $parameterTemp = explode("=", $tempSnippetParams[$x],2);

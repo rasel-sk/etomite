@@ -39,7 +39,7 @@ class SqlParser
     fclose($fh);
     $idata = str_replace("\r", '', $idata);
 
-    $sql_array = split("\n\n", $idata);
+    $sql_array = explode("\n\n", $idata);
 
     $num = 0;
     $timestamp = time();
@@ -52,9 +52,9 @@ class SqlParser
       $sql_do = str_replace('{TIMESTAMP}', $timestamp, $sql_do);
 
       // skip older style MySQL dump comments
-      if (ereg('^\#', $sql_do)) continue;
+      if (preg_match('/^\#/', $sql_do)) continue;
       // skip newer style MySQL dump comments
-      if (ereg('^\--', $sql_do)) continue;
+      if (preg_match('/^\--/', $sql_do)) continue;
       if($sql_do == null) continue;
 
       $num = $num + 1;

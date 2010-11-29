@@ -16,7 +16,7 @@ $sniffer_settings = array(
   'allow_masquerading'=>$GET_VARS['am']
 );
 
-$client =& new phpSniff($GET_VARS['UA'],$sniffer_settings);
+$client = new phpSniff($GET_VARS['UA'],$sniffer_settings);
 
 $client->get_property('UA');
 
