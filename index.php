@@ -1320,7 +1320,8 @@ title='$siteName'>$siteName</a></h2>
     if(@!$this->rs = mysql_connect($this->dbConfig['host'], $this->dbConfig['user'], $this->dbConfig['pass'])) {
       $this->messageQuit("Failed to create the database connection!");
     } else {
-      mysql_select_db($this->dbConfig['dbase']);
+      if ($this->config['etomite_charset'] === "UTF-8") { mysql_set_charset(utf8); }
+	  mysql_select_db($this->dbConfig['dbase']);
       $tend = $this->getMicroTime();
       $totaltime = $tend-$tstart;
       if($this->config['dumpSQL']) {
@@ -1596,7 +1597,8 @@ title='$siteName'>$siteName</a></h2>
     if(@!$this->rs = mysql_connect($host, $user, $pass)) {
       $this->messageQuit("Failed to create connection to the $dbase database!");
     } else {
-      mysql_select_db($dbase);
+      if ($this->config['etomite_charset'] === "UTF-8") { mysql_set_charset(utf8); }
+	  mysql_select_db($dbase);
       $tend = $this->getMicroTime();
       $totaltime = $tend-$tstart;
       if($this->config['dumpSQL']) {

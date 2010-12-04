@@ -18,6 +18,7 @@ if(isset($_POST['id'])&&isNumber($_POST['id'])&&isset($_POST['newparent'])&&isNu
    $udperms2->role = $_SESSION['role'];
 
    $handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
+   mysql_set_charset($database_charset);
    mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
    $db = $dbase.".".$table_prefix;
    $sql = "SELECT id from ".$db."site_content WHERE id=" . $_POST['newparent'] . " AND parent=" . $_POST['id']; //Make sure the new parent doesn't have the child as parent!
@@ -88,6 +89,7 @@ $cwd = getcwd();
 include($cwd.'/includes/config.inc.php');
 /*  START: Connect to database and create the document tree  */
 $handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
+mysql_set_charset($database_charset);
 mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
 $db = $dbase.".".$table_prefix;
 

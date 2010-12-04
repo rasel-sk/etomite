@@ -14,6 +14,7 @@ if($_SESSION['permissions']['settings'] != 1 && $_REQUEST['a'] == 56)
 
 //  START: Connect to database
 $handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
+mysql_set_charset($database_charset);
 mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
 $db = $dbase.".".$table_prefix;
 

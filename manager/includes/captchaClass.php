@@ -73,6 +73,7 @@ class VeriWord {
 
     // connect to the database
     if(@$etomiteDBConn = mysql_connect($this->host, $this->user, $this->password)) {
+      mysql_set_charset($database_charset);
       mysql_select_db($this->dbase);
       $sql = "SELECT * FROM ".$this->dbase.".".$this->prefix."system_settings WHERE setting_name='captcha_words'";
       $rs = mysql_query($sql);

@@ -4,7 +4,16 @@
 # You must be running on Apache mod_rewrite to use this.
 # Remember, you must rename this file to .htaccess
 #
+Options +FollowSymlinks
 RewriteEngine On
+RewriteBase /etomite
+
+# Exclude /assets and /manager directories and images from rewrite rules
+RewriteRule ^(assets|install|manager|templates)($|/) - [L]
+RewriteRule \.(jpg|jpeg|png|gif|ico)$ - [L]
+
+RewriteRule ^(.*)/(.*)([^/])/?$ index.php?q=$1_$2$3 [L,QSA]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]

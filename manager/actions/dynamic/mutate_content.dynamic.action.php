@@ -25,6 +25,7 @@ if(isset($_POST['aliasUniqueCheck']))
   include($cwd.'/../../includes/config.inc.php');
 
   $handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
+  mysql_set_charset($database_charset);
   mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
 
   $aliassql = "SELECT alias FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.alias = \"" . $alias . "\" LIMIT 1";

@@ -115,6 +115,7 @@ if(@!$etomiteDBConn = mysql_connect($database_server, $database_user, $database_
 }
 else
 {
+  mysql_set_charset($database_charset);
   mysql_select_db($dbase);
 }
 
