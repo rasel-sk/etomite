@@ -38,7 +38,7 @@ function isNumber($var)
 
 if(isset($_GET['id']))
 {
-  $id = $_GET['id'];
+  $id = (int)$_GET['id'];
 }
 else
 {

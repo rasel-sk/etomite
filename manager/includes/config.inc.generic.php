@@ -17,6 +17,7 @@ $database_type = "mysql";
 $database_server = "{HOST}";
 $database_user = "{USER}";
 $database_password = "{PASS}";
+$database_charset = "utf8";
 $dbase = "`{DBASE}`";
 $table_prefix = "{PREFIX}";
 

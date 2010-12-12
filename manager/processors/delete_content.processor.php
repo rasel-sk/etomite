@@ -13,7 +13,7 @@ if($_SESSION['permissions']['delete_document'] != 1 && $_REQUEST['a'] == 6)
 }
 
 // check the document doesn't have any children
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 $deltime = time();
 $children = array();
 

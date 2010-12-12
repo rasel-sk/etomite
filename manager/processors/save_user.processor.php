@@ -39,7 +39,7 @@ $user_groups = $_POST['user_groups'];
 
 switch ($_POST['mode']) {
   case '11':
-  if($email=='' || !ereg("^[-!#$%&'*+./0-9=?A-Z^_`a-z{|}~]+", $email)){
+  if($email=='' || !filter_var($email, FILTER_VALIDATE_EMAIL)){
     ?>
     <script language="JavaScript">
     alert("E-mail address doesn't seem to be valid!");
@@ -143,7 +143,7 @@ switch ($_POST['mode']) {
   }
   break;
   case '12':
-  if($email=='' || !ereg("^[-!#$%&'*+./0-9=?A-Z^_`a-z{|}~]+", $email)){
+  if($email=='' || !filter_var($email, FILTER_VALIDATE_EMAIL)){
     ?>
     <script language="JavaScript">
     alert("E-mail address doesn't seem to be valid!");

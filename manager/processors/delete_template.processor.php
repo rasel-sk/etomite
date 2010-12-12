@@ -13,7 +13,7 @@ if($_SESSION['permissions']['delete_template'] != 1 && $_REQUEST['a'] == 21)
 }
 
 // delete the template, but first check it doesn't have any documents using it
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 $sql = "SELECT id, pagetitle FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.template=".$id." and $dbase.".$table_prefix."site_content.deleted=0;";
 $rs = mysql_query($sql);
 $limit = mysql_num_rows($rs);

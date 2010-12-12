@@ -13,7 +13,7 @@ if($_SESSION['permissions']['delete_user'] != 1 && $_REQUEST['a'] == 33)
 }
 
 // delete the template, but first check it doesn't have any documents using it
-$id=$_GET['id'];
+$id=(int)$_GET['id'];
 if($id==$_SESSION['internalKey'])
 {
   echo "You can't delete yourself!";

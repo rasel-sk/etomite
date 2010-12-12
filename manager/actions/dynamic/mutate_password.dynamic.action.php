@@ -36,7 +36,7 @@ if($_SESSION['permissions']['change_password']!=1 && $_REQUEST['a']==28) {  $e->
 
 <div class="sectionBody">
   <form action="index.php?a=34" method="post" name="userform">
-    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>" />
+    <input type="hidden" name="id" value="<?php echo (int)$_GET['id'] ?>" />
 
     <p><?php echo $_lang['change_password_message']; ?></p>
 

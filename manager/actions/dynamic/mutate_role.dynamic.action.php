@@ -71,14 +71,14 @@ function deletedocument() {
 <form action="index.php?a=36" method="post" name="userform">
 
 <input type="hidden" name="mode" value="<?php echo $_GET['a'] ?>" />
-<input type="hidden" name="id" value="<?php echo $_GET['id'] ?>" />
+<input type="hidden" name="id" value="<?php echo (int)$_GET['id'] ?>" />
 
 <div class="subTitle">
   <span class="floatLeft">
     <img src="media/images/_tx_.gif" width="1" height="5"><br />
     <a href="#" onClick="documentDirty=false; document.userform.submit();" class="doSomethingButton"><?php echo $_lang['save']; ?></a>
     <?php if($_GET['a']!='38') { ?>
-    <a href="index.php?id=<?php echo $_GET['id'] ?>&a=37" onClick="return areYouSure()" class="doSomethingButton"><?php echo $_lang['delete']; ?></a>
+    <a href="index.php?id=<?php echo (int)$_GET['id'] ?>&a=37" onClick="return areYouSure()" class="doSomethingButton"><?php echo $_lang['delete']; ?></a>
     <?php } else { echo $_lang['delete'];} ?>
     <a href="index.php?a=75" class="doSomethingButton"><?php echo $_lang['cancel']; ?></a>
   </span>

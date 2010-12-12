@@ -12,7 +12,7 @@ if($_SESSION['permissions']['delete_role'] != 1 && $_REQUEST['a'] == 37)
   $e->dumpError();
 }
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 
 if($id == 1)
 {

@@ -122,7 +122,7 @@ function resetFailed() {
 }
 
 function deleteuser() {
-<?php if($_GET['id']==$_SESSION['internalKey']) { ?>
+<?php if((int)$_GET['id']==$_SESSION['internalKey']) { ?>
   alert("<?php echo $_lang['alert_delete_self']; ?>");
 <?php } else { ?>
   if(confirm("<?php echo $_lang['confirm_delete_user']; ?>")==true) {
@@ -199,7 +199,7 @@ function showHide(what, onoff){
     <div class="sectionBody">
     <form action="index.php?a=32" method="post" name="userform" id="userform">
     <input type="hidden" name="mode" value="<?php echo $_GET['a'] ?>">
-    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+    <input type="hidden" name="id" value="<?php echo (int)$_GET['id'] ?>">
     <input type="hidden" name="blockeduntil" value="<?php echo $userdata['blockeduntil'] ?>">
     <table border="0" cellspacing="0" cellpadding="4">
       <tr>
@@ -220,15 +220,15 @@ function showHide(what, onoff){
         <div style="display:<?php echo $_REQUEST['a']=="11" ? "block": "none" ; ?>" id="passwordBlock">
         <fieldset style="width:400px">
         <legend><span class='warning'><?php echo $_lang['password_gen_method']; ?></span></legend>
-        <input type="radio" name="passwordgenmethod" value="g" <?php echo $_GET['id']==$_SESSION['internalKey'] ? " checked disabled" : "checked" ; ?>><?php echo $_lang['password_gen_gen']; ?><br />
-        <input type="radio" name="passwordgenmethod" value="spec" <?php echo $_GET['id']==$_SESSION['internalKey'] ? "disabled" : "" ; ?>><?php echo $_lang['password_gen_specify']; ?> <input type=text name="specifiedpassword" onchange='documentDirty=true;'><br />
+        <input type="radio" name="passwordgenmethod" value="g" <?php echo (int)$_GET['id']==$_SESSION['internalKey'] ? " checked disabled" : "checked" ; ?>><?php echo $_lang['password_gen_gen']; ?><br />
+        <input type="radio" name="passwordgenmethod" value="spec" <?php echo (int)$_GET['id']==$_SESSION['internalKey'] ? "disabled" : "" ; ?>><?php echo $_lang['password_gen_specify']; ?> <input type=text name="specifiedpassword" onchange='documentDirty=true;'><br />
         <small><?php echo $_lang['password_gen_length']; ?></small>
         </fieldset>
         <br />
         <fieldset style="width:400px">
         <legend><span class='warning'><?php echo $_lang['password_gen_method']; ?></span></legend>
-        <input type="radio" name="passwordnotifymethod" value="e" <?php echo $_GET['id']==$_SESSION['internalKey'] ? "checked disabled" : "" ; ?>><?php echo $_lang['password_method_email']; ?><br />
-        <input type="radio" name="passwordnotifymethod" value="s" <?php echo $_GET['id']==$_SESSION['internalKey'] ? "disabled" : "checked" ; ?>><?php echo $_lang['password_method_screen']; ?>
+        <input type="radio" name="passwordnotifymethod" value="e" <?php echo (int)$_GET['id']==$_SESSION['internalKey'] ? "checked disabled" : "" ; ?>><?php echo $_lang['password_method_email']; ?><br />
+        <input type="radio" name="passwordnotifymethod" value="s" <?php echo (int)$_GET['id']==$_SESSION['internalKey'] ? "disabled" : "checked" ; ?>><?php echo $_lang['password_method_screen']; ?>
         </fieldset>
         </div>
       </td>
@@ -304,15 +304,16 @@ function showHide(what, onoff){
     ?>
     </table>
 
-    <?php if($_GET['id']==$_SESSION['internalKey']) { ?><span class='warning'><b><?php echo $_lang['user_edit_self_msg']; ?></span><br /><?php } ?>
+    <?php if((int)$_GET['id']==$_SESSION['internalKey']) { ?><span class='warning'><b><?php echo $_lang['user_edit_self_msg']; ?></span><br /><?php } ?>
   </div><!-- tabPage1 -->
+</div>
 
 <?php
 if($use_udperms==1) {
 $groupsarray = array();
 
 if($_GET['a']=='12') { // only do this bit if the user is being edited
-  $sql = "SELECT * FROM $dbase.".$table_prefix."member_groups where member=".$_GET['id']."";
+  $sql = "SELECT * FROM $dbase.".$table_prefix."member_groups where member=".(int)$_GET['id']."";
   $rs = mysql_query($sql);
   $limit = mysql_num_rows($rs);
   for ($i = 0; $i < $limit; $i++) {

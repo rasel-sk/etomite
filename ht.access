@@ -6,7 +6,11 @@
 #
 Options +FollowSymlinks
 RewriteEngine On
-RewriteBase /etomite
+# Use /etomite_folder from URL root
+RewriteBase /
+
+# Disable magic_quotes_gpc
+php_flag magic_quotes_gpc off
 
 # Exclude /assets and /manager directories and images from rewrite rules
 RewriteRule ^(assets|install|manager|templates)($|/) - [L]
