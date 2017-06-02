@@ -5,7 +5,7 @@
 
 session_start();
 // the SQL file to import
-$sqlFile = "sql/".$_SESSION['sqlFile'];
+$sqlFile = __DIR__ . "/sql/".$_SESSION['sqlFile'];
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"

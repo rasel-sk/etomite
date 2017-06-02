@@ -19,7 +19,7 @@ CREATE TABLE `{PREFIX}keyword_xref` (
   `keyword_id` int(11) NOT NULL default '0',
   KEY `content_id` (`content_id`),
   KEY `keyword_id` (`keyword_id`)
-) TYPE=MyISAM COMMENT='Cross reference bewteen keywords and content';
+) COMMENT='Cross reference bewteen keywords and content';
 
 
 CREATE TABLE `{PREFIX}log_access` (
@@ -37,32 +37,32 @@ CREATE TABLE `{PREFIX}log_access` (
   KEY `entry` (`entry`),
   KEY `hour` (`hour`),
   KEY `weekday` (`weekday`)
-) TYPE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 
 CREATE TABLE `{PREFIX}log_hosts` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 
 CREATE TABLE `{PREFIX}log_operating_systems` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 
 CREATE TABLE `{PREFIX}log_referers` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 
 CREATE TABLE `{PREFIX}log_totals` (
-  `today` date NOT NULL default '0000-00-00',
+  `today` datetime NOT NULL default CURRENT_TIMESTAMP,
   `month` char(2) NOT NULL default '0',
   `piDay` int(11) NOT NULL default '0',
   `piMonth` int(11) NOT NULL default '0',
@@ -73,14 +73,14 @@ CREATE TABLE `{PREFIX}log_totals` (
   `visDay` int(11) NOT NULL default '0',
   `visMonth` int(11) NOT NULL default '0',
   `visAll` int(11) NOT NULL default '0'
-) TYPE=MyISAM COMMENT='Stores temporary logging information.';
+) COMMENT='Stores temporary logging information.';
 
 
 CREATE TABLE `{PREFIX}log_user_agents` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 
 CREATE TABLE `{PREFIX}log_visitors` (
@@ -92,7 +92,7 @@ CREATE TABLE `{PREFIX}log_visitors` (
   KEY `os_id` (`os_id`),
   KEY `ua_id` (`ua_id`),
   KEY `host_id` (`host_id`)
-) TYPE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 
 CREATE TABLE `{PREFIX}site_keywords` (
@@ -100,4 +100,4 @@ CREATE TABLE `{PREFIX}site_keywords` (
   `keyword` varchar(40) NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `keyword` (`keyword`)
-) TYPE=MyISAM COMMENT='Site keyword list';
+) COMMENT='Site keyword list';

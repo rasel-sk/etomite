@@ -10,30 +10,30 @@ CREATE TABLE `{PREFIX}active_users` (
   `lasthit` int(20) NOT NULL default '0',
   `id` int(10) default NULL,
   `action` varchar(10) collate utf8_unicode_ci NOT NULL default '',
-  `ip` varchar(20) collate utf8_unicode_ci NOT NULL default '',
+  `ip` varchar(30) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`internalKey`)
-) ENGINE=MyISAM COMMENT='Contains data about active users.';
+) COMMENT='Contains data about active users.';
 
 CREATE TABLE `{PREFIX}documentgroup_names` (
   `id` int(10) NOT NULL auto_increment,
   `name` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM COMMENT='Contains data used for access permissions.';
+) COMMENT='Contains data used for access permissions.';
 
 CREATE TABLE `{PREFIX}document_groups` (
   `id` int(10) NOT NULL auto_increment,
   `document_group` int(10) NOT NULL default '0',
   `document` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains data used for access permissions.';
+) COMMENT='Contains data used for access permissions.';
 
 CREATE TABLE `{PREFIX}keyword_xref` (
   `content_id` int(11) NOT NULL default '0',
   `keyword_id` int(11) NOT NULL default '0',
   KEY `content_id` (`content_id`),
   KEY `keyword_id` (`keyword_id`)
-) ENGINE=MyISAM COMMENT='Cross reference bewteen keywords and content';
+) COMMENT='Cross reference bewteen keywords and content';
 
 CREATE TABLE `{PREFIX}log_access` (
   `visitor` bigint(11) NOT NULL default '0',
@@ -50,28 +50,28 @@ CREATE TABLE `{PREFIX}log_access` (
   KEY `entry` (`entry`),
   KEY `hour` (`hour`),
   KEY `weekday` (`weekday`)
-) ENGINE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 CREATE TABLE `{PREFIX}log_hosts` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 CREATE TABLE `{PREFIX}log_operating_systems` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 CREATE TABLE `{PREFIX}log_referers` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 CREATE TABLE `{PREFIX}log_totals` (
-  `today` date NOT NULL default '0000-00-00',
+  `today` datetime NOT NULL default CURRENT_TIMESTAMP,
   `month` char(2) collate utf8_unicode_ci NOT NULL default '0',
   `piDay` int(11) NOT NULL default '0',
   `piMonth` int(11) NOT NULL default '0',
@@ -82,13 +82,13 @@ CREATE TABLE `{PREFIX}log_totals` (
   `visDay` int(11) NOT NULL default '0',
   `visMonth` int(11) NOT NULL default '0',
   `visAll` int(11) NOT NULL default '0'
-) ENGINE=MyISAM COMMENT='Stores temporary logging information.';
+) COMMENT='Stores temporary logging information.';
 
 CREATE TABLE `{PREFIX}log_user_agents` (
   `id` bigint(11) NOT NULL default '0',
   `data` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 CREATE TABLE `{PREFIX}log_visitors` (
   `id` bigint(11) NOT NULL default '0',
@@ -99,7 +99,7 @@ CREATE TABLE `{PREFIX}log_visitors` (
   KEY `os_id` (`os_id`),
   KEY `ua_id` (`ua_id`),
   KEY `host_id` (`host_id`)
-) ENGINE=MyISAM COMMENT='Contains visitor statistics.';
+) COMMENT='Contains visitor statistics.';
 
 CREATE TABLE `{PREFIX}manager_log` (
   `id` int(10) NOT NULL auto_increment,
@@ -111,7 +111,7 @@ CREATE TABLE `{PREFIX}manager_log` (
   `itemname` varchar(255) collate utf8_unicode_ci default NULL,
   `message` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains a record of user interaction with Etomite.';
+) COMMENT='Contains a record of user interaction with Etomite.';
 
 CREATE TABLE `{PREFIX}manager_users` (
   `id` int(10) NOT NULL auto_increment,
@@ -119,28 +119,28 @@ CREATE TABLE `{PREFIX}manager_users` (
   `password` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM COMMENT='Contains login information for Etomite users.';
+) COMMENT='Contains login information for Etomite users.';
 
 CREATE TABLE `{PREFIX}membergroup_access` (
   `id` int(10) NOT NULL auto_increment,
   `membergroup` int(10) NOT NULL default '0',
   `documentgroup` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains data used for access permissions.';
+) COMMENT='Contains data used for access permissions.';
 
 CREATE TABLE `{PREFIX}membergroup_names` (
   `id` int(10) NOT NULL auto_increment,
   `name` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM COMMENT='Contains data used for access permissions.';
+) COMMENT='Contains data used for access permissions.';
 
 CREATE TABLE `{PREFIX}member_groups` (
   `id` int(10) NOT NULL auto_increment,
   `user_group` int(10) NOT NULL default '0',
   `member` int(10) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains data used for access permissions.';
+) COMMENT='Contains data used for access permissions.';
 
 CREATE TABLE `{PREFIX}site_content` (
   `id` int(10) NOT NULL auto_increment,
@@ -173,7 +173,7 @@ CREATE TABLE `{PREFIX}site_content` (
   PRIMARY KEY  (`id`),
   KEY `parent` (`parent`),
   FULLTEXT KEY `content_ft_idx` (`pagetitle`,`description`,`content`)
-) ENGINE=MyISAM COMMENT='Contains the site''s document tree.';
+) COMMENT='Contains the site''s document tree.';
 
 CREATE TABLE `{PREFIX}site_htmlsnippets` (
   `id` int(10) NOT NULL auto_increment,
@@ -182,14 +182,14 @@ CREATE TABLE `{PREFIX}site_htmlsnippets` (
   `snippet` mediumtext collate utf8_unicode_ci NOT NULL,
   `locked` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains the site''s chunks.';
+) COMMENT='Contains the site''s chunks.';
 
 CREATE TABLE `{PREFIX}site_keywords` (
   `id` int(11) NOT NULL auto_increment,
   `keyword` varchar(40) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `keyword` (`keyword`)
-) ENGINE=MyISAM COMMENT='Site keyword list';
+) COMMENT='Site keyword list';
 
 CREATE TABLE `{PREFIX}site_snippets` (
   `id` int(10) NOT NULL auto_increment,
@@ -198,7 +198,7 @@ CREATE TABLE `{PREFIX}site_snippets` (
   `snippet` mediumtext collate utf8_unicode_ci NOT NULL,
   `locked` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM PACK_KEYS=0 COMMENT='Contains the site''s snippets.';
+) PACK_KEYS=0 COMMENT='Contains the site''s snippets.';
 
 CREATE TABLE `{PREFIX}site_templates` (
   `id` int(10) NOT NULL auto_increment,
@@ -207,13 +207,13 @@ CREATE TABLE `{PREFIX}site_templates` (
   `content` mediumtext collate utf8_unicode_ci NOT NULL,
   `locked` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM PACK_KEYS=0 COMMENT='Contains the site''s templates.';
+) PACK_KEYS=0 COMMENT='Contains the site''s templates.';
 
 CREATE TABLE `{PREFIX}system_settings` (
   `setting_name` varchar(50) collate utf8_unicode_ci NOT NULL default '',
   `setting_value` varchar(250) collate utf8_unicode_ci NOT NULL default '',
   UNIQUE KEY `setting_name` (`setting_name`)
-) ENGINE=MyISAM COMMENT='Contains Etomite settings.';
+) COMMENT='Contains Etomite settings.';
 
 CREATE TABLE `{PREFIX}user_attributes` (
   `id` int(10) NOT NULL auto_increment,
@@ -232,7 +232,7 @@ CREATE TABLE `{PREFIX}user_attributes` (
   `sessionid` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `userid` (`internalKey`)
-) ENGINE=MyISAM COMMENT='Contains information about Etomite users.';
+) COMMENT='Contains information about Etomite users.';
 
 CREATE TABLE `{PREFIX}user_messages` (
   `id` int(10) NOT NULL auto_increment,
@@ -245,7 +245,7 @@ CREATE TABLE `{PREFIX}user_messages` (
   `postdate` int(20) NOT NULL default '0',
   `messageread` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains messages for the Etomite messaging system.';
+) COMMENT='Contains messages for the Etomite messaging system.';
 
 CREATE TABLE `{PREFIX}user_roles` (
   `id` int(10) NOT NULL auto_increment,
@@ -296,7 +296,7 @@ CREATE TABLE `{PREFIX}user_roles` (
   `delete_chunk` int(1) NOT NULL default '0',
   `export_html` int(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM COMMENT='Contains information describing the Etomite user roles.';
+) COMMENT='Contains information describing the Etomite user roles.';
 
 -- END::CREATE TABLE SECTION
 
