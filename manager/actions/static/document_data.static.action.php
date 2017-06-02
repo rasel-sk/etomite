@@ -12,45 +12,45 @@ $id = $_REQUEST['id'];
 if (isset($_GET['opened'])) $_SESSION['openedArray'] = $_GET['opened'];
 
 $sql = "SELECT * FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.id = $id;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit>1) {
   echo "Oops, something went terribly wrong...<p>";
   print "More results returned than expected. Which sucks. <p>Aborting.";
   exit;
 }
-$content = mysql_fetch_assoc($rs);
+$content = mysqli_fetch_assoc($rs);
 
 $createdby = $content['createdby'];
 $sql = "SELECT username FROM $dbase.".$table_prefix."manager_users WHERE id=$createdby;";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 
-$row=mysql_fetch_assoc($rs);
+$row=mysqli_fetch_assoc($rs);
 $createdbyname = $row['username'];
 
 $editedby = $content['editedby'];
 $sql = "SELECT username FROM $dbase.".$table_prefix."manager_users WHERE id=$editedby;";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 
-$row=mysql_fetch_assoc($rs);
+$row=mysqli_fetch_assoc($rs);
 $editedbyname = $row['username'];
 
 $templateid = $content['template'];
 $sql = "SELECT templatename FROM $dbase.".$table_prefix."site_templates WHERE id=$templateid;";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 
-$row=mysql_fetch_assoc($rs);
+$row=mysqli_fetch_assoc($rs);
 $templatename = $row['templatename'];
 
 $_SESSION['itemname']=$content['pagetitle'];
 
 // keywords stuff, by stevew (thanks Steve!)
 $sql = "SELECT k.keyword FROM $dbase.".$table_prefix."site_keywords as k, $dbase.".$table_prefix."keyword_xref as x WHERE k.id = x.keyword_id AND x.content_id = $id ORDER BY k.keyword ASC";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 0) {
   for($i=0;$i<$limit;$i++) {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     $keywords[$i] = $row['keyword'];
   }
 } else {
@@ -354,43 +354,43 @@ return curtop;
     // get page impressions for today
     $tbl = "$dbase.".$table_prefix."log_access";
     $sql = "SELECT COUNT(*) FROM $tbl WHERE timestamp > '".$dayStart."' AND timestamp < '".$dayEnd."' AND document='".$id."'";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $piDay = $tmp['COUNT(*)'];
 
     // get page impressions for this month
     $tbl = "$dbase.".$table_prefix."log_access";
     $sql = "SELECT COUNT(*) FROM $tbl WHERE timestamp > '".$monthStart."' AND timestamp < '".$monthEnd."' AND document='".$id."'";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $piMonth = $tmp['COUNT(*)'];
 
     // get page impressions for all time
     $tbl = "$dbase.".$table_prefix."log_access";
     $sql = "SELECT COUNT(*) FROM $tbl WHERE document='".$id."'";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $piAll = $tmp['COUNT(*)'];
 
     // get visitors for today
     $tbl = "$dbase.".$table_prefix."log_access";
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $tbl WHERE timestamp > '".$dayStart."' AND timestamp < '".$dayEnd."' AND document='".$id."'";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $visDay = $tmp['COUNT(DISTINCT(visitor))'];
 
     // get visitors for this month
     $tbl = "$dbase.".$table_prefix."log_access";
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $tbl WHERE timestamp > '".$monthStart."' AND timestamp < '".$monthEnd."' AND document='".$id."'";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $visMonth = $tmp['COUNT(DISTINCT(visitor))'];
 
     // get visitors for all time
     $tbl = "$dbase.".$table_prefix."log_access";
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $tbl WHERE document='".$id."'";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $visAll = $tmp['COUNT(DISTINCT(visitor))'];
   ?>
 

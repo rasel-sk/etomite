@@ -11,12 +11,12 @@ if(IN_ETOMITE_SYSTEM != "true")
 
 // count messages
 $sql = "SELECT count(*) FROM $dbase.".$table_prefix."user_messages where recipient=".$_SESSION['internalKey']." and messageread=0;";
-$rs = mysql_query($sql);
-$row = mysql_fetch_assoc($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$row = mysqli_fetch_assoc($rs);
 $_SESSION['nrnewmessages'] = $row['count(*)'];
 $sql = "SELECT count(*) FROM $dbase.".$table_prefix."user_messages where recipient=".$_SESSION['internalKey']."";
-$rs = mysql_query($sql);
-$row = mysql_fetch_assoc($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$row = mysqli_fetch_assoc($rs);
 $_SESSION['nrtotalmessages'] = $row['count(*)'];
 $messagesallowed = $_SESSION['permissions']['messages'];
 

@@ -9,9 +9,10 @@ class SqlParser
   var $host, $dbname, $prefix, $user, $password, $mysqlErrors;
   var $conn, $installFailed, $sitename, $adminname, $adminpass;
 
-  function SqlParser($host, $user, $password, $db, $prefix='test_', $adminname, $adminpass)
+  function SqlParser($host, $user, $password, $db, $prefix='test_', $adminname, $adminpass, $host_port)
   {
     $this->host = $host;
+	$this->host_port = $host_port;
     $this->dbname = $db;
     $this->prefix = $prefix;
     $this->user = $user;
@@ -22,8 +23,8 @@ class SqlParser
 
   function connect()
   {
-    $this->conn = mysql_connect($this->host, $this->user, $this->password);
-    mysql_select_db($this->dbname, $this->conn);
+    $this->conn = mysqli_connect($this->host, $this->user, $this->password, null, $host_port);
+    mysqli_select_db($this->conn, $this->dbname);
   }
 
   function process($filename)
@@ -58,10 +59,10 @@ class SqlParser
       if($sql_do == null) continue;
 
       $num = $num + 1;
-      mysql_query($sql_do, $this->conn);
-      if(mysql_error())
+      mysqli_query($sql_do, $this->conn);
+      if(mysqli_error())
       {
-        $this->mysqlErrors[] = array("error" => mysql_error(), "sql" => $sql_do);
+        $this->mysqlErrors[] = array("error" => mysqli_error(), "sql" => $sql_do);
         $this->installFailed = true;
       }
     }
@@ -69,7 +70,7 @@ class SqlParser
 
   function close()
   {
-    @mysql_close($this->conn);
+    @mysqli_close($this->conn);
   }
 }
 

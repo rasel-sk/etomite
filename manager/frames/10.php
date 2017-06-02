@@ -47,11 +47,11 @@ function makeHTML($indent,$parent,$expandAll){
   }
   if($_SESSION['tree_sortby'] == 'isfolder') $orderby .= ", pagetitle";
 
-  $result = mysql_query("SELECT id, pagetitle, parent, isfolder, published, deleted, type, menuindex, alias FROM $dbase.".$table_prefix."site_content WHERE parent=$parent ORDER BY $orderby", $etomiteDBConn);
-  if(mysql_num_rows($result)==0) {
+  $result = mysqli_query("SELECT id, pagetitle, parent, isfolder, published, deleted, type, menuindex, alias FROM $dbase.".$table_prefix."site_content WHERE parent=$parent ORDER BY $orderby", $etomiteDBConn);
+  if(mysqli_num_rows($result)==0) {
     $output .= '<div style="white-space: nowrap;">'.$spacer.'<img align="absmiddle" src="media/images/tree/deletedpage.gif" width="18" height="18">&nbsp;<span class="emptyNode">'.$_lang['empty_folder'].'</span></div>';
   }
-  while(list($id,$pagetitle,$parent,$isfolder,$published,$deleted,$type,$menuindex,$alias) = mysql_fetch_row($result)){
+  while(list($id,$pagetitle,$parent,$isfolder,$published,$deleted,$type,$menuindex,$alias) = mysqli_fetch_row($result)){
     $pagetitleDisplay = $published==0 ? "<span class='unpublishedNode'>$pagetitle</span>" : "<span class='publishedNode'>$pagetitle</span>";
     $pagetitleDisplay = $deleted==1 ? "<span class='deletedNode'>$pagetitle</span>" : $pagetitleDisplay;
     $weblinkDisplay = $type=="reference" ? '&nbsp;<img align="absmiddle" src="media/images/tree/web.gif">' : '' ;

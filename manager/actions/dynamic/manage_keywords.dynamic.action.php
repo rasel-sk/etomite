@@ -12,8 +12,8 @@ if($_SESSION['permissions']['new_document']!=1) {
 }
 
 $sql = "SELECT * FROM $dbase.".$table_prefix."site_keywords ORDER BY keyword ASC";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 
 echo $_lang['keywords_intro']."<br /><br />" ;
 
@@ -27,7 +27,7 @@ function checkForm() {
 var requireConfirm=false;
 var deleteList="";
 <?php
-while($row=mysql_fetch_assoc($rs))
+while($row=mysqli_fetch_assoc($rs))
 {
 ?>
   if(document.getElementById('delete<?php echo $row['id']; ?>').checked==true) {
@@ -70,9 +70,9 @@ while($row=mysql_fetch_assoc($rs))
   <?php
     if($limit > 0)
     {
-      mysql_data_seek($rs, 0);
+      mysqli_data_seek($rs, 0);
     }
-    while($row = mysql_fetch_assoc($rs))
+    while($row = mysqli_fetch_assoc($rs))
     {
     ?>
     <tr>

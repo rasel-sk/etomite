@@ -32,6 +32,7 @@ switch ($multiplier)
 }
 $php_maxuploadsize = $php_maxuploadsize * $multiplier;
 // recalculate $maxuploadsize
+
 $etomite_maxuploadsize = trim($maxuploadsize);
 $multiplier = strtoupper(substr($etomite_maxuploadsize, -1));
 switch ($multiplier)
@@ -40,7 +41,11 @@ switch ($multiplier)
   case "K" : $multiplier = 1024; break;
   default: $multiplier = 1;
 }
-$etomite_maxuploadsize = $etomite_maxuploadsize * $multiplier;
+
+if (is_numeric($etomite_maxuploadsize))
+{
+	$etomite_maxuploadsize = $etomite_maxuploadsize * $multiplier;
+}
 
 $uploadmaxsize = ($etomite_maxuploadsize < $php_maxuploadsize && $etomite_maxuploadsize != "") ? $etomite_maxuploadsize : $php_maxuploadsize;
 // define allowable filetypes based on configuration settings

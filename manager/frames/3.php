@@ -17,13 +17,13 @@ if(isset($_POST['id'])&&isNumber($_POST['id'])&&isset($_POST['newparent'])&&isNu
    $udperms2->document = $_POST['newparent'];
    $udperms2->role = $_SESSION['role'];
 
-   $handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
-   mysql_set_charset($database_charset);
-   mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
+   $handle = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port)or die('Could not connect: ' . mysqli_error());
+   mysqli_set_charset($handle, $database_charset);
+   mysqli_select_db($handle, str_replace("`","",$dbase)) or die('Could not select database');
    $db = $dbase.".".$table_prefix;
    $sql = "SELECT id from ".$db."site_content WHERE id=" . $_POST['newparent'] . " AND parent=" . $_POST['id']; //Make sure the new parent doesn't have the child as parent!
-   $rs = mysql_query($sql) or die('Query failed: ' . mysql_error());
-   $row = mysql_fetch_row($rs);
+   $rs = mysqli_query($handle, $sql) or die('Query failed: ' . mysqli_error());
+   $row = mysqli_fetch_row($rs);
    if($_SESSION['permissions']['edit_document']!=1 || !$udperms->checkPermissions() || !$udperms2->checkPermissions())
         $allowed = false;
    else
@@ -31,11 +31,11 @@ if(isset($_POST['id'])&&isNumber($_POST['id'])&&isset($_POST['newparent'])&&isNu
    if( (!$row||count($row)<1) && $allowed) { //Ok we have a healthy parent/child relationship and have access rights
 
 	$sql = "UPDATE ".$db."site_content SET parent=" . $_POST['newparent'] . " WHERE id=" . $_POST['id'] ." LIMIT 1";
-	$rs = mysql_query($sql) or die('Query failed: BEGIN' . $sql . 'END ' . mysql_error());
+	$rs = mysqli_query($handle, $sql) or die('Query failed: BEGIN' . $sql . 'END ' . mysqli_error());
 	$sql = "UPDATE ".$db."site_content SET isfolder=1 WHERE id=" . $_POST['newparent'] ." LIMIT 1";
-	$rs = mysql_query($sql) or die('Query failed: ' . mysql_error());
+	$rs = mysqli_query($handle, $sql) or die('Query failed: ' . mysqli_error());
 	$sql = "UPDATE ".$db."site_content t1 LEFT JOIN ".$db."site_content t2 ON t1.id=t2.parent SET t1.isfolder=0 WHERE t2.parent IS NULL"; //Items should not be folders if they don't have any child documents
-	$rs = mysql_query($sql) or die('Query failed: ' . mysql_error());
+	$rs = mysqli_query($handle, $sql) or die('Query failed: ' . mysqli_error());
         $scriptToReturn="<script type=\"text/javascript\">ptmResetStates();document.body.scrollTop=" . $_POST['scrollTop'] . "; document.getElementById('workingmess').style.cursor = ''; document.getElementById('workingmess').style.display = 'none'; if(parent.main.document.mutate && parent.main.document.mutate.a && parent.main.document.mutate.a.value=='5' && parent.main.document.mutate.id.value=='".$_POST['id']."'){ parent.main.document.mutate.parent.value='".$_POST['newparent']."'; parent.main.document.getElementById('parentName').innerHTML = '".$_POST['newparent']."';}</script>";
    }
    else {
@@ -88,9 +88,9 @@ if(isset($_POST['id'])&&isNumber($_POST['id'])&&isset($_POST['newparent'])&&isNu
 $cwd = getcwd();
 include($cwd.'/includes/config.inc.php');
 /*  START: Connect to database and create the document tree  */
-$handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
-mysql_set_charset($database_charset);
-mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
+$handle = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port)or die('Could not connect: ' . mysqli_error());
+mysqli_set_charset($handle, $database_charset);
+mysqli_select_db($handle, str_replace("`","",$dbase)) or die('Could not select database');
 $db = $dbase.".".$table_prefix;
 
 
@@ -130,9 +130,9 @@ if(isset($_POST['id']) && isNumber($_POST['id']) && isset($_POST['orderby']) && 
     exit(0);
   }
 
-  $orderby = mysql_escape_string($_POST['orderby']);
+  $orderby = mysqli_escape_string($_POST['orderby']);
 
-  $listingarr = explode('&',str_replace('list[]=','',mysql_escape_string($_POST['listing'])));
+  $listingarr = explode('&',str_replace('list[]=','',mysqli_escape_string($_POST['listing'])));
   if($orderby=='DESC') {
     $listingarr = array_reverse($listingarr);
   }
@@ -148,33 +148,33 @@ if(isset($_POST['id']) && isNumber($_POST['id']) && isset($_POST['orderby']) && 
 
 
   $tomysql0 = "SELECT parent FROM ".$db."site_content WHERE id=" . $id;
-  $rs0 = mysql_query($tomysql0) or die('Query failed: ' . mysql_error());
+  $rs0 = mysqli_query($tomysql0) or die('Query failed: ' . mysqli_error());
   if($rs0==false) {
      echo "alert('Could not get current order from database');</script></head><body></body></html>";
      exit(0);
   }
   $DraggedParent="";
-  $DraggedParent = mysql_fetch_row($rs0);
+  $DraggedParent = mysqli_fetch_row($rs0);
 
 
 
 
   $testtext="";
   $firsttime=true;
-  $displayorder = str_replace('list[]=','',mysql_escape_string($_POST['listing']));
+  $displayorder = str_replace('list[]=','',mysqli_escape_string($_POST['listing']));
 
 
 
   if(strlen($DraggedParent[0])>0) {
      $tomysql1 = "SELECT id FROM ".$db."site_content WHERE parent=" . $DraggedParent[0];
 
-     $rs = mysql_query($tomysql1) or die('Query failed: ' . mysql_error());
+     $rs = mysqli_query($tomysql1) or die('Query failed: ' . mysqli_error());
      if($rs==false) {
         echo "alert('Could not get current order from database');</script></head><body></body></html>";
         exit(0);
      }
 
-     while(list($thisid) = mysql_fetch_row($rs)) {
+     while(list($thisid) = mysqli_fetch_row($rs)) {
         if(array_search($thisid,$listingarr)===false) {
           $testtext='';
           break;
@@ -207,7 +207,7 @@ if(isset($_POST['id']) && isNumber($_POST['id']) && isset($_POST['orderby']) && 
      }
      $tomysql2 .= "ELSE menuindex END";
      if($midcount>1)
-        $rs2 = mysql_query($tomysql2) or die('Query failed: ' . mysql_error());
+        $rs2 = mysqli_query($tomysql2) or die('Query failed: ' . mysqli_error());
      if($rs2==false) {
         echo "alert('Could not store new tree order in database');";
      }
@@ -228,8 +228,8 @@ if(isset($_POST['id']) && isNumber($_POST['id']) && isset($_POST['orderby']) && 
 
 
 $sql = "SELECT COUNT(*) FROM ".$db."site_content WHERE deleted=1";
-$rs = mysql_query($sql);
-$row = mysql_fetch_row($rs);
+$rs = mysqli_query($handle, $sql);
+$row = mysqli_fetch_row($rs);
 $count = $row[0];
 ?>
 
@@ -353,9 +353,9 @@ echo $menu;
 function generateMenu($handle,$id,$orderby,$sortDir,$fields,$level,$ptmLabel,$db,$ulid) { //SORTABLE EDIT: NEW PARAMETER IN DECLARATION
   global $_lang;
   $sql = "SELECT $fields FROM ".$db."site_content WHERE parent=$id ORDER BY ". $orderby." ".$sortDir.";";
-  $rs = mysql_query($sql) or die('Query failed: ' . mysql_error());
+  $rs = mysqli_query($handle, $sql) or die('Query failed: ' . mysqli_error());
   if($rs==false) return false;
-  while(list($id, $type, $pagetitle, $alias, $published, $parent, $isfolder, $menuindex, $deleted, $showinmenu) = mysql_fetch_row($rs)) {
+  while(list($id, $type, $pagetitle, $alias, $published, $parent, $isfolder, $menuindex, $deleted, $showinmenu) = mysqli_fetch_row($rs)) {
     $jsActions = " oncontextmenu=\"docid=".$id.";
                    pagetitle='".addslashes($pagetitle)."';
                    document.getElementById('contextmenu').style.top = document.body.scrollTop + 2 + 'px';

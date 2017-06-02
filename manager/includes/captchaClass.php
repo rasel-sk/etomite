@@ -39,13 +39,14 @@ class VeriWord {
 
   var $dir_font, $dir_noise, $word, $im_width, $im_height, $host, $user, $password, $dbase, $prefix;
 
-  function VeriWord($width=200, $height=80, $host, $user, $password, $dbase, $prefix)
+  function VeriWord($width=200, $height=80, $host, $user, $password, $dbase, $prefix, $host_port)
   {
     $this->dir_font = "fonts/";
     $this->dir_noise = "noises/";
     $this->im_width = $width;
     $this->im_height = $height;
     $this->host = $host;
+	$this->host_port = $host_port;
 	$this->user = $user;
     $this->password = $password;
     $this->dbase = $dbase;
@@ -72,14 +73,14 @@ class VeriWord {
     $words="Array,BitCode,Chunk,Document,Etomite,Forum,Index,Javascript,Keyword,MySQL,Parser,Query,Random,Snippet,Template,Website";
 
     // connect to the database
-    if(@$etomiteDBConn = mysql_connect($this->host, $this->user, $this->password)) {
-      mysql_set_charset($database_charset);
-      mysql_select_db($this->dbase);
+    if($etomiteDBConn = mysqli_connect($this->host, $this->user, $this->password, null, $this->host_port)) {
+      mysqli_set_charset($etomiteDBConn, $database_charset);
+      mysqli_select_db($etomiteDBConn, $this->dbase);
       $sql = "SELECT * FROM ".$this->dbase.".".$this->prefix."system_settings WHERE setting_name='captcha_words'";
-      $rs = mysql_query($sql);
-      $limit = mysql_num_rows($rs);
+      $rs = mysqli_query($etomiteDBConn, $sql);
+      $limit = mysqli_num_rows($rs);
       if($limit==1) {
-        $row = mysql_fetch_assoc($rs);
+        $row = mysqli_fetch_assoc($rs);
         $words = $row['setting_value'];
       }
     }

@@ -54,14 +54,14 @@ if($_SESSION['permissions']['logs']!=1 && $_REQUEST['a']==55)
 <?php
 // get all users currently in logging
 $sql = "SELECT DISTINCT(username) AS name, internalKey FROM $dbase.".$table_prefix."manager_log";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 ?>
 
     <select name="selecteduser" class="inputBox" style="width:240px">
     <option value="0"><?php echo $_lang['audit_trail_anyall']; ?></option>
 
 <?php
-while ($row = mysql_fetch_assoc($rs)) {
+while ($row = mysqli_fetch_assoc($rs)) {
   $seletedUser = $row['internalKey']==$_REQUEST['selecteduser'] ? "selected='selected'" : "" ;
 ?>
 
@@ -105,14 +105,14 @@ for($i = 1; $i < 1000; $i++)
 <?php
 // get all users currently in logging
 $sql = "SELECT DISTINCT(itemid) AS item, itemid FROM $dbase.".$table_prefix."manager_log";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 ?>
 
     <select name="itemid" class="inputBox" style="width:240px">
     <option value="0"><?php echo $_lang['audit_trail_anyall']; ?></option>
 
 <?php
-while ($row = mysql_fetch_assoc($rs))
+while ($row = mysqli_fetch_assoc($rs))
 {
   $selectedtext = $row['itemid']==$_REQUEST['itemid'] ? "selected='selected'" : "" ;
 ?>
@@ -134,14 +134,14 @@ while ($row = mysql_fetch_assoc($rs))
 <?php
 // get all users currently in logging
 $sql = "SELECT DISTINCT(itemname), itemname FROM $dbase.".$table_prefix."manager_log ORDER BY itemname;";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 ?>
 
     <select name="itemname" class="inputBox" style="width:240px">
     <option value="0"><?php echo $_lang['audit_trail_anyall']; ?></option>
 
 <?php
-while ($row = mysql_fetch_assoc($rs))
+while ($row = mysqli_fetch_assoc($rs))
 {
   $selectedtext = $row['itemname']==$_REQUEST['itemname'] ? "selected='selected'" : "" ;
 ?>
@@ -267,8 +267,8 @@ if($_REQUEST['datesortdir'] != '') $sqladd .= " ORDER BY timestamp " . $_REQUEST
 // Get  number of rows
 $sql = "SELECT count(id) FROM $dbase.".$table_prefix."manager_log WHERE 1=1";
 $sql .= $sqladd;
-$rs=mysql_query($sql);
-$countrows = mysql_fetch_assoc($rs);
+$rs=mysqli_query($etomiteDBConn, $sql);
+$countrows = mysqli_fetch_assoc($rs);
 $num_rows = $countrows['count(id)'];
 
 // ==============================================================
@@ -298,8 +298,8 @@ $sql = "SELECT * FROM $dbase.".$table_prefix."manager_log WHERE 1=1";
 $sql .= $sqladd;
 $sql .= " LIMIT ".$int_cur_position.", ".$int_num_result;
 
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit<1)
 {
   echo "<p>".$_lang['audit_trail_no_results']."<br />\n</div></div>";
@@ -362,7 +362,7 @@ print $array_paging['last_link'] .$_lang['audit_trail_paging_last']."</a>";
 
 <?php
       for ($i = 0; $i < $limit; $i++) {
-        $logentry = mysql_fetch_assoc($rs);
+        $logentry = mysqli_fetch_assoc($rs);
         $classname = ($i % 2) ? 'class="even" ' : 'class="odd" ';
 ?>
 

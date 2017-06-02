@@ -33,16 +33,16 @@ if(isset($_REQUEST['scope']) && isset($_REQUEST['start'])) {
 } else {
   $startdate = 0;
   $sql = "SELECT MIN(timestamp) AS first FROM $dbase.".$table_prefix."log_access";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $startdate = $tmp['first']-1;
   $enddate = time()+$server_offset_time;
   $scope = 'total';
 }
 // check to see the db's not empty...
 $sql = "SELECT timestamp FROM $dbase.".$table_prefix."log_access LIMIT 1";
-$rs = mysql_query($sql);
-$count = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$count = mysqli_num_rows($rs);
 if($count==0) {
 ?>
 
@@ -112,20 +112,20 @@ function showHide(what, onoff){
   <?php
     // get page impressions for all time
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $startdate AND timestamp < $enddate ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $pitotal = $tmp['COUNT(*)'];
 
     // get visits for all time
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE entry='1' AND timestamp > $startdate AND timestamp < $enddate ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vitotal = $tmp['COUNT(*)'];
 
     // get visitors for all time
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $startdate AND timestamp < $enddate ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vistotal = $tmp['COUNT(DISTINCT(visitor))'];
   ?>
 
@@ -196,20 +196,20 @@ function showHide(what, onoff){
 
     // get page impressions for time period
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $monthStart AND timestamp < $monthEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $pi = $tmp['COUNT(*)'];
 
     // get visits for time period
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE entry='1' AND timestamp > $monthStart AND timestamp < $monthEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vi = $tmp['COUNT(*)'];
 
     // get visitors for time period
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $monthStart AND timestamp < $monthEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vis = $tmp['COUNT(DISTINCT(visitor))'];
     if(($vis>0 || $vi>0 || $pi>0 || $firstResultsShown>0) && $monthStart<$maxResult) {
       $firstResultsShown = 1; // this is so we don't show emtpy months where no logging was done before we've actually output anything.
@@ -260,20 +260,20 @@ function showHide(what, onoff){
 
     // get page impressions for time period
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $dayStart AND timestamp < $dayEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $pi = $tmp['COUNT(*)'];
 
     // get visits for time period
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE entry='1' AND timestamp > $dayStart AND timestamp < $dayEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vi = $tmp['COUNT(*)'];
 
     // get visitors for time period
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $dayStart AND timestamp < $dayEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vis = $tmp['COUNT(DISTINCT(visitor))'];
   ?>
       <tr>
@@ -314,20 +314,20 @@ function showHide(what, onoff){
 
     // get page impressions for time period
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $hourStart AND timestamp < $hourEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $pi = $tmp['COUNT(*)'];
 
     // get visits for time period
     $sql = "SELECT COUNT(*) FROM $dbase.".$table_prefix."log_access WHERE entry='1' AND timestamp > $hourStart AND timestamp < $hourEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vi = $tmp['COUNT(*)'];
 
     // get visitors for time period
     $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $dbase.".$table_prefix."log_access WHERE timestamp > $hourStart AND timestamp < $hourEnd ";
-    $rs = mysql_query($sql);
-    $tmp = mysql_fetch_assoc($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $tmp = mysqli_fetch_assoc($rs);
     $vis = $tmp['COUNT(DISTINCT(visitor))'];
 
     $hour = strlen($i)==1 ? "0".$i : $i ;
@@ -379,17 +379,17 @@ $toplimit = !isset($top_howmany) || !is_numeric($top_howmany) ? 10 : $top_howman
   <?php
   // get page titles
   $sql = "SELECT id, pagetitle FROM $dbase.".$table_prefix."site_content";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
   $pagetitles = array();
-  while ($row = mysql_fetch_row($rs)) {
+  while ($row = mysqli_fetch_row($rs)) {
     $pagetitles[$row[0]] = $row[1];
   }
 
   $sql = "SELECT COUNT(document) AS hits, document FROM $dbase.".$table_prefix."log_access WHERE timestamp > $startdate AND timestamp < $enddate GROUP BY document ORDER BY hits DESC LIMIT $toplimit";
-  $rs = mysql_query($sql);
-  $actualRows = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $actualRows = mysqli_num_rows($rs);
   for($i=0;$i<$actualRows; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
   ?>
       <tr>
         <td class='row3' style="width:12.5%;"><?php echo $i+1; ?></td>
@@ -434,10 +434,10 @@ $toplimit = !isset($top_howmany) || !is_numeric($top_howmany) ? 10 : $top_howman
       </tr>
   <?php
   $sql = "SELECT COUNT(document) AS hits, document FROM $dbase.".$table_prefix."log_access WHERE timestamp > $startdate AND timestamp < $enddate AND entry=1 GROUP BY document ORDER BY hits DESC LIMIT $toplimit";
-  $rs = mysql_query($sql);
-  $actualRows = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $actualRows = mysqli_num_rows($rs);
   for($i=0;$i<$actualRows; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
   ?>
       <tr>
         <td class='row3' style="width:12.5%;"><?php echo $i+1; ?></td>
@@ -482,10 +482,10 @@ $toplimit = !isset($top_howmany) || !is_numeric($top_howmany) ? 10 : $top_howman
       </tr>
   <?php
   $sql = "SELECT COUNT(t1.document) AS hits, t2.data AS referer FROM $dbase.".$table_prefix."log_access AS t1, $dbase.".$table_prefix."log_referers AS t2 WHERE t1.referer = t2.id AND t1.timestamp > $startdate AND t1.timestamp < $enddate AND t2.data!='Unknown' AND t2.data!='Internal' GROUP BY referer ORDER BY hits DESC LIMIT $toplimit";
-  $rs = mysql_query($sql);
-  $actualRows = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $actualRows = mysqli_num_rows($rs);
   for($i=0;$i<$actualRows; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
     $referer = $tmp['referer'];
     $refererString = $referer!='Internal' && $referer!='Unknown' ? "<a href='$referer' target='_blank'>$referer</a>" : "-";
   ?>
@@ -532,10 +532,10 @@ $toplimit = !isset($top_howmany) || !is_numeric($top_howmany) ? 10 : $top_howman
       </tr>
   <?php
   $sql = "SELECT COUNT(DISTINCT(t3.visitor)) AS hits, t2.data AS ua FROM $dbase.".$table_prefix."log_visitors AS t1, $dbase.".$table_prefix."log_user_agents AS t2, $dbase.".$table_prefix."log_access AS t3 WHERE t3.visitor = t1.id AND t1.ua_id = t2.id AND t3.timestamp > $startdate AND t3.timestamp < $enddate GROUP BY ua ORDER BY hits DESC LIMIT $toplimit";
-  $rs = mysql_query($sql);
-  $actualRows = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $actualRows = mysqli_num_rows($rs);
   for($i=0;$i<$actualRows; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
   ?>
       <tr>
         <td class='row3' style="width:12.5%;"><?php echo $i+1; ?></td>
@@ -580,10 +580,10 @@ $toplimit = !isset($top_howmany) || !is_numeric($top_howmany) ? 10 : $top_howman
       </tr>
   <?php
   $sql = "SELECT COUNT(DISTINCT(t3.visitor)) AS hits, t2.data AS os FROM $dbase.".$table_prefix."log_visitors AS t1, $dbase.".$table_prefix."log_operating_systems AS t2, $dbase.".$table_prefix."log_access AS t3 WHERE t3.visitor = t1.id AND t1.os_id = t2.id AND t3.timestamp > $startdate AND t3.timestamp < $enddate GROUP BY os ORDER BY hits DESC LIMIT $toplimit";
-  $rs = mysql_query($sql);
-  $actualRows = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $actualRows = mysqli_num_rows($rs);
   for($i=0;$i<$actualRows; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
   ?>
       <tr>
         <td class='row3' style="width:12.5%;"><?php echo $i+1; ?></td>
@@ -628,10 +628,10 @@ $toplimit = !isset($top_howmany) || !is_numeric($top_howmany) ? 10 : $top_howman
       </tr>
   <?php
   $sql = "SELECT COUNT(DISTINCT(t3.visitor)) AS hits, t2.data AS hostname FROM $dbase.".$table_prefix."log_visitors AS t1, $dbase.".$table_prefix."log_hosts AS t2, $dbase.".$table_prefix."log_access AS t3 WHERE t3.visitor = t1.id AND t1.host_id = t2.id AND t3.timestamp > $startdate AND t3.timestamp < $enddate GROUP BY hostname ORDER BY hits DESC LIMIT $toplimit";
-  $rs = mysql_query($sql);
-  $actualRows = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $actualRows = mysqli_num_rows($rs);
   for($i=0;$i<$actualRows; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
   ?>
       <tr>
         <td class='row3' style="width:12.5%;"><?php echo $i+1; ?></td>

@@ -50,11 +50,11 @@ switch ($_POST['mode']) {
   }
   // check this user doesn't already exist
   $sql = "SELECT id FROM $dbase.".$table_prefix."manager_users WHERE username='$newusername'";
-  if(!$rs = mysql_query($sql)){
+  if(!$rs = mysqli_query($etomiteDBConn, $sql)){
     echo "An error occured while attempting to retreive all users with username $newusername.";
     exit;
   }
-  $limit = mysql_num_rows($rs);
+  $limit = mysqli_num_rows($rs);
   if($limit>0) {
     echo "Username is already in use!<p>";
     exit;
@@ -80,18 +80,18 @@ switch ($_POST['mode']) {
   // build the SQL
   $sql = "INSERT INTO $dbase.".$table_prefix."manager_users(username, password)
       VALUES('".$newusername."', md5('".$newpassword."'));";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
   if(!$rs){
     echo "An error occured while attempting to save the user.";
     exit;
   }
   // now get the id
-  if(!$key=mysql_insert_id()) {
+  if(!$key=mysqli_insert_id()) {
     //get the key by sql
   }
   $sql = "INSERT INTO $dbase.".$table_prefix."user_attributes(internalKey, fullname, role, email, phone, mobilephone)
       VALUES($key, '$fullname', '$role', '$email', '$phone', '$mobilephone');";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
   if(!$rs){
     echo "An error occured while attempting to save the user's attributes.";
     exit;
@@ -103,7 +103,7 @@ switch ($_POST['mode']) {
       if(count($user_groups)>0) {
         foreach ($user_groups as $groupKey => $value) {
           $sql = "INSERT INTO $dbase.".$table_prefix."member_groups(user_group, member) values(".stripslashes($groupKey).", $key)";
-          $rs = mysql_query($sql);
+          $rs = mysqli_query($etomiteDBConn, $sql);
           if(!$rs){
             echo "An error occured while attempting to add the user to a user_group.";
             exit;
@@ -185,13 +185,13 @@ switch ($_POST['mode']) {
 
   // build the SQL to check the username doesn't exist yet
   $sql = "SELECT id FROM $dbase.".$table_prefix."manager_users WHERE username='$newusername'";
-  if(!$rs = mysql_query($sql)){
+  if(!$rs = mysqli_query($etomiteDBConn, $sql)){
     echo "An error occured while attempting to retreive all users with username $newusername.";
     exit;
   }
-  $limit = mysql_num_rows($rs);
+  $limit = mysqli_num_rows($rs);
   if($limit>0) {
-    $row=mysql_fetch_assoc($rs);
+    $row=mysqli_fetch_assoc($rs);
     if($row['id']!=$id) {
       echo "Username is already in use!<p>";
       exit;
@@ -199,13 +199,13 @@ switch ($_POST['mode']) {
   }
 
   $sql = "UPDATE $dbase.".$table_prefix."manager_users SET username='$newusername'".$updatepasswordsql." WHERE id=$id";
-  if(!$rs = mysql_query($sql)){
+  if(!$rs = mysqli_query($etomiteDBConn, $sql)){
     echo "An error occured while attempting to update the user's data.";
     exit;
   }
   $sql = "UPDATE $dbase.".$table_prefix."user_attributes SET fullname='$fullname', role='$role', email='$email', phone='$phone',
       mobilephone='$mobilephone', failedlogincount='$failedlogincount', blocked=$blocked, blockeduntil='$blockeduntil' WHERE internalKey=$id";
-  if(!$rs = mysql_query($sql)){
+  if(!$rs = mysqli_query($etomiteDBConn, $sql)){
     echo "An error occured while attempting to update the user's attributes.";
     exit;
   }
@@ -215,7 +215,7 @@ switch ($_POST['mode']) {
   if($use_udperms==1) {
     // as this is an existing user, delete his/ her entries in the groups before saving the new groups
     $sql = "DELETE FROM $dbase.".$table_prefix."member_groups WHERE member=$id;";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs){
       echo "An error occured while attempting to delete previous user_groups entries.";
       exit;
@@ -223,7 +223,7 @@ switch ($_POST['mode']) {
     if(count($user_groups)>0) {
       foreach ($user_groups as $key => $value) {
         $sql = "INSERT INTO $dbase.".$table_prefix."member_groups(user_group, member) values(".stripslashes($key).", $id)";
-        $rs = mysql_query($sql);
+        $rs = mysqli_query($etomiteDBConn, $sql);
         if(!$rs){
           echo "An error occured while attempting to add the user to a user_group.<br />$sql;";
           exit;

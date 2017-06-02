@@ -19,13 +19,13 @@ if($_SESSION['permissions']['settings']!=1 && $_REQUEST['a']==17) {
 
 // check to see the edit settings page isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.action=17";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 1)
 {
   for ($i=0; $i < $limit; $i++)
   {
-    $lock = mysql_fetch_assoc($rs);
+    $lock = mysqli_fetch_assoc($rs);
     if($lock['internalKey']!=$_SESSION['internalKey'])
     {
       $msg = $lock['username']." is currently editing these settings. Please wait until the other user has finished and try again.";
@@ -474,11 +474,11 @@ function xp_select(state)
           <td>
             <?php
               $sql = "SELECT templatename, id FROM $dbase.".$table_prefix."site_templates ORDER BY templatename";
-              $rs = mysql_query($sql);
+              $rs = mysqli_query($etomiteDBConn, $sql);
             ?>
             <select name="default_template" class="inputBox" onChange='documentDirty=true;' style="width:150px">
             <?php
-            while ($row = mysql_fetch_assoc($rs)) {
+            while ($row = mysqli_fetch_assoc($rs)) {
                 $selectedtext = $row['id']==$default_template ? "selected='selected'" : "" ;
             ?>
               <option value="<?php echo $row['id']; ?>" <?php echo $selectedtext; ?>><?php echo $row['templatename']; ?></option>

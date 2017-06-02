@@ -13,32 +13,32 @@ if($_SESSION['permissions']['settings'] != 1 && $_REQUEST['a'] == 56)
 }
 
 //  START: Connect to database
-$handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
-mysql_set_charset($database_charset);
-mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
+$handle = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port)or die('Could not connect: ' . mysqli_error());
+mysqli_set_charset($handle, $database_charset);
+mysqli_select_db($handle, str_replace("`","",$dbase)) or die('Could not select database');
 $db = $dbase.".".$table_prefix;
 
 // Empty visitor related logging tables
 $sql = "TRUNCATE TABLE ".$db."log_access;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $sql = "TRUNCATE TABLE ".$db."log_hosts;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $sql = "TRUNCATE TABLE ".$db."log_operating_systems;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $sql = "TRUNCATE TABLE ".$db."log_referers;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $sql = "TRUNCATE TABLE ".$db."log_totals;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $sql = "TRUNCATE TABLE ".$db."log_user_agents;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $sql = "TRUNCATE TABLE ".$db."log_visitors;";
-$rs = @ mysql_query($sql);
+$rs = @ mysqli_query($etomiteDBConn, $sql);
 
 $header="Location: index.php?a=68";
 header($header);

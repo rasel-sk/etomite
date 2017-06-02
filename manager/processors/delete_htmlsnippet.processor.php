@@ -16,7 +16,7 @@ if($_SESSION['permissions']['delete_chunk'] != 1 && $_REQUEST['a'] == 80)
 $id = (int)$_GET['id'];
 // attempt to delete the chunk
 $sql = "DELETE FROM $dbase.".$table_prefix."site_htmlsnippets WHERE $dbase.".$table_prefix."site_htmlsnippets.id=".$id.";";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to delete the htmlsnippet...";

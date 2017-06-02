@@ -16,11 +16,11 @@ if($role=="") $role=0;
 
 // check to see the role editor isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.action=35 and $dbase.".$table_prefix."active_users.id=$role";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit>1) {
   for ($i=0;$i<$limit;$i++) {
-    $lock = mysql_fetch_assoc($rs);
+    $lock = mysqli_fetch_assoc($rs);
     if($lock['internalKey']!=$_SESSION['internalKey']) {
       $msg = $lock['username']." is currently editing this role. Please wait until the other user has finished and try again.";
       $e->setError(5, $msg);
@@ -32,8 +32,8 @@ if($limit>1) {
 
 if($_REQUEST['a']==35) {
   $sql = "SELECT * FROM $dbase.".$table_prefix."user_roles WHERE $dbase.".$table_prefix."user_roles.id=".$role.";";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit>1) {
     echo "More than one role returned!<p>";
     exit;
@@ -42,7 +42,7 @@ if($_REQUEST['a']==35) {
     echo "No role returned!<p>";
     exit;
   }
-  $roledata = mysql_fetch_assoc($rs);
+  $roledata = mysqli_fetch_assoc($rs);
   $_SESSION['itemname']=$roledata['name'];
 } else {
   $roledata = 0;

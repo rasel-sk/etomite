@@ -209,19 +209,25 @@ exit;
                 <p>Please enter the name of the database you've created for Etomite. If you haven't created<br />
                   a database yet, Etomite will attempt to do so for you, but this may fail depending on the <br />
                   MySQL setup your host uses.</p>
-                <p><span class="labelHolder"><label for="databasename">Database name:</label></span><input type="text" id="databasename" name="databasename" style="width:200px" value="etomite" /><br />
+
+				<p><span class="labelHolder"><label for="databasename">Database name:</label></span><input type="text" id="databasename" name="databasename" style="width:200px" value="etomite" /><br />
                 <span class="labelHolder"><label for="tableprefix">Table prefix:</label></span><input type="text" id="tableprefix" name="tableprefix" style="width:200px" value="etomite_" /></p>
                 <p>Now please enter the login data for your database.</p>
+
                 <p><span class="labelHolder"><label for="databasehost">Database host:</label></span><input type="text" id="databasehost" name="databasehost" value="localhost" style="width:200px" /><br />
+				<span class="labelHolder"><label for="databasehost_port">Database host port:</label></span><input type="text" id="databasehost_port" name="databasehost_port" value="" style="width:200px" /><br />
                 <span class="labelHolder"><label for="databaseloginname">Database login name:</label></span><input type="text" id="databaseloginname" name="databaseloginname" style="width:200px" /><br />
                 <span class="labelHolder"><label for="databaseloginpassword">Database password:</label></span><input type="password" id="databaseloginpassword" name="databaseloginpassword" style="width:200px" /></p>
+
                 <p>Now you'll need to enter some details for the main Etomite administrator account.<br />
                   You can fill in your own name here, and a password you're not likely to forget. <br />
                   You'll need these to log into Etomite once setup is complete.</p>
-                <p><span class="labelHolder"><label for="cmsadmin">Administrator username:</label></span><input type="text" id="cmsadmin" name="cmsadmin" style="width:200px" value="admin" /><br />
+                
+				<p><span class="labelHolder"><label for="cmsadmin">Administrator username:</label></span><input type="text" id="cmsadmin" name="cmsadmin" style="width:200px" value="admin" /><br />
                 <span class="labelHolder"><label for="cmspassword">Administrator password:</label></span><input type="password" id="cmspassword" name="cmspassword" style="width:200px" value="" /><br />
                 <span class="labelHolder"><label for="cmspasswordconfirm">Confirm password:</label></span><input type="password" id="cmspasswordconfirm" name="cmspasswordconfirm" style="width:200px" value="" /></p>
-                <p><input type="submit" value="Setup Etomite!" /></p>
+                
+				<p><input type="submit" value="Setup Etomite!" /></p>
               </form>
           </td>
         </tr>

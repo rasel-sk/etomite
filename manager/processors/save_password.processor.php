@@ -28,7 +28,7 @@ if(strlen($pass1) < 6)
 }
 
 $sql = "UPDATE $dbase.".$table_prefix."manager_users SET password=md5('".$pass1."') where id=".$_SESSION['internalKey'].";";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 
 if(!$rs)
 {

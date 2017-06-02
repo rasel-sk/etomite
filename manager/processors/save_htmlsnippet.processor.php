@@ -16,16 +16,16 @@ switch ($_POST['mode'])
 {
   case '78':
     //do stuff to save the new doc
-    $snippet = mysql_escape_string($_POST['post']);
-    $name = mysql_escape_string(htmlentities($_POST['name']));
-    $description = mysql_escape_string(htmlentities($_POST['description']));
+    $snippet = mysqli_escape_string($_POST['post']);
+    $name = mysqli_escape_string(htmlentities($_POST['name']));
+    $description = mysqli_escape_string(htmlentities($_POST['description']));
     $locked = $_POST['locked'] == 'on' ? 1 : 0 ;
     if($name == "")
     {
       $name = "Untitled HTMLSsnippet";
     }
     $sql = "INSERT INTO $dbase.".$table_prefix."site_htmlsnippets(name, description, snippet, locked) VALUES('".$name."', '".$description."', '".$snippet."', '".$locked."');";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "\$rs not set! New htmlsnippet not saved!";
@@ -33,7 +33,7 @@ switch ($_POST['mode'])
     else
     {
       // get the id
-      if(!$newid = mysql_insert_id())
+      if(!$newid = mysqli_insert_id())
       {
         echo "Couldn't get last insert key!";
         exit;
@@ -60,9 +60,9 @@ switch ($_POST['mode'])
 
   case '77':
     //do stuff to save the edited doc
-    $snippet = mysql_escape_string($_POST['post']);
-    $name = mysql_escape_string(htmlentities($_POST['name']));
-    $description = mysql_escape_string(htmlentities($_POST['description']));
+    $snippet = mysqli_escape_string($_POST['post']);
+    $name = mysqli_escape_string(htmlentities($_POST['name']));
+    $description = mysqli_escape_string(htmlentities($_POST['description']));
     $locked = $_POST['locked'] == 'on' ? 1 : 0 ;
     if($name == "")
     {
@@ -70,7 +70,7 @@ switch ($_POST['mode'])
     }
     $id = $_POST['id'];
     $sql = "UPDATE $dbase.".$table_prefix."site_htmlsnippets SET name='".$name."', description='".$description."', snippet='".$snippet."', locked='".$locked."' WHERE id='".$id."';";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "\$rs not set! Edited htmlsnippet not saved!";

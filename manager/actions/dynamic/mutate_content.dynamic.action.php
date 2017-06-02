@@ -24,18 +24,18 @@ if(isset($_POST['aliasUniqueCheck']))
   $cwd = getcwd();
   include($cwd.'/../../includes/config.inc.php');
 
-  $handle = mysql_connect($database_server, $database_user, $database_password)or die('Could not connect: ' . mysql_error());
-  mysql_set_charset($database_charset);
-  mysql_select_db(str_replace("`","",$dbase)) or die('Could not select database');
+  $handle = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port)or die('Could not connect: ' . mysqli_error());
+  mysqli_set_charset($handle, $database_charset);
+  mysqli_select_db($handle, str_replace("`","",$dbase)) or die('Could not select database');
 
   $aliassql = "SELECT alias FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.alias = \"" . $alias . "\" LIMIT 1";
-  $aliasrs = mysql_query($aliassql);
+  $aliasrs = mysqli_query($aliassql);
   if(!$aliasrs)
   {
     echo "The following SQL query failed: " . $aliassql;
     exit(0);
   }
-  $alreadyInDb = mysql_num_rows($aliasrs);
+  $alreadyInDb = mysqli_num_rows($aliasrs);
   echo "<script language=\"javascript\">if(document.getElementById('aliasbox') && document.getElementById('aliasUniqueMessage') && document.mutate.alias.value == '" . $alias . "') {";
   if($alreadyInDb<1)
   {
@@ -168,13 +168,13 @@ else
 
 // check to see the document isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.action=27 AND $dbase.".$table_prefix."active_users.id=$id";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 1)
 {
   for ($i=0; $i < $limit; $i++)
   {
-    $lock = mysql_fetch_assoc($rs);
+    $lock = mysqli_fetch_assoc($rs);
     if($lock['internalKey'] != $_SESSION['internalKey'])
     {
       $msg = "The document is currently being edited by ".$lock['username']." and cannot be opened.";
@@ -189,8 +189,8 @@ if($limit > 1)
 if(isset($_GET['id']))
 {
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.id = $id;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 1)
   {
     $e->setError(6);
@@ -201,7 +201,7 @@ if(isset($_GET['id']))
     $e->setError(7);
     $e->dumpError();
   }
-  $content = mysql_fetch_assoc($rs);
+  $content = mysqli_fetch_assoc($rs);
 }
 else
 {
@@ -210,13 +210,13 @@ else
 
 // get list of site keywords, code by stevew!
 $sql = "SELECT * FROM $dbase.".$table_prefix."site_keywords ORDER BY keyword;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 0)
 {
   for($i=0; $i < $limit; $i++)
   {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     $keywords[$row['id']] = $row['keyword'];
   }
 }
@@ -229,13 +229,13 @@ else
 if(isset($content['id']) && count($keywords) > 0)
 {
   $sql = "SELECT keyword_id FROM $dbase.".$table_prefix."keyword_xref WHERE content_id = ".$content['id'];
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 0)
   {
     for($i=0; $i < $limit; $i++)
     {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $keywords_selected[$row['keyword_id']] = "selected";
     }
   }
@@ -774,14 +774,14 @@ else
           else
           {
             $sql = "SELECT pagetitle FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.id = ".$content['parent'].";";
-            $rs = mysql_query($sql);
-            $limit = mysql_num_rows($rs);
+            $rs = mysqli_query($etomiteDBConn, $sql);
+            $limit = mysqli_num_rows($rs);
             if($limit!=1)
             {
               $e->setError(8);
               $e->dumpError();
             }
-            $parentrs = mysql_fetch_assoc($rs);
+            $parentrs = mysqli_fetch_assoc($rs);
             $parentname = $parentrs['pagetitle'];
           }
         }
@@ -794,14 +794,14 @@ else
           else
           {
             $sql = "SELECT pagetitle FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.id = ".$_GET['pid'].";";
-            $rs = mysql_query($sql);
-            $limit = mysql_num_rows($rs);
+            $rs = mysqli_query($etomiteDBConn, $sql);
+            $limit = mysqli_num_rows($rs);
             if($limit!=1)
             {
               $e->setError(8);
               $e->dumpError();
             }
-            $parentrs = mysql_fetch_assoc($rs);
+            $parentrs = mysqli_fetch_assoc($rs);
             $parentname = $parentrs['pagetitle'];
           }
         }
@@ -974,14 +974,14 @@ else
 <?php
 
           $sql = "select templatename, id from $dbase.".$table_prefix."site_templates ORDER BY templatename ASC";
-          $rs = mysql_query($sql);
+          $rs = mysqli_query($etomiteDBConn, $sql);
 
 ?>
 
           <select name="template" class="inputBox" onChange='documentDirty=true;' style="width:150px">
 
 <?php
-          while ($row = mysql_fetch_assoc($rs))
+          while ($row = mysqli_fetch_assoc($rs))
           {
             if(isset($content['template']))
             {
@@ -1065,11 +1065,11 @@ if($use_udperms==1)
   if($_GET['a']=='27')
   { // fetch permissions on the document from the database
     $sql = "SELECT * FROM $dbase.".$table_prefix."document_groups where document=".$id;
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     for ($i = 0; $i < $limit; $i++)
     {
-      $currentgroup=mysql_fetch_assoc($rs);
+      $currentgroup=mysqli_fetch_assoc($rs);
       $groupsarray[$i] = $currentgroup['document_group'];
     }
   }
@@ -1083,11 +1083,11 @@ if($use_udperms==1)
       AND $dbase.".$table_prefix."membergroup_access.membergroup = $dbase.".$table_prefix."member_groups.user_group
       AND $dbase.".$table_prefix."member_groups.member = " . $_SESSION['internalKey'];
 
-      $rs = mysql_query($sql)or die("Could not get the user's document groups from the database: " . mysql_error());
-      $limit = mysql_num_rows($rs);
+      $rs = mysqli_query($etomiteDBConn, $sql)or die("Could not get the user's document groups from the database: " . mysqli_error());
+      $limit = mysqli_num_rows($rs);
       for ($i = 0; $i < $limit; $i++)
       {
-        $currentgroup=mysql_fetch_assoc($rs);
+        $currentgroup=mysqli_fetch_assoc($rs);
         $groupsarray[$i] = $currentgroup['id'];
       }
     }
@@ -1096,11 +1096,11 @@ if($use_udperms==1)
       if(!empty($_REQUEST['pid']))
       {  // Set permissions based on the parent document
         $sql = "SELECT * FROM $dbase.".$table_prefix."document_groups where document=".$_REQUEST['pid'];
-        $rs = mysql_query($sql);
-        $limit = mysql_num_rows($rs);
+        $rs = mysqli_query($etomiteDBConn, $sql);
+        $limit = mysqli_num_rows($rs);
         for($i = 0; $i < $limit; $i++)
         {
-          $currentgroup=mysql_fetch_assoc($rs);
+          $currentgroup=mysqli_fetch_assoc($rs);
           $groupsarray[$i] = $currentgroup['document_group'];
         }
       }
@@ -1126,11 +1126,11 @@ if($use_udperms==1)
 <?php
   }
       $sql = "SELECT name, id FROM $dbase.".$table_prefix."documentgroup_names";
-      $rs = mysql_query($sql);
-      $limit = mysql_num_rows($rs);
+      $rs = mysqli_query($etomiteDBConn, $sql);
+      $limit = mysqli_num_rows($rs);
       for($i=0; $i<$limit; $i++)
       {
-        $row=mysql_fetch_assoc($rs);
+        $row=mysqli_fetch_assoc($rs);
         if($_SESSION['permissions']['access_permissions']==1)
         {
 

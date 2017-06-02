@@ -32,13 +32,13 @@ class udperms{
 
     // get the groups this user is a member of
     $sql = "SELECT * FROM $dbase.".$table_prefix."member_groups WHERE $dbase.".$table_prefix."member_groups.member = $user;";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1) {
       return false;
     }
     for($i=0; $i < $limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $membergroups[$i] = $row['user_group'];
     }
 
@@ -46,14 +46,14 @@ class udperms{
 
     // get the permissions for the groups this user is a member of
     $sql = "SELECT * FROM $dbase.".$table_prefix."membergroup_access WHERE $dbase.".$table_prefix."membergroup_access.membergroup IN($list);";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1) {
       return false;
     }
     
     for($i=0; $i < $limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $documentgroups[$i] = $row['documentgroup'];
     }
     
@@ -61,14 +61,14 @@ class udperms{
 
     // get the groups this user has permissions for
     $sql = "SELECT * FROM $dbase.".$table_prefix."document_groups WHERE $dbase.".$table_prefix."document_groups.document_group IN($list);";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1) {
       return false;
     }
     
     for($i=0; $i < $limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       if($row['document']==$document) {
         $permissionsok = true;
       }

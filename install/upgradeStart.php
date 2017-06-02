@@ -86,6 +86,8 @@ if($noConfig != true) {
   if(empty($database_server)
   || strpos($database_server, "{") !== false
   || strpos($database_server, "}") !== false
+  || strpos($database_server_port, "{") !== false
+  || strpos($database_server_port, "}") !== false
   || strpos($database_user, "{") !== false
   || strpos($database_user, "}") !== false
   || strpos($database_password, "{") !== false

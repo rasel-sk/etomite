@@ -63,7 +63,11 @@ if($php_ver_comp < 0)
 // set some runtime options
 ini_set("include_path",ini_get("include_path").PATH_SEPARATOR.dirname(__FILE__)."/includes/");
 error_reporting(E_ALL ^ E_NOTICE);
-@set_magic_quotes_runtime(0);
+
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+    @set_magic_quotes_runtime(0);
+}
+
 include_once("includes/quotes_stripper.inc.php");
 
 // include the html_entity_decode fake function :)
@@ -109,14 +113,14 @@ if(!file_exists($config_filename))
 include_once($config_filename);
 
 // connect to the database
-if(@!$etomiteDBConn = mysql_connect($database_server, $database_user, $database_password))
+if(!$etomiteDBConn = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port))
 {
   die("Failed to create the database connection!");
 }
 else
 {
-  mysql_set_charset($database_charset);
-  mysql_select_db($dbase);
+  mysqli_set_charset($etomiteDBConn, $database_charset);
+  mysqli_select_db(@$etomiteDBConn, $dbase);
 }
 
 // get the settings from the database

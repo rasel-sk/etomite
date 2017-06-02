@@ -22,6 +22,7 @@ class logHandler{
   var $itemName; // not required, not used?
   var $loggingError; // internal variable
 
+  var $connection;
 
 
   function logError($msg) {
@@ -51,6 +52,22 @@ class logHandler{
   // collects all required info, and
   // writes it to the logging table
   function writeToLog() {
+	  
+	  	// include_once config file
+	$config_filename = __DIR__ . "/config.inc.php";
+	
+	if(!file_exists($config_filename))
+	{
+	   print "(Log) Main configuration file '$config_filename' not found. Please run the Etomite installer.<p>Check the documentation for more information.";
+	   exit;
+	}
+	
+	// include the database configuration file
+	require $config_filename;
+	
+	//var_dump($config_filename);
+
+	$this->connection = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port);
 
     global $table_prefix;
     global $dbase;
@@ -74,7 +91,7 @@ class logHandler{
 
     $sql = "INSERT INTO $dbase.".$table_prefix."manager_log(timestamp, internalKey, username, action, itemid, itemname, message) VALUES('".time()."', '".$this->internalKey."', '".$this->username."'";
     $sql .= ", '".$this->action."', '".$this->itemId."', '".$this->itemName."', '".$this->msg."')";
-    if(!$rs=mysql_query($sql)) {
+    if(!$rs=mysqli_query($this->connection, $sql)) {
       $this->logError("couldn't save log to table!");
       return true;
     }

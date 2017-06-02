@@ -15,6 +15,7 @@
 $config_release = "1.1";
 $database_type = "mysql";
 $database_server = "{HOST}";
+$database_server_port = "{HOST_PORT}";
 $database_user = "{USER}";
 $database_password = "{PASS}";
 $database_charset = "utf8";

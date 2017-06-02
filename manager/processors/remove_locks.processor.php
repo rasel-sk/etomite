@@ -12,7 +12,7 @@ if($_SESSION['permissions']['settings'] != 1 && $_REQUEST['a'] == 67)
 
 // Remove locks
 $sql = "TRUNCATE $dbase.".$table_prefix."active_users";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to remove the locks!";

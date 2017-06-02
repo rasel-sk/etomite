@@ -29,7 +29,7 @@ switch ($operation)
     else
     {
       $sql = "INSERT INTO $dbase.".$table_prefix."membergroup_names(name) VALUES('".$newgroup."')";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Failed to insert new group. Possible duplicate group name?";
         exit;
@@ -47,7 +47,7 @@ switch ($operation)
     else
     {
       $sql = "INSERT INTO $dbase.".$table_prefix."documentgroup_names(name) VALUES('".$newgroup."')";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Failed to insert new group. Possible duplicate group name?";
         exit;
@@ -65,19 +65,19 @@ switch ($operation)
     else
     {
       $sql = "DELETE FROM $dbase.".$table_prefix."membergroup_names WHERE id='".$usergroup."'";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Unable to delete group. SQL failed.";
         exit;
       }
       $sql = "DELETE FROM $dbase.".$table_prefix."membergroup_access WHERE membergroup='".$usergroup."'";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Unable to delete group from access table. SQL failed.";
         exit;
       }
       $sql = "DELETE FROM $dbase.".$table_prefix."member_groups WHERE user_group='".$usergroup."'";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Unable to delete user-group links. SQL failed.";
         exit;
@@ -95,19 +95,19 @@ switch ($operation)
     else
     {
       $sql = "DELETE FROM $dbase.".$table_prefix."documentgroup_names WHERE id='".$group."'";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Unable to delete group. SQL failed.";
         exit;
       }
       $sql = "DELETE FROM $dbase.".$table_prefix."membergroup_access WHERE documentgroup='".$group."'";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Unable to delete group from access table. SQL failed.";
         exit;
       }
       $sql = "DELETE FROM $dbase.".$table_prefix."document_groups WHERE document_group='".$group."'";
-      if(!$rs = mysql_query($sql))
+      if(!$rs = mysqli_query($etomiteDBConn, $sql))
       {
         echo "Unable to delete document-group links. SQL failed.";
         exit;
@@ -129,7 +129,7 @@ switch ($operation)
       exit;
     }
     $sql = "UPDATE $dbase.".$table_prefix."membergroup_names SET name='".$newgroupname."' WHERE id='".$groupid."' LIMIT 1";
-    if(!$rs = mysql_query($sql))
+    if(!$rs = mysqli_query($etomiteDBConn, $sql))
     {
       echo "Failed to update group name. Possible duplicate group name?";
       exit;
@@ -150,7 +150,7 @@ switch ($operation)
       exit;
     }
     $sql = "UPDATE $dbase.".$table_prefix."documentgroup_names SET name='".$newgroupname."' WHERE id='".$groupid."' LIMIT 1";
-    if(!$rs = mysql_query($sql))
+    if(!$rs = mysqli_query($etomiteDBConn, $sql))
     {
       echo "Failed to update group name. Possible duplicate group name?";
       exit;
@@ -161,12 +161,12 @@ switch ($operation)
     $usergroup = $_REQUEST['usergroup'];
     $docgroup = $_REQUEST['docgroup'];
     $sql = "SELECT * FROM $dbase.".$table_prefix."membergroup_access WHERE membergroup='$usergroup' AND documentgroup='$docgroup'";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit <= 0)
     {
       $sql = "INSERT INTO $dbase.".$table_prefix."membergroup_access(membergroup, documentgroup) VALUES('".$usergroup."', '".$docgroup."')";
-      if(!$rs = mysql_query($sql)) {
+      if(!$rs = mysqli_query($etomiteDBConn, $sql)) {
         echo "Failed to link document group to user group";
         exit;
       }
@@ -180,7 +180,7 @@ switch ($operation)
   case "remove_document_group_from_user_group" :
     $coupling = $_REQUEST['coupling'];
     $sql = "DELETE FROM $dbase.".$table_prefix."membergroup_access WHERE id='".$coupling."'";
-    if(!$rs = mysql_query($sql))
+    if(!$rs = mysqli_query($etomiteDBConn, $sql))
     {
       echo "Failed to remove document group from user group";
       exit;

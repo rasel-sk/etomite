@@ -42,6 +42,7 @@ class etomite {
   // Class constructor function used for instantiation
   function etomite() {
     $this->dbConfig['host'] = $GLOBALS['database_server'];
+	$this->dbConfig['host_port'] = $GLOBALS['database_server_port'];
     $this->dbConfig['dbase'] = $GLOBALS['dbase'];
     $this->dbConfig['user'] = $GLOBALS['database_user'];
     $this->dbConfig['pass'] = $GLOBALS['database_password'];
@@ -1317,11 +1318,11 @@ title='$siteName'>$siteName</a></h2>
   function dbConnect() {
   // function to connect to the database
     $tstart = $this->getMicroTime();
-    if(@!$this->rs = mysql_connect($this->dbConfig['host'], $this->dbConfig['user'], $this->dbConfig['pass'])) {
+	if(!$this->rs = mysqli_connect($this->dbConfig['host'], $this->dbConfig['user'], $this->dbConfig['pass'], null, $this->dbConfig['host_port'])) {
       $this->messageQuit("Failed to create the database connection!");
     } else {
-      if ($this->config['etomite_charset'] === "UTF-8") { mysql_set_charset(utf8); }
-	  mysql_select_db($this->dbConfig['dbase']);
+      if ($this->config['etomite_charset'] === "UTF-8") { mysqli_set_charset($this->rs, utf8); }
+	  mysqli_select_db($this->rs, $this->dbConfig['dbase']);
       $tend = $this->getMicroTime();
       $totaltime = $tend-$tstart;
       if($this->config['dumpSQL']) {
@@ -1338,7 +1339,7 @@ title='$siteName'>$siteName</a></h2>
       $this->dbConnect();
     }
     $tstart = $this->getMicroTime();
-    if(@!$result = mysql_query($query, $this->rs)) {
+    if(@!$result = mysqli_query($this->rs, $query)) {
       $this->messageQuit("Execution of a query to the database failed", $query);
     } else {
       $tend = $this->getMicroTime();
@@ -1358,19 +1359,19 @@ title='$siteName'>$siteName</a></h2>
 
   function recordCount($rs) {
   // function to count the number of rows in a record set
-    return mysql_num_rows($rs);
+    return mysqli_num_rows($rs);
   }
 
   function fetchRow($rs, $mode='assoc') {
   // [0614] object mode added by Ralph
     if($mode=='assoc') {
-      return mysql_fetch_assoc($rs);
+      return mysqli_fetch_assoc($rs);
     } elseif($mode=='num') {
-      return mysql_fetch_row($rs);
+      return mysqli_fetch_row($rs);
     } elseif($mode=='both') {
-      return mysql_fetch_array($rs, MYSQL_BOTH);
+      return mysqli_fetch_array($rs, MYSQL_BOTH);
     } elseif($mode=='object') {
-      return mysql_fetch_object($rs);
+      return mysqli_fetch_object($rs);
     } else {
       $this->messageQuit("Unknown get type ($mode) specified for fetchRow - must be empty, 'assoc', 'num', 'both', or 'object'.");
     }
@@ -1378,17 +1379,17 @@ title='$siteName'>$siteName</a></h2>
 
   function affectedRows() {
   // returns the number of rows affected by the last query
-    return mysql_affected_rows($this->rs);
+    return mysqli_affected_rows($this->rs);
   }
 
   function insertId() {
   // returns auto-increment id of the last insert
-    return mysql_insert_id($this->rs);
+    return mysqli_insert_id($this->rs);
   }
 
   function dbClose() {
   // function to close a database connection
-    mysql_close($this->rs);
+    mysqli_close($this->rs);
   }
 
   function getIntTableRows($fields="*", $from="", $where="", $sort="", $dir="ASC", $limit="", $push=true, $addPrefix=true) {
@@ -1594,11 +1595,11 @@ title='$siteName'>$siteName</a></h2>
   // $pass = MySQL password for the external MySQL database: $pass="password"
   // $dbase = MySQL database name to which you wish to connect: $dbase="extdata"
     $tstart = $this->getMicroTime();
-    if(@!$this->rs = mysql_connect($host, $user, $pass)) {
+    if(@!$this->rs = mysqli_connect($host, $user, $pass, null, $host_port)) {
       $this->messageQuit("Failed to create connection to the $dbase database!");
     } else {
-      if ($this->config['etomite_charset'] === "UTF-8") { mysql_set_charset(utf8); }
-	  mysql_select_db($dbase);
+      if ($this->config['etomite_charset'] === "UTF-8") { mysqli_set_charset($this->rs, utf8); }
+	  mysqli_select_db($this->rs, $dbase);
       $tend = $this->getMicroTime();
       $totaltime = $tend-$tstart;
       if($this->config['dumpSQL']) {
@@ -1619,7 +1620,7 @@ title='$siteName'>$siteName</a></h2>
   // Returns error on fialure.
     $tstart = $this->getMicroTime();
     $this->dbExtConnect($host, $user, $pass, $dbase);
-    if(@!$result = mysql_query($query, $this->rs)) {
+    if(@!$result = mysqli_query($this->rs, $query)) {
       $this->messageQuit("Execution of a query to the database failed", $query);
     } else {
       $tend = $this->getMicroTime();

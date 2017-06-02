@@ -47,13 +47,13 @@ else
 
 // check to see the template editor isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.action=16 AND $dbase.".$table_prefix."active_users.id=$id";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 1)
 {
   for($i=0; $i < $limit; $i++)
   {
-    $lock = mysql_fetch_assoc($rs);
+    $lock = mysqli_fetch_assoc($rs);
     if($lock['internalKey'] != $_SESSION['internalKey'])
     {
       $msg = $lock['username']." is currently editing this template. Please wait until the other user has finished and try again.";
@@ -73,8 +73,8 @@ if(!isNumber($id))
 if(isset($_GET['id']))
 {
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_templates WHERE $dbase.".$table_prefix."site_templates.id = $id;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 1)
   {
     echo "Oops, something went terribly wrong...<p>";
@@ -85,7 +85,7 @@ if(isset($_GET['id']))
   {
     header("Location: /index.php?id=".$site_start);
   }
-  $content = mysql_fetch_assoc($rs);
+  $content = mysqli_fetch_assoc($rs);
   $_SESSION['itemname'] = $content['templatename'];
   if($content['locked'] == 1 && $_SESSION['role'] != 1)
   {

@@ -17,11 +17,11 @@ $user = $_REQUEST['id'];
 if($user=="") $user=0;
 // check to see the snippet editor isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.action=12 AND $dbase.".$table_prefix."active_users.id=$user";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit>1) {
   for ($i=0;$i<$limit;$i++) {
-    $lock = mysql_fetch_assoc($rs);
+    $lock = mysqli_fetch_assoc($rs);
     if($lock['internalKey']!=$_SESSION['internalKey']) {
       $msg = $lock['username']." is currently editing this user. Please wait until the other user has finished and try again.";
       $e->setError(5, $msg);
@@ -33,8 +33,8 @@ if($limit>1) {
 
 if($_REQUEST['a']==12) {
   $sql = "SELECT * FROM $dbase.".$table_prefix."user_attributes WHERE $dbase.".$table_prefix."user_attributes.internalKey = ".$user.";";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit>1) {
     echo "More than one user returned!<p>";
     exit;
@@ -43,7 +43,7 @@ if($_REQUEST['a']==12) {
     echo "No user returned!<p>";
     exit;
   }
-  $userdata = mysql_fetch_assoc($rs);
+  $userdata = mysqli_fetch_assoc($rs);
 
   if($_SESSION['role']!=1 && $userdata['role'] == 1) {
     $e->setError(3);
@@ -51,8 +51,8 @@ if($_REQUEST['a']==12) {
   }
 
   $sql = "SELECT * FROM $dbase.".$table_prefix."manager_users WHERE $dbase.".$table_prefix."manager_users.id = ".$user.";";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit>1) {
     echo "More than one user returned while getting username!<p>";
     exit;
@@ -61,7 +61,7 @@ if($_REQUEST['a']==12) {
     echo "No user returned while getting username!<p>";
     exit;
   }
-  $usernamedata = mysql_fetch_assoc($rs);
+  $usernamedata = mysqli_fetch_assoc($rs);
   $_SESSION['itemname']=$usernamedata['username'];
 } else {
   $userdata = 0;
@@ -264,11 +264,11 @@ function showHide(what, onoff){
           $sql = "select name, id from $dbase.".$table_prefix."user_roles";
         }
 
-        $rs = mysql_query($sql);
+        $rs = mysqli_query($etomiteDBConn, $sql);
     ?>
     <select name="role" class="inputBox" onchange='documentDirty=true;' style="width:150px">
     <?php
-    while ($row = mysql_fetch_assoc($rs)) {
+    while ($row = mysqli_fetch_assoc($rs)) {
       $selectedtext = $row['id']==$userdata['role'] ? "selected='selected'" : "" ;
     ?>
       <option value="<?php echo $row['id']; ?>" <?php echo $selectedtext; ?>><?php echo $row['name']; ?></option>
@@ -314,10 +314,10 @@ $groupsarray = array();
 
 if($_GET['a']=='12') { // only do this bit if the user is being edited
   $sql = "SELECT * FROM $dbase.".$table_prefix."member_groups where member=".(int)$_GET['id']."";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for ($i = 0; $i < $limit; $i++) {
-    $currentgroup=mysql_fetch_assoc($rs);
+    $currentgroup=mysqli_fetch_assoc($rs);
     $groupsarray[$i] = $currentgroup['user_group'];
   }
 }
@@ -336,10 +336,10 @@ if($_GET['a']=='12') { // only do this bit if the user is being edited
       <?php echo $_lang['access_permissions_user_message']; ?><br />
         <?php
         $sql = "SELECT name, id FROM $dbase.".$table_prefix."membergroup_names";
-        $rs = mysql_query($sql);
-        $limit = mysql_num_rows($rs);
+        $rs = mysqli_query($etomiteDBConn, $sql);
+        $limit = mysqli_num_rows($rs);
         for($i=0; $i<$limit; $i++) {
-          $row=mysql_fetch_assoc($rs);
+          $row=mysqli_fetch_assoc($rs);
     ?>
       <input type="checkbox" name="user_groups['<?php echo $row['id']; ?>']" <?php echo in_array($row['id'], $groupsarray) ? "checked='checked'" : "" ; ?>><?php echo $row['name']; ?><br />
     <?php

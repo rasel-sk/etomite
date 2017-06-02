@@ -111,8 +111,8 @@ if($_POST['mode'] == '73' || $_POST['mode'] == '27')
 if($actionToTake != "new")
 {
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.id = $id;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 1)
   {
     $e->setError(6);
@@ -123,7 +123,7 @@ if($actionToTake != "new")
     $e->setError(7);
     $e->dumpError();
   }
-  $existingDocument = mysql_fetch_assoc($rs);
+  $existingDocument = mysqli_fetch_assoc($rs);
 }
 
 // check to see if the user is allowed to save the document in the place he wants to save it in
@@ -166,13 +166,13 @@ switch($actionToTake)
     $sql = "INSERT INTO $dbase.".$table_prefix."site_content(content, pagetitle, longtitle, type, description, alias, isfolder, richtext, published, parent, template, menuindex, searchable, cacheable, createdby, createdon, editedby, editedon, pub_date, unpub_date, contentType, authenticate, showinmenu)
         VALUES('".$content."', '".$pagetitle."', '".$longtitle."', '".$type."', '".$description."', '".$alias."', '".$isfolder."', '".$richtext."', '".$published."', '".$parent."', '".$template."', '".$menuindex."', '".$searchable."', '".$cacheable."', ".$_SESSION['internalKey'].", ".time().", ".$_SESSION['internalKey'].", ".$createdon.", $pub_date, $unpub_date, '$contentType', '$authenticate', '$showinmenu')";
 
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "An error occured while attempting to save the new document.";
     }
 
-    if(!$key = mysql_insert_id())
+    if(!$key = mysqli_insert_id())
     {
       echo "Couldn't get last insert key!";
     }
@@ -189,7 +189,7 @@ switch($actionToTake)
           if($value == "on")
           {
             $sql = "INSERT INTO $dbase.".$table_prefix."document_groups(document_group, document) values(".stripslashes($dgkey).", $key)";
-            $rs = mysql_query($sql);
+            $rs = mysqli_query($etomiteDBConn, $sql);
             if(!$rs)
             {
               echo "An error occured while attempting to add the document to a document_group.";
@@ -206,7 +206,7 @@ switch($actionToTake)
     if($parent != 0)
     {
       $sql = "UPDATE $dbase.".$table_prefix."site_content SET isfolder=1 WHERE id=".$_REQUEST['parent'].";";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
       if(!$rs)
       {
         echo "An error occured while attempting to change the document's parent to a folder.";
@@ -218,12 +218,12 @@ switch($actionToTake)
     // keywords ----------------------
     // remove old keywords first, shouldn't be necessary when creating a new document!
     $sql = "DELETE FROM $dbase.".$table_prefix."keyword_xref WHERE content_id = $key";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     for($i=0; $i < count($keywords); $i++)
     {
       $kwid = $keywords[$i];
       $sql = "INSERT INTO $dbase.".$table_prefix."keyword_xref (content_id, keyword_id) VALUES ($key, $kwid)";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
     }
     // ------------------------
 
@@ -244,13 +244,13 @@ switch($actionToTake)
   case 'edit':
     // first, get the document's current parent.
     $sql = "SELECT parent FROM $dbase.".$table_prefix."site_content WHERE id=".$_REQUEST['id'].";";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "An error occured while attempting to find the document's current parent.";
       exit;
     }
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     $oldparent = $row['parent'];
     // ok, we got the parent
 
@@ -271,13 +271,13 @@ switch($actionToTake)
     }
     // check to see document is a folder.
     $sql = "SELECT count(*) FROM $dbase.".$table_prefix."site_content WHERE parent=".$_REQUEST['id'].";";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "An error occured while attempting to find the document's children.";
       exit;
     }
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     if($row['count(*)']>0)
     {
       $isfolder=1;
@@ -291,7 +291,7 @@ switch($actionToTake)
     isfolder=$isfolder, richtext=$richtext, published=$published, pub_date=$pub_date, unpub_date=$unpub_date, parent=$parent, template=$template, menuindex=$menuindex,
     searchable=$searchable, cacheable=$cacheable, createdby=$createdby, createdon=$createdon, editedby=".$_SESSION['internalKey'].", editedon=".time().", contentType='$contentType', authenticate=$authenticate, showinmenu=$showinmenu WHERE id=$id;";
 
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "An error occured while attempting to save the edited document. The generated SQL is: <i> $sql </i>.";
@@ -304,7 +304,7 @@ switch($actionToTake)
     {
       // delete old permissions on the document
       $sql = "DELETE FROM $dbase.".$table_prefix."document_groups WHERE document=$id;";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
       if(!$rs)
       {
         echo "An error occured while attempting to delete previous document_group entries.";
@@ -315,7 +315,7 @@ switch($actionToTake)
         foreach ($document_groups as $dgkey=>$value)
         {
           $sql = "INSERT INTO $dbase.".$table_prefix."document_groups(document_group, document) values(".stripslashes($dgkey).", $id)";
-          $rs = mysql_query($sql);
+          $rs = mysqli_query($etomiteDBConn, $sql);
           if(!$rs)
           {
             echo "An error occured while attempting to add the document to a document_group.<br /><i>$sql</i>";
@@ -333,7 +333,7 @@ switch($actionToTake)
     if($parent != 0)
     {
       $sql = "UPDATE $dbase.".$table_prefix."site_content SET isfolder=1 WHERE id=".$_REQUEST['parent'].";";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
       if(!$rs)
       {
         echo "An error occured while attempting to change the new parent to a folder.";
@@ -341,18 +341,18 @@ switch($actionToTake)
     }
     // finished moving the document, now check to see if the old_parent should no longer be a folder.
     $sql = "SELECT count(*) FROM $dbase.".$table_prefix."site_content WHERE parent=$oldparent;";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "An error occured while attempting to find the old parents' children.";
     }
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     $limit = $row['count(*)'];
 
     if($limit == 0)
     {
       $sql = "UPDATE $dbase.".$table_prefix."site_content SET isfolder=0 WHERE id=$oldparent;";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
       if(!$rs)
       {
         echo "An error occured while attempting to change the old parent to a regular document.";
@@ -365,12 +365,12 @@ switch($actionToTake)
     // rebuild document keywords
     // remove old keywords first
     $sql = "DELETE FROM $dbase.".$table_prefix."keyword_xref WHERE content_id = $id";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     for($i=0; $i < count($keywords); $i++)
     {
       $kwid = $keywords[$i];
       $sql = "INSERT INTO $dbase.".$table_prefix."keyword_xref (content_id, keyword_id) VALUES ($id, $kwid)";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
     }
     // ------------------------
 

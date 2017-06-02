@@ -16,8 +16,8 @@ $id = $_REQUEST['id'];
 
 // check the user is allowed to delete this message
 $sql = "SELECT * FROM $dbase.".$table_prefix."user_messages WHERE $dbase.".$table_prefix."user_messages.id=$id";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit != 1)
 {
   echo "Wrong number of messages returned!";
@@ -25,7 +25,7 @@ if($limit != 1)
 }
 else
 {
-  $message=mysql_fetch_assoc($rs);
+  $message=mysqli_fetch_assoc($rs);
   if($message['recipient'] != $_SESSION['internalKey'])
   {
     echo "You are not allowed to delete this message!";
@@ -35,7 +35,7 @@ else
   {
     // delete message
     $sql = "DELETE FROM $dbase.".$table_prefix."user_messages WHERE id=$id;";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "Something went wrong while trying to delete the message!";

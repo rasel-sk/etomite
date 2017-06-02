@@ -32,16 +32,16 @@ switch($_POST['mode'])
 {
   case '19':
     //do stuff to save the new doc
-    $template = mysql_escape_string($_POST['post']);
-    $templatename = mysql_escape_string(htmlentities($_POST['templatename']));
-    $description = mysql_escape_string(htmlentities($_POST['description']));
+    $template = mysqli_escape_string($_POST['post']);
+    $templatename = mysqli_escape_string(htmlentities($_POST['templatename']));
+    $description = mysqli_escape_string(htmlentities($_POST['description']));
     $locked = $_POST['locked']=='on' ? 1 : 0 ;
     if($templatename=="")
     {
       $templatename = "Untitled template";
     }
     $sql = "INSERT INTO $dbase.".$table_prefix."site_templates(templatename, description, content, locked) VALUES('$templatename', '$description', '$template', '$locked');";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "\$rs not set! New template not saved!";
@@ -49,7 +49,7 @@ switch($_POST['mode'])
     else
     {
       // get the id
-      if(!$newid = mysql_insert_id())
+      if(!$newid = mysqli_insert_id())
       {
         echo "Couldn't get last insert key!";
         exit;
@@ -76,9 +76,9 @@ switch($_POST['mode'])
 
   case '16':
     //do stuff to save the edited doc
-    $template = mysql_escape_string($_POST['post']);
-    $templatename = mysql_escape_string(htmlentities($_POST['templatename']));
-    $description = mysql_escape_string(htmlentities($_POST['description']));
+    $template = mysqli_escape_string($_POST['post']);
+    $templatename = mysqli_escape_string(htmlentities($_POST['templatename']));
+    $description = mysqli_escape_string(htmlentities($_POST['description']));
     $locked = $_POST['locked'] == 'on' ? 1 : 0 ;
     if($templatename == "")
     {
@@ -86,7 +86,7 @@ switch($_POST['mode'])
     }
     $id = $_POST['id'];
     $sql = "UPDATE $dbase.".$table_prefix."site_templates SET templatename='$templatename', description='$description', content='$template', locked='$locked' WHERE id=$id;";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
     if(!$rs)
     {
       echo "\$rs not set! Edited template not saved!";

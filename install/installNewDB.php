@@ -72,6 +72,7 @@ $errors = 0;
 
 // get db info from session
 $host = $_SESSION['databasehost'];
+$host_port = $_SESSION['databasehost_port'];
 $name = $_SESSION['databaseloginname'];
 $pass = $_SESSION['databaseloginpassword'];
 $db = $_SESSION['databasename'];
@@ -81,7 +82,7 @@ $adminpass = $_SESSION['cmspassword'];
 
 // attempt to connect to the MySQL server
 echo "<p>Creating connection to the database: ";
-if(!@$conn = mysql_connect($host, $name, $pass))
+if(!@$conn = mysqli_connect($host, $name, $pass, null, $host_port))
 {
   echo "<span class='notok'>Failed!</span></p><p>Please check the database login details and try again.</p>";
   echo $pageFooter;
@@ -94,7 +95,7 @@ else
 
 // attempt to connect to the desired database
 echo "<p>Selecting database `".$db."`: ";
-if(!@mysql_select_db($db, $conn))
+if(!@mysqli_select_db($conn, $db))
 {
   echo "<span class='notok'>Failed...</span> - database does not exist. Will attempt to create:</p>";
   $errors += 1;
@@ -109,7 +110,7 @@ else
 if($create)
 {
   echo "<p>Creating database `".$db."`: ";
-  if(!@mysql_create_db($db, $conn))
+  if(!@mysqli_create_db($db, $conn))
   {
     echo "<span class='notok'>Failed!</span> - Could not create database!</p>";
     $errors += 1;
@@ -125,7 +126,7 @@ if($create)
 
 // cehck to see if the desired table prefix is alreay in use
 echo "<p>Checking table prefix `".$table_prefix."`: ";
-if(@$rs=mysql_query("SELECT COUNT(*) FROM $db.".$table_prefix."site_content"))
+if(@$rs=mysqli_query("SELECT COUNT(*) FROM $db.".$table_prefix."site_content"))
 {
   echo "<span class='notok'>Failed!</span> - Table prefix is already in use in this database!</p>";
   $errors += 1;
@@ -140,7 +141,7 @@ else
 
 // load the sqlParser class and attempt to load the desired SQL file
 include("sqlParser.class.php");
-$sqlParser = new SqlParser($host, $name, $pass, $db, $table_prefix, $adminname, $adminpass);
+$sqlParser = new SqlParser($host, $name, $pass, $db, $table_prefix, $adminname, $adminpass, $host_port);
 $sqlParser->connect();
 $sqlParser->process($sqlFile);
 $sqlParser->close();
@@ -169,8 +170,8 @@ $contents = fread($handle, filesize($filename));
 fclose($handle);
 
 // perform global search and replace of tags in the SQL
-$search = array('{HOST}','{USER}','{PASS}','{DBASE}','{PREFIX}');
-$replace = array($host,$name,$pass,$db,$table_prefix);
+$search = array('{HOST}', '{HOST_PORT}', '{USER}','{PASS}','{DBASE}','{PREFIX}');
+$replace = array($host,$host_port,$name,$pass,$db,$table_prefix);
 $configString = str_replace($search,$replace,$contents);
 
 // open config.inc.php

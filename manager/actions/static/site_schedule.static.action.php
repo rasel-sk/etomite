@@ -73,8 +73,8 @@ function showHide(what, onoff){
   <?php
   //$db->debug = true;
   $sql = "SELECT id, pagetitle, pub_date FROM $dbase.".$table_prefix."site_content WHERE pub_date > ".time()." ORDER BY pub_date ASC";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit<1) {
     echo "<p>".$_lang["no_pending_publish"]."</p>";
   } else {
@@ -90,7 +90,7 @@ function showHide(what, onoff){
       <tbody>
   <?php
     for ($i=0;$i<$limit;$i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $classname = ($i % 2) ? 'class="even" ' : 'class="odd" ';
   ?>
       <tr <?php echo $classname; ?>>
@@ -162,8 +162,8 @@ function showHide(what, onoff){
   <?php
   //$db->debug = true;
   $sql = "SELECT id, pagetitle, unpub_date FROM $dbase.".$table_prefix."site_content WHERE unpub_date > ".time()." ORDER BY unpub_date ASC";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit<1) {
     echo "<p>".$_lang["no_pending_unpublish"]."</p>";
   } else {
@@ -179,7 +179,7 @@ function showHide(what, onoff){
       <tbody>
   <?php
     for ($i=0;$i<$limit;$i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $classname = ($i % 2) ? 'class="even" ' : 'class="odd" ';
   ?>
       <tr <?php echo $classname; ?>>
@@ -250,8 +250,8 @@ function showHide(what, onoff){
   <div class="sectionBody">
   <?php
   $sql = "SELECT id, pagetitle, pub_date, unpub_date FROM $dbase.".$table_prefix."site_content WHERE pub_date > 0 OR unpub_date > 0 ORDER BY id";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit<1) {
     echo "<p>".$_lang["no_pending_documents"]."</p>";
   } else {
@@ -268,7 +268,7 @@ function showHide(what, onoff){
       <tbody>
   <?php
     for ($i=0;$i<$limit;$i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $classname = ($i % 2) ? 'class="even" ' : 'class="odd" ';
   ?>
       <tr <?php echo $classname; ?>>

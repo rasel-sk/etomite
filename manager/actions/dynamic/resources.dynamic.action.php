@@ -77,13 +77,13 @@ function showHide(what, onoff){
 
 <?php
     $sql = "select templatename, id, description, locked from $dbase.".$table_prefix."site_templates order by templatename";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1){
       echo "<tr><td colspan=\"3\">{$_lang['no_results']}</td></tr>";
     }
     for($i=0; $i<$limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $id = strval($row['id']);
 ?>
 
@@ -125,13 +125,13 @@ function showHide(what, onoff){
 
 <?php
   $sql = "select name, id, description, locked from $dbase.".$table_prefix."site_snippets order by name";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit<1){
     echo $_lang['no_results'];
   }
   for($i=0; $i<$limit; $i++) {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
 ?>
 
     <div>
@@ -167,13 +167,13 @@ function showHide(what, onoff){
 
 <?php
     $sql = "select name, id, description, locked from $dbase.".$table_prefix."site_htmlsnippets order by name";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1){
       echo $_lang['no_results'];
     }
     for($i=0; $i<$limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
 ?>
 
       <img src="media/images/misc/li.gif"> &nbsp; <span style="width:200px"><a href="index.php?id=<?php echo $row['id']; ?>&a=77"><?php echo $row['name']; ?></a></span><?php echo $row['description']!='' ? ' - '.$row['description'] : '' ; ?><?php echo $row['locked']==1 ? ' <i><small>('.$_lang['snippet_locked_message'].')</small></i>' : "" ; ?><br />

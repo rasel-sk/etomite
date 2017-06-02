@@ -27,7 +27,7 @@ switch ($_POST['mode'])
     $sql = "INSERT INTO $dbase.".$table_prefix."user_roles(name, description, frames, home, view_document, new_document, save_document, delete_document, action_ok, logout, help, messages, new_user, edit_user, logs, edit_parser, save_parser, edit_template, settings, credits, new_template, save_template, delete_template, edit_snippet, new_snippet, save_snippet, delete_snippet, empty_cache, edit_document, change_password, error_dialog, about, file_manager, save_user, delete_user, save_password, edit_role, save_role, delete_role, new_role, access_permissions, new_chunk, save_chunk, edit_chunk, delete_chunk,
     export_html) VALUES('$name', '$description',$frames, $home, $view_document, $new_document, $save_document, $delete_document, $action_ok, $logout, $help, $messages, $new_user, $edit_user, $logs, 0, 0, $edit_template, $settings, $credits, $new_template, $save_template, $delete_template, $edit_snippet, $new_snippet, $save_snippet, $delete_snippet, $empty_cache, $edit_document, $change_password, $error_dialog, $about, $file_manager, $save_user, $delete_user, $save_password, $edit_role, $save_role, $delete_role, $new_role, $access_permissions, $new_chunk, $save_chunk, $edit_chunk, $delete_chunk, $export_html);";
 
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
 
     if(!$rs)
     {
@@ -88,7 +88,7 @@ switch ($_POST['mode'])
       WHERE id=$id
     ";
 
-    if(!$rs = mysql_query($sql))
+    if(!$rs = mysqli_query($etomiteDBConn, $sql))
     {
       echo "An error occured while attempting to update the role.";
       exit;

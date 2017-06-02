@@ -12,10 +12,10 @@ include("../manager/includes/config.inc.php");
 include("../manager/includes/version.inc.php");
 
 // Connecting, selecting database
-$link = @mysql_connect($database_server, $database_user, $database_password)
-   or die('<span class="notok">Failure:</span> Could not connect: ' . mysql_error());
+$link = @mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port)
+   or die('<span class="notok">Failure:</span> Could not connect: ' . mysqli_error());
 $output .= '<p><span class="ok">OK</span> - Connected to MySQL server successfully.</p>';
-mysql_select_db(trim($dbase,"`")) or die('<span class=\"notok\">Failure:</span> Could not select database!!!');
+mysqli_select_db($link, trim($dbase,"`")) or die('<span class=\"notok\">Failure:</span> Could not select database!!!');
 $output .= '<p><span class="ok">OK</span> - Connected to database successfully.</p>';
 
 /**********************************************************/
@@ -28,20 +28,20 @@ ADD `save_chunk` INT(1) NOT NULL DEFAULT '0',
 ADD `edit_chunk` INT(1) NOT NULL DEFAULT '0',
 ADD `delete_chunk` INT(1) NOT NULL DEFAULT '0',
 ADD `export_html` INT(1) NOT NULL DEFAULT '0'";
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The new fields for <b>chunk permissions</b> were successfully added into the ".$table_prefix."user_roles table.</p>";
 }
-elseif(mysql_errno()==1060)
+elseif(mysqli_errno()==1060)
 {
-  // If the chunk permissions columns already exist (mysql_errno 1060) then send a friendly message
+  // If the chunk permissions columns already exist (mysqli_errno 1060) then send a friendly message
   $output .= "<p><span class=\"ok\">OK</span> - <b>chunk permissions</b> already exist. No action required.</p>";
 }
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error(). "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error(). "</p>";
 }
 
 /**********************************************************/
@@ -49,12 +49,12 @@ else
 // Set all admins (role=1) to have new permissions set to 1
 /**********************************************************/
 $user_roles_updated = false;
-if($result && !mysql_errno())
+if($result && !mysqli_errno())
 {
   $query = "UPDATE `".$table_prefix."user_roles`
   SET `new_chunk`=1, `save_chunk`=1,`edit_chunk`=1, `delete_chunk`=1, `export_html`=1
   WHERE `id`=1";
-  if($result = mysql_query($query))
+  if($result = mysqli_query($link, $query))
   {
     // If the user_roles columns were updated, display a success message
     $output .= "<p><span class=\"ok\">OK</span> - The table, <b>user roles</b>, was updated successfully.";
@@ -63,7 +63,7 @@ if($result && !mysql_errno())
   else
   {
     // If all else fails, send the appropriate failure message
-    $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error(). "</p>";
+    $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error(). "</p>";
   }
 }
 
@@ -71,60 +71,60 @@ if($result && !mysql_errno())
 // Alter site_content table to ADD COLUMN `authenticate`
 /**********************************************************/
 $query = "ALTER TABLE `".$table_prefix."site_content` ADD COLUMN `authenticate` int(1) NOT NULL default '0'";
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The new field, <b>`authenticate`</b>, was successfully added into the ".$table_prefix."site_content table.</p>";
 }
-elseif(mysql_errno()==1060)
+elseif(mysqli_errno()==1060)
 {
-  // If the `showinmenu` column already exists (mysql_errno 1060) then send a friendly message
+  // If the `showinmenu` column already exists (mysqli_errno 1060) then send a friendly message
   $output .= "<p><span class=\"ok\">OK</span> - <b>`authenticate`</b> column already exists. No action required.</p>";
 }
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error(). "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error(). "</p>";
 }
 
 /**********************************************************/
 // Alter site_content table to ADD COLUMN `showinmenu`
 /**********************************************************/
 $query = "ALTER TABLE `".$table_prefix."site_content` ADD COLUMN `showinmenu` int(1) NOT NULL default '1'";
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The new field, <b>`showinmenu`</b>, was successfully added into the ".$table_prefix."site_content table.</p>";
 }
-elseif(mysql_errno()==1060)
+elseif(mysqli_errno()==1060)
 {
-  // If the `showinmenu` column already exists (mysql_errno 1060) then send a friendly message
+  // If the `showinmenu` column already exists (mysqli_errno 1060) then send a friendly message
   $output .= "<p><span class=\"ok\">OK</span> - <b>`showinmenu`</b> column already exists. No action required.</p>";
 }
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error(). "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error(). "</p>";
 }
 
 /**********************************************************/
 // Alter site_content table to DROP INDEX `id`
 /**********************************************************/
 $query = "ALTER TABLE `".$table_prefix."site_content` DROP INDEX `id`";
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p>The redundant index, <b>`id`</b>, was successfully removed from the ".$table_prefix."site_content table.</p>";
 }
-elseif(mysql_errno()==1091)
+elseif(mysqli_errno()==1091)
 {
-  // If the `id` index doesn't exist (mysql_errno 1091) then send a friendly message
+  // If the `id` index doesn't exist (mysqli_errno 1091) then send a friendly message
   $output .= "<p><span class=\"ok\">OK</span> - <b>{$table_prefix}site_content.id</b> index doesn't exist. No action required.</p>";
 }
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -136,7 +136,7 @@ CHANGE `document` `document` BIGINT( 11 ) UNSIGNED NOT NULL DEFAULT '0',
 CHANGE `referer` `referer` BIGINT( 11 ) UNSIGNED NOT NULL DEFAULT '0'";
 
 // Perform the query
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The table, <b>log_access</b>, was updated successfully.</p>";
@@ -144,7 +144,7 @@ if($result = mysql_query($query))
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -153,7 +153,7 @@ else
 $query = "ALTER TABLE `".$table_prefix."log_hosts` CHANGE `id` `id` BIGINT( 11 ) NOT NULL DEFAULT '0'";
 
 // Perform the query
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The table, <b>log_hosts</b>, was updated successfully.</p>";
@@ -161,7 +161,7 @@ if($result = mysql_query($query))
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -170,7 +170,7 @@ else
 $query = "ALTER TABLE `".$table_prefix."log_operating_systems` CHANGE `id` `id` BIGINT( 11 ) NOT NULL DEFAULT '0'";
 
 // Perform the query
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The table, <b>log_operating_systems</b>, was updated successfully.</p>";
@@ -178,7 +178,7 @@ if($result = mysql_query($query))
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -187,7 +187,7 @@ else
 $query = "ALTER TABLE `".$table_prefix."log_referers` CHANGE `id` `id` BIGINT( 11 ) NOT NULL DEFAULT '0'";
 
 // Perform the query
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The table, <b>log_referers</b>, was updated successfully.</p>";
@@ -195,7 +195,7 @@ if($result = mysql_query($query))
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -204,7 +204,7 @@ else
 $query = "ALTER TABLE `".$table_prefix."log_user_agents` CHANGE `id` `id` BIGINT( 11 ) NOT NULL DEFAULT '0'";
 
 // Perform the query
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The table, <b>log_user_agents</b>, was updated successfully.</p>";
@@ -212,7 +212,7 @@ if($result = mysql_query($query))
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -224,7 +224,7 @@ CHANGE `ua_id` `ua_id` BIGINT( 11 ) NOT NULL DEFAULT '0',
 CHANGE `host_id` `host_id` BIGINT( 11 ) NOT NULL DEFAULT '0'";
 
 // Perform the query
-if($result = mysql_query($query))
+if($result = mysqli_query($link, $query))
 {
   // Display the successful operation message
   $output .= "<p><span class=\"ok\">OK</span> - The table, <b>log_user_agents</b>, was updated successfully.</p>";
@@ -232,7 +232,7 @@ if($result = mysql_query($query))
 else
 {
   // If all else fails, send the appropriate failure message
-  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysql_error() . "</p>";
+  $output .= "<p><span class=\"notok\">Failure:</span> Query failed: " . mysqli_error() . "</p>";
 }
 
 /**********************************************************/
@@ -244,10 +244,10 @@ $output .= "<br /><br /><b>Note:</b> Only Administrators (Role ID = 1) have had 
 $output .= "<br /><br /><a href='upgradeStart.php' title='Run the upgradeStart.php script'>Click here for the upgrade instructions.</a><br /><br />";
 
 // Free resultset
-@mysql_free_result($result);
+@mysqli_free_result($result);
 
 // Closing connection
-mysql_close($link);
+mysqli_close($link);
 
 ?>
 

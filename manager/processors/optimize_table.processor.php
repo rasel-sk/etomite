@@ -17,7 +17,7 @@ if($_REQUEST['t'] == "" || !isset($_REQUEST['t']))
 }
 
 $sql = "OPTIMIZE TABLE $dbase.".$_REQUEST['t'].";";
-$rs = @mysql_query($sql);
+$rs = @mysqli_query($etomiteDBConn, $sql);
 
 $header="Location: index.php?a=53&s=4";
 header($header);

@@ -200,7 +200,7 @@ $a = isset($_REQUEST['a']) ? $_REQUEST['a'] : "" ;
 
 if($a!=1) {
   $sql = "REPLACE INTO $dbase.".$table_prefix."active_users(internalKey, username, lasthit, action, id, ip) values(".$_SESSION['internalKey'].", '".$_SESSION['shortname']."', '".$lasthittime."', '".$a."', ".($itemid == 'NULL' ? 'NULL' : "'$itemid'").", '$ip')";
-  if(!$rs = mysql_query($sql)) {
+  if(!$rs = mysqli_query($etomiteDBConn, $sql)) {
     echo "error replacing into active users! SQL: ".$sql;
     exit;
   }

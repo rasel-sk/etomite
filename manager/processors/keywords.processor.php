@@ -23,8 +23,8 @@ foreach($orig_keywords as $key => $value)
   if($rename_keywords[$key]!=$value)
   {
     $sql = "SELECT * FROM $dbase.".$table_prefix."site_keywords WHERE keyword='".addslashes($rename_keywords[$key])."'";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit > 0)
     {
       echo "  - This keyword has already been defined!";
@@ -33,7 +33,7 @@ foreach($orig_keywords as $key => $value)
     else
     {
       $sql = "UPDATE $dbase.".$table_prefix."site_keywords SET keyword='".addslashes($rename_keywords[$key])."' WHERE keyword='".addslashes($value)."'";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
     }
   }
 }
@@ -48,18 +48,18 @@ if(count($delete_keywords) > 0)
   }
 
   $sql = "DELETE FROM $dbase.".$table_prefix."keyword_xref WHERE keyword_id IN(".join($keywords_array, ",").")";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
   if(!$rs)
   {
-    echo "Failure on deletion of xref keys: ".mysql_error();
+    echo "Failure on deletion of xref keys: ".mysqli_error();
     exit;
   }
 
   $sql = "DELETE FROM $dbase.".$table_prefix."site_keywords WHERE id IN(".join($keywords_array, ",").")";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
   if(!$rs)
   {
-    echo "Failure on deletion of keywords ".mysql_error();
+    echo "Failure on deletion of keywords ".mysqli_error();
     exit;
   }
 
@@ -71,14 +71,14 @@ if(!empty($_POST['new_keyword'])) {
   $nk = $_POST['new_keyword'];
 
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_keywords WHERE keyword='".addslashes($nk)."'";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 0) {
     echo "Keyword $nk already exists!";
     exit;
   } else {
     $sql = "INSERT INTO $dbase.".$table_prefix."site_keywords(keyword) VALUES('".addslashes($nk)."')";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
   }
 }
 */
@@ -97,8 +97,8 @@ if(!empty($_POST['new_keyword']))
     // No comma found, process as single keyword.
     $nk = $_POST['new_keyword'];
     $sql = "SELECT * FROM $dbase.".$table_prefix."site_keywords WHERE keyword='".addslashes($nk)."'";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit > 0)
     {
       echo "Keyword $nk already exists!";
@@ -107,7 +107,7 @@ if(!empty($_POST['new_keyword']))
     else
     {
       $sql = "INSERT INTO $dbase.".$table_prefix."site_keywords(keyword) VALUES('".addslashes($nk)."')";
-      $rs = mysql_query($sql);
+      $rs = mysqli_query($etomiteDBConn, $sql);
     }
   }
   else
@@ -119,8 +119,8 @@ if(!empty($_POST['new_keyword']))
     foreach($keyword_array as $val)
     {
       $sql = "SELECT * FROM $dbase.".$table_prefix."site_keywords WHERE keyword='".addslashes($val)."'";
-      $rs = mysql_query($sql);
-      $limit = mysql_num_rows($rs);
+      $rs = mysqli_query($etomiteDBConn, $sql);
+      $limit = mysqli_num_rows($rs);
       if($limit > 0)
       {
         echo "Keyword $val already exists!";
@@ -129,7 +129,7 @@ if(!empty($_POST['new_keyword']))
       else
       {
         $sql = "INSERT INTO $dbase.".$table_prefix."site_keywords(keyword) VALUES('".addslashes($val)."')";
-        $rs = mysql_query($sql);
+        $rs = mysqli_query($etomiteDBConn, $sql);
       }
 
     }

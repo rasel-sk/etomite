@@ -16,14 +16,14 @@ define("IN_ETOMITE_SYSTEM", "true");
 include_once("../includes/config.inc.php");
 
 // connect to the database
-if(@!$etomiteDBConn = mysql_connect($database_server, $database_user, $database_password))
+if(!$etomiteDBConn = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port))
 {
   die("Failed to create the database connection!");
 }
 else
 {
-  mysql_set_charset($database_charset);
-  mysql_select_db($dbase);
+  mysqli_set_charset($etomiteDBConn, $database_charset);
+  mysqli_select_db($etomiteDBConn, $dbase);
 }
 
 // get the settings from the database
@@ -49,8 +49,8 @@ $givenPassword = preg_replace("/[^\w\.@-]/", "", htmlspecialchars($_POST['passwo
 $captcha_code = preg_replace("/[^\w\.@-]/", "", $_POST['captcha_code']);
 
 $sql = "SELECT $dbase.".$table_prefix."manager_users.*, $dbase.".$table_prefix."user_attributes.* FROM $dbase.".$table_prefix."manager_users, $dbase.".$table_prefix."user_attributes WHERE $dbase.".$table_prefix."manager_users.username REGEXP BINARY '^".$username."$' and $dbase.".$table_prefix."user_attributes.internalKey=$dbase.".$table_prefix."manager_users.id;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 
 if($limit == 0 || $limit > 1)
 {
@@ -58,7 +58,7 @@ if($limit == 0 || $limit > 1)
   $e->dumpError();
 }
 
-$row = mysql_fetch_assoc($rs);
+$row = mysqli_fetch_assoc($rs);
 
 $internalKey          = $row['internalKey'];
 $dbasePassword        = $row['password'];
@@ -85,7 +85,7 @@ if($failedlogins >= $max_attempts && $blockeduntil < time())
 {
   // blocked due to number of login errors, but get to try again
   $sql = "UPDATE $dbase.".$table_prefix."user_attributes SET failedlogincount='0', blockeduntil='".(time()-1)."' where internalKey=$internalKey";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
 }
 
 if($blocked == "1")
@@ -131,13 +131,13 @@ if($newloginerror==1)
   {
     //increment the failed login counter, and block!
     $sql = "update $dbase.".$table_prefix."user_attributes SET failedlogincount='$failedlogins', blockeduntil='".(time()+(1*60*60))."' where internalKey=$internalKey";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
   }
   else
   {
     //increment the failed login counter
     $sql = "update $dbase.".$table_prefix."user_attributes SET failedlogincount='$failedlogins' where internalKey=$internalKey";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($etomiteDBConn, $sql);
   }
   session_destroy();
   session_unset();
@@ -149,7 +149,7 @@ $currentsessionid = session_id();
 if(!isset($_SESSION['validated']))
 {
   $sql = "update $dbase.".$table_prefix."user_attributes SET failedlogincount=0, logincount=logincount+1, lastlogin=thislogin, thislogin=".time().", sessionid='$currentsessionid' where internalKey=$internalKey";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
 }
 
 // get permissions
@@ -166,8 +166,8 @@ $_SESSION['lastlogin'] = $lastlogin;
 $_SESSION['nrlogins'] = $nrlogins;
 
 $sql = "SELECT * FROM $dbase.".$table_prefix."user_roles where id=".$role.";";
-$rs = mysql_query($sql);
-$row = mysql_fetch_assoc($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$row = mysqli_fetch_assoc($rs);
 $_SESSION['permissions'] = $row;
 
 if($_SESSION['permissions']['frames'] != 1)

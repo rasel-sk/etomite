@@ -15,7 +15,7 @@ class formClass{
   var $selected, $validate, $buttonPrefix, $buttonSuffix, $namePrefix, $nameSuffix, $labelPrefix, $labelSuffix, $tigraRules, $formLabels, $formName, $formId, $formFields;
 
   // constructor
-  function formClass(){
+  function __construct(){
     $this->validate=1; $this->selected=array(); $this->buttonPrefix=""; $this->buttonSuffix=""; $this->namePrefix="frm_"; $this->nameSuffix=""; $this->labelPrefix=""; $this->labelSuffix="_lbl"; $this->tigraRules=""; $this->formLabels=array(); $this->formName=""; $this->formId="myform"; $this->formFields=array();
   }
 

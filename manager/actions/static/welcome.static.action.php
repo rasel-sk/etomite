@@ -115,64 +115,64 @@ if($track_visitors == 1)
   // get page impressions for today
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(*) FROM $tbl WHERE timestamp > '".$dayStart."' AND timestamp < '".$dayEnd."'";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $piDay = $tmp['COUNT(*)'];
 
   // get page impressions for this month
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(*) FROM $tbl WHERE timestamp > '".$monthStart."' AND timestamp < '".$monthEnd."'";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $piMonth = $tmp['COUNT(*)'];
 
   // get page impressions for all time
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(*) FROM $tbl";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $piAll = $tmp['COUNT(*)'];
 
   // get visits for today
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(*) FROM $tbl WHERE timestamp > '".$dayStart."' AND timestamp < '".$dayEnd."' AND entry='1'";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $viDay = $tmp['COUNT(*)'];
 
   // get visits for this month
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(*) FROM $tbl WHERE timestamp > '".$monthStart."' AND timestamp < '".$monthEnd."' AND entry='1'";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $viMonth = $tmp['COUNT(*)'];
 
   // get visits for all time
   $tbl = "$dbase.".$table_prefix."log_access WHERE entry='1'";
   $sql = "SELECT COUNT(*) FROM $tbl";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $viAll = $tmp['COUNT(*)'];
 
   // get visitors for today
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $tbl WHERE timestamp > '".$dayStart."' AND timestamp < '".$dayEnd."'";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $visDay = $tmp['COUNT(DISTINCT(visitor))'];
 
   // get visitors for this month
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $tbl WHERE timestamp > '".$monthStart."' AND timestamp < '".$monthEnd."'";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $visMonth = $tmp['COUNT(DISTINCT(visitor))'];
 
   // get visitors for all time
   $tbl = "$dbase.".$table_prefix."log_access";
   $sql = "SELECT COUNT(DISTINCT(visitor)) FROM $tbl";
-  $rs = mysql_query($sql);
-  $tmp = mysql_fetch_assoc($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $tmp = mysqli_fetch_assoc($rs);
   $visAll = $tmp['COUNT(DISTINCT(visitor))'];
 
   $statMsg = $_lang['welcome_visitor_stats'];
@@ -246,8 +246,8 @@ echo '<span class="menuHeader">'.$statMsg.'</span>';
 
 <?php
 $sql = "SELECT id, pagetitle, description FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.deleted=0 AND ($dbase.".$table_prefix."site_content.editedby=".$_SESSION['internalKey']." OR $dbase.".$table_prefix."site_content.createdby=".$_SESSION['internalKey'].") ORDER BY editedon DESC LIMIT ".$settings['top_howmany'].";";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 $activity = ($limit<1) ? $_lang["no_activity_message"] : $_lang["activity_message"];
 ?>
 
@@ -257,7 +257,7 @@ $activity = ($limit<1) ? $_lang["no_activity_message"] : $_lang["activity_messag
 
 <?php
 for ($i = 0; $i < $limit; $i++):
-  $content = mysql_fetch_assoc($rs);
+  $content = mysqli_fetch_assoc($rs);
   if($i == 0) $syncid = $content['id'];
 ?>
 
@@ -361,8 +361,8 @@ for ($i = 0; $i < $limit; $i++):
 $timetocheck = (time()-(60*20));//+$server_offset_time;
 include_once("includes/actionlist.inc.php");
 $sql = "SELECT * FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.lasthit>'$timetocheck' ORDER BY username ASC";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit < 1)
 {
   echo "No active users found.<br />";
@@ -371,7 +371,7 @@ else
 {
   for($i = 0; $i < $limit; $i++)
   {
-    $activeusers = mysql_fetch_assoc($rs);
+    $activeusers = mysqli_fetch_assoc($rs);
     $currentaction = getAction($activeusers['action'], $activeusers['id']);
     echo "<tr><td><b>".$activeusers['username']."</td><td>".$activeusers['internalKey']."</td><td></b>".$activeusers['ip']."</td><td>".strftime($time_format, $activeusers['lasthit']+$server_offset_time)."</td><td>$currentaction</td></tr>";
   }

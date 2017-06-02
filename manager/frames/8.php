@@ -75,10 +75,10 @@ function launch() {
 function getTemplates() {
   global $dbase, $table_prefix;
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_templates ORDER BY templatename ASC;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for ($i = 0; $i < $limit; $i++) {
-      $row=mysql_fetch_assoc($rs);
+      $row=mysqli_fetch_assoc($rs);
       // echo the data retrieved
   echo "editTemplatesMenu.add(tmp2 = new MenuItem('".$row['templatename']."', 'index.php?id=".$row['id']."&a=16', 'media/images/icons/template16.gif'));
   tmp2.target = 'main';
@@ -91,10 +91,10 @@ function getTemplates() {
 function getSnippets() {
   global $dbase, $table_prefix;
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_snippets ORDER BY name ASC;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for ($i = 0; $i < $limit; $i++) {
-      $row=mysql_fetch_assoc($rs);
+      $row=mysqli_fetch_assoc($rs);
       // echo the data retrieved
   echo "editSnippetsMenu.add(tmp2 = new MenuItem('<span style=\"color:#888\">[[</span>&nbsp;".$row['name']."&nbsp;<span style=\"color:#888\">]]</span>', 'index.php?id=".$row['id']."&a=22', 'media/images/icons/menu_settings.gif'));
   tmp2.target = 'main';
@@ -107,10 +107,10 @@ function getSnippets() {
 function getHTMLSnippets() {
   global $dbase, $table_prefix;
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_htmlsnippets ORDER BY name ASC;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for ($i = 0; $i < $limit; $i++) {
-    $row=mysql_fetch_assoc($rs);
+    $row=mysqli_fetch_assoc($rs);
     // echo the data retrieved
     echo "editHTMLSnippetsMenu.add(tmp2 = new MenuItem('<span style=\"color:#888\">{{</span>&nbsp;".$row['name']."&nbsp;<span style=\"color:#888\">}}</span>', 'index.php?id=".$row['id']."&a=77', 'media/images/icons/menu_settings.gif'));
     tmp2.target = 'main';
@@ -123,10 +123,10 @@ function getHTMLSnippets() {
 function getUsers() {
   global $dbase, $table_prefix;
   $sql = "SELECT * FROM $dbase.".$table_prefix."manager_users ORDER BY username ASC;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
     for ($i = 0; $i < $limit; $i++) {
-      $row=mysql_fetch_assoc($rs);
+      $row=mysqli_fetch_assoc($rs);
       // echo the data retrieved
       echo "editUsersMenu.add(tmp2 = new MenuItem('".$row['username']."', 'index.php?id=".$row['id']."&a=12&n=".$row['username']."', 'media/images/icons/user.gif'));
       tmp2.target = 'main';
@@ -139,10 +139,10 @@ function getUsers() {
 function getRoles() {
   global $dbase, $table_prefix;
   $sql = "SELECT * FROM $dbase.".$table_prefix."user_roles ORDER BY name ASC;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for ($i = 0; $i < $limit; $i++) {
-    $row=mysql_fetch_assoc($rs);
+    $row=mysqli_fetch_assoc($rs);
     // echo the data retrieved
     echo "editRolesMenu.add(tmp2 = new MenuItem('".$row['name']."', 'index.php?id=".$row['id']."&a=35', 'media/images/icons/user.gif'));
     tmp2.target = 'main';

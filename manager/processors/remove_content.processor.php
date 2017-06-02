@@ -14,7 +14,7 @@ if($_SESSION['permissions']['delete_document'] != 1 && $_REQUEST['a'] == 64)
 
 //'undelete' the document.
 $sql = "DELETE FROM $dbase.".$table_prefix."site_content WHERE deleted=1;";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to remove deleted documents!";

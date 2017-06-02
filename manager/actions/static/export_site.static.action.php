@@ -97,13 +97,13 @@ echo $_lang['export_site_message'];
   $noncache = $_POST['includenoncache']==1 ? "" : "AND $dbase.".$table_prefix."site_content.cacheable=1";
 
   $sql = "SELECT id, alias, pagetitle FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.deleted=0 AND $dbase.".$table_prefix."site_content.published=1 AND $dbase.".$table_prefix."site_content.type='document' $noncache";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   printf($_lang['export_site_numberdocs'], $limit);
 
   for($i=0; $i<$limit; $i++) {
 
-    $row=mysql_fetch_assoc($rs);
+    $row=mysqli_fetch_assoc($rs);
 
     $id = $row['id'];
     printf($_lang['export_site_exporting_document'], $i, $limit, $row['pagetitle'], $id);

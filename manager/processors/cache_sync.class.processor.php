@@ -8,6 +8,8 @@ class synccache{
   var $cachePath;
   var $showReport;
   var $deletedfiles = array();
+  
+  var $connection;
 
   function setCachepath($path) {
     $this->cachePath = $path;
@@ -45,22 +47,35 @@ class synccache{
     global $dbase, $table_prefix;
 
     $tmpPHP = "<?php\n";
+	
+	// include_once config file
+	$config_filename = __DIR__ . "/../includes/config.inc.php";
+	
+	if(!file_exists($config_filename))
+	{
+	   print "(Cache Sync) Main configuration file '$config_filename' not found. Please run the Etomite installer.<p>Check the documentation for more information.";
+	   exit;
+	}
+	
+	require $config_filename;
 
+	$this->connection = mysqli_connect($database_server, $database_user, $database_password, null, $database_server_port);
+	
     // get settings
     $sql = "SELECT * FROM $dbase.".$table_prefix."system_settings";
-    $rs = mysql_query($sql);
-    $limit_tmp = mysql_num_rows($rs);
-    while(list($key,$value) = mysql_fetch_row($rs)) {
+    $rs = mysqli_query($this->connection, $sql);
+    $limit_tmp = mysqli_num_rows($rs);
+    while(list($key,$value) = mysqli_fetch_row($rs)) {
        $tmpPHP .= '$this->config[\''.$key.'\']'."='".str_replace("'", "\'", $value)."';\n";
     }
 
     // get aliases
     // $sql = "SELECT id, alias, template FROM $dbase.".$table_prefix."site_content WHERE LENGTH($dbase.".$table_prefix."site_content.alias) > 1";
     $sql = "SELECT id, alias, template, parent, authenticate FROM $dbase.".$table_prefix."site_content";
-    $rs = mysql_query($sql);
-    $limit_tmp = mysql_num_rows($rs);
+    $rs = mysqli_query($this->connection, $sql);
+    $limit_tmp = mysqli_num_rows($rs);
     for ($i_tmp=0; $i_tmp<$limit_tmp; $i_tmp++) {
-       $tmp1 = mysql_fetch_assoc($rs);
+       $tmp1 = mysqli_fetch_assoc($rs);
        if($tmp1['alias']!="") {
          $tmpPHP .= '$this->documentListing[\''.$tmp1['alias'].'\']'." = ".$tmp1['id'].";\n";
        }
@@ -69,37 +84,37 @@ class synccache{
 
     // get content types
     $sql = "SELECT id, contentType FROM $dbase.".$table_prefix."site_content";
-    $rs = mysql_query($sql);
-    $limit_tmp = mysql_num_rows($rs);
+    $rs = mysqli_query($this->connection, $sql);
+    $limit_tmp = mysqli_num_rows($rs);
     for ($i_tmp=0; $i_tmp<$limit_tmp; $i_tmp++) {
-       $tmp1 = mysql_fetch_assoc($rs);
+       $tmp1 = mysqli_fetch_assoc($rs);
        $tmpPHP .= '$this->contentTypes['.$tmp1['id'].']'."='".$tmp1['contentType']."';\n";
     }
 
     // WRITE templates to cache file
     $sql = "SELECT * FROM $dbase.".$table_prefix."site_templates";
-    $rs = mysql_query($sql);
-    $limit_tmp = mysql_num_rows($rs);
+    $rs = mysqli_query($this->connection, $sql);
+    $limit_tmp = mysqli_num_rows($rs);
     for ($i_tmp=0; $i_tmp<$limit_tmp; $i_tmp++) {
-       $tmp1 = mysql_fetch_assoc($rs);
+       $tmp1 = mysqli_fetch_assoc($rs);
        $tmpPHP .= '$this->tpl_list['.$tmp1[$i_tmp].']'."=".$tmp1['id'].";\n";
     }
 
     // WRITE Chunks to cache file
     $sql = "SELECT * FROM $dbase.".$table_prefix."site_htmlsnippets";
-    $rs = mysql_query($sql);
-    $limit_tmp = mysql_num_rows($rs);
+    $rs = mysqli_query($this->connection, $sql);
+    $limit_tmp = mysqli_num_rows($rs);
     for ($i_tmp=0; $i_tmp<$limit_tmp; $i_tmp++) {
-       $tmp1 = mysql_fetch_assoc($rs);
+       $tmp1 = mysqli_fetch_assoc($rs);
        $tmpPHP .= '$this->chunkCache[\''.$tmp1['name'].'\']'."='".base64_encode($tmp1['snippet'])."';\n";
     }
 
     // WRITE snippets to cache file
     $sql = "SELECT * FROM $dbase.".$table_prefix."site_snippets";
-    $rs = mysql_query($sql);
-    $limit_tmp = mysql_num_rows($rs);
+    $rs = mysqli_query($this->connection, $sql);
+    $limit_tmp = mysqli_num_rows($rs);
     for ($i_tmp=0; $i_tmp<$limit_tmp; $i_tmp++) {
-       $tmp1 = mysql_fetch_assoc($rs);
+       $tmp1 = mysqli_fetch_assoc($rs);
        $tmpPHP .= '$this->snippetCache[\''.$tmp1['name'].'\']'."='".base64_encode($tmp1['snippet'])."';\n";
     }
 
@@ -127,21 +142,21 @@ class synccache{
     // update publish time file
     $timesArr = array();
     $sql = "SELECT MIN(pub_date) AS minpub FROM $dbase.".$table_prefix."site_content WHERE pub_date>".time();
-    if(@!$result = mysql_query($sql)) {
+    if(@!$result = mysqli_query($this->connection, $sql)) {
       echo "Couldn't determine next publish event!";
     }
 
-    $tmpRow = mysql_fetch_assoc($result);
+    $tmpRow = mysqli_fetch_assoc($result);
     $minpub = $tmpRow['minpub'];
     if($minpub!=NULL) {
       $timesArr[] = $minpub;
     }
 
     $sql = "SELECT MIN(unpub_date) AS minunpub FROM $dbase.".$table_prefix."site_content WHERE unpub_date>".time();
-    if(@!$result = mysql_query($sql)) {
+    if(@!$result = mysqli_query($this->connection, $sql)) {
       echo "Couldn't determine next unpublish event!";
     }
-    $tmpRow = mysql_fetch_assoc($result);
+    $tmpRow = mysqli_fetch_assoc($result);
     $minunpub = $tmpRow['minunpub'];
     if($minunpub!=NULL) {
       $timesArr[] = $minunpub;

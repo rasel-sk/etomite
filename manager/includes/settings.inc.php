@@ -5,10 +5,10 @@
 
 $settings = array();
 $sql = "SELECT setting_name, setting_value FROM $dbase.".$table_prefix."system_settings";
-$rs = mysql_query($sql);
-$number_of_settings = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$number_of_settings = mysqli_num_rows($rs);
 
-while ($row = mysql_fetch_assoc($rs)) {
+while ($row = mysqli_fetch_assoc($rs)) {
   $settings[$row['setting_name']] = $row['setting_value'];
 }
 

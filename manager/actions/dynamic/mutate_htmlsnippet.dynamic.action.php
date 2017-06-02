@@ -30,13 +30,13 @@ else
 
 // check to see the snippet editor isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.action=77 AND $dbase.".$table_prefix."active_users.id=$id";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 1)
 {
   for($i=0; $i < $limit; $i++)
   {
-    $lock = mysql_fetch_assoc($rs);
+    $lock = mysqli_fetch_assoc($rs);
     if($lock['internalKey'] != $_SESSION['internalKey'])
     {
       $msg = $lock['username']." is currently editing this snippet. Please wait until the other user has finished and try again.";
@@ -57,8 +57,8 @@ if(!is_numeric($id))
 if(isset($_GET['id']))
 {
   $sql = "SELECT * FROM $dbase.".$table_prefix."site_htmlsnippets WHERE $dbase.".$table_prefix."site_htmlsnippets.id = $id;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 1)
   {
     echo "Oops, Multiple htmlsnippets sharing same unique id. Not good.<p>";
@@ -69,7 +69,7 @@ if(isset($_GET['id']))
     echo "Oops, HTMLSnippet doesn't exist.";
     exit;
   }
-  $content = mysql_fetch_assoc($rs);
+  $content = mysqli_fetch_assoc($rs);
   $_SESSION['itemname'] = $content['name'];
   if($content['locked'] == 1 && $_SESSION['role'] != 1)
   {

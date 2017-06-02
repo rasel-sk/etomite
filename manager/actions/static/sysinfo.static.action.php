@@ -114,8 +114,8 @@ function showHide(what, onoff)
 
 <?php
 $sql = "SELECT id, pagetitle, editedby, editedon FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.deleted=0 ORDER BY editedon DESC LIMIT 20";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit < 1)
 {
   echo $_lang['sys_info_nothing_found']."<p />";
@@ -124,17 +124,17 @@ else
 {
   for ($i = 0; $i < $limit; $i++)
   {
-    $content = mysql_fetch_assoc($rs);
+    $content = mysqli_fetch_assoc($rs);
     $sql = "select username from $dbase.".$table_prefix."manager_users WHERE id=".$content['editedby'];
-    $rs2 = mysql_query($sql);
-    $limit2 = mysql_num_rows($rs2);
+    $rs2 = mysqli_query($etomiteDBConn, $sql);
+    $limit2 = mysqli_num_rows($rs2);
     if($limit2 != 1)
     {
       echo $_lang['sys_info_bad_number_users'];
       include_once("includes/footer.inc.php");
       exit;
     }
-    $user = mysql_fetch_assoc($rs2);
+    $user = mysqli_fetch_assoc($rs2);
     $bgcolor = ($i % 2) ? 'odd' : 'even';
     echo "<tr class=\"$bgcolor\"><td>".$content['id']."</td><td><a href='index.php?a=3&id=".$content['id']."'>".$content['pagetitle']."</a></td><td>".$user['username']."</td><td>".strftime($date_format." @ ".$time_format, $content['editedon']+$server_offset_time)."</td></tr>";
   }
@@ -285,11 +285,11 @@ function nicesize($size)
 }
 
 $sql = "SHOW TABLE STATUS FROM $dbase;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 for ($i = 0; $i < $limit; $i++)
 {
-  $log_status = mysql_fetch_assoc($rs);
+  $log_status = mysqli_fetch_assoc($rs);
   $bgcolor = ($i % 2) ? 'odd' : 'even';
 ?>
 
@@ -360,8 +360,8 @@ $timetocheck = (time()-(60*20));
 include_once("includes/actionlist.inc.php");
 
 $sql = "SELECT * FROM $dbase.".$table_prefix."active_users WHERE $dbase.".$table_prefix."active_users.lasthit>$timetocheck ORDER BY username ASC";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit < 1)
 {
   echo $_lang['sys_info_no_active_users'];
@@ -370,7 +370,7 @@ else
 {
   for ($i = 0; $i < $limit; $i++)
   {
-    $activeusers = mysql_fetch_assoc($rs);
+    $activeusers = mysqli_fetch_assoc($rs);
     $currentaction = getAction($activeusers['action'], $activeusers['id']);
     echo "<tr><td><b>".$activeusers['username']."</b></td><td>".$activeusers['internalKey']."</td><td>".$activeusers['ip']."</td><td>".strftime($time_format, $activeusers['lasthit']+$server_offset_time)."</td><td>$currentaction</td><td align='right'>".$activeusers['action']."</td></tr>";
   }

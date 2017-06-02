@@ -166,7 +166,7 @@ class phpSniff extends phpSniff_core
         'scrollbar_in_way'            =>    'IE6'
         );
 
-    function phpSniff($UA='',$settings = true)
+    function __construct($UA='',$settings = true)
     {   //  populate the HTTP_USER_AGENT string
         //  20020425 :: rraymond
         //      routine for easier configuration of the client at runtime

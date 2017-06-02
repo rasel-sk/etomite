@@ -12,14 +12,14 @@ if($_SESSION['permissions']['access_permissions']!=1) {
 
 // find all document groups, for the select :)
 $sql = "SELECT * FROM $dbase.".$table_prefix."documentgroup_names";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit<1) {
   $docgroupselector = "[no groups to add]";
 } else {
   $docgroupselector = "<select name='docgroup'>";
   for($i=0; $i<$limit; $i++) {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     $docgroupselector .= "<option value='".$row['id']."'>".$row['name']."</option>";
   }
   $docgroupselector .= "</select>";
@@ -74,13 +74,13 @@ if($limit<1) {
     </thead>
 <?php
     $sql = "SELECT * FROM $dbase.".$table_prefix."membergroup_names";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1) {
       echo "<tr><td class='row1'><span class='warning'>".$_lang['no_groups_found']."</span></td></tr>";
     } else {
       for($i=0; $i<$limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       ?>
       <tr class='row3'>
         <td width="350">
@@ -115,14 +115,14 @@ if($limit<1) {
           WHERE tbl2.user_group=".$row['id']." AND
           tbl1.id = tbl2.member
           ORDER BY tbl1.username ASC";
-          $rs2 = mysql_query($sql);
-          $limit2 = mysql_num_rows($rs2);
+          $rs2 = mysqli_query($etomiteDBConn, $sql);
+          $limit2 = mysqli_num_rows($rs2);
           if($limit2<1) {
             echo $_lang['access_permissions_no_users_in_group'];
           } else {
             $users = array();
             for($y=0; $y<$limit2; $y++) {
-              $row2 = mysql_fetch_assoc($rs2);
+              $row2 = mysqli_fetch_assoc($rs2);
               $users[] = "<a href='index.php?id=".$row2['internalKey']."&a=12' style='font-size: 9px'>".$row2['user']."</a>";
             }
             echo join($users, ", ");
@@ -175,13 +175,13 @@ if($limit<1) {
     </thead>
 <?php
     $sql = "SELECT * FROM $dbase.".$table_prefix."documentgroup_names";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1) {
       echo "<tr><td class='row1'><span class='warning'>".$_lang['no_groups_found']."</span></td></tr>";
     } else {
       for($i=0; $i<$limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       ?>
       <tr class='row3'>
         <td width="350">
@@ -216,14 +216,14 @@ if($limit<1) {
           WHERE tbl2.document_group=".$row['id']." AND
           tbl1.id = tbl2.document
           ORDER BY tbl1.id ASC";
-          $rs2 = mysql_query($sql);
-          $limit2 = mysql_num_rows($rs2);
+          $rs2 = mysqli_query($etomiteDBConn, $sql);
+          $limit2 = mysqli_num_rows($rs2);
           if($limit2<1) {
             echo $_lang['access_permissions_no_documents_in_group'];
           } else {
             $users = array();
             for($y=0; $y<$limit2; $y++) {
-              $row2 = mysql_fetch_assoc($rs2);
+              $row2 = mysqli_fetch_assoc($rs2);
               $users[] = "<a href='index.php?id=".$row2['id']."&a=3' style='font-size: 9px' title='".$row2['document']."'> ".$row2['id']."</a>";
             }
             echo join($users, ", ");
@@ -248,8 +248,8 @@ if($limit<1) {
   <?php echo $_lang['access_permissions_links_tab']; ?> <br />
 <?php
     $sql = "SELECT * FROM $dbase.".$table_prefix."membergroup_names";
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
+    $rs = mysqli_query($etomiteDBConn, $sql);
+    $limit = mysqli_num_rows($rs);
     if($limit<1) {
       echo "<span class='warning'>".$_lang['no_groups_found']."</span><br />";
     } else {
@@ -258,7 +258,7 @@ if($limit<1) {
       <thead><tr><td><b><?php echo $_lang["access_permissions_user_group"]; ?></b></td><td><b><?php echo $_lang["access_permissions_user_group_access"]; ?></b></td></tr></thead>
       <?php
       for($i=0; $i<$limit; $i++) {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       ?>
       <tr class='row3'>
         <td><b><?php echo $row['name'] ;?></b></td>
@@ -273,15 +273,15 @@ if($limit<1) {
         tbl1.id = tbl2.documentgroup
         ORDER BY tbl1.name ASC
         ";
-        $rs2 = mysql_query($sql);
-        $limit2 = mysql_num_rows($rs2);
+        $rs2 = mysqli_query($etomiteDBConn, $sql);
+        $limit2 = mysqli_num_rows($rs2);
         if($limit2<1) {
           ?>
           <tr class='row1'><td>&nbsp;</td><td><i><?php echo $_lang['no_groups_found']; ?></i></td></tr>
           <?php
         } else {
           for($y=0; $y<$limit2; $y++) {
-            $row2 = mysql_fetch_assoc($rs2);
+            $row2 = mysqli_fetch_assoc($rs2);
             ?>
             <tr class='row1'>
               <td align='right'>

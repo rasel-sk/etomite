@@ -29,6 +29,7 @@ $vword = new VeriWord(
   $width,
   $height,
   $database_server,
+  $database_server_port,
   $database_user,
   $database_password,
   $dbase,

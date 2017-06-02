@@ -35,7 +35,7 @@ if(!$udperms->checkPermissions())
 // update the document
 $sql = "UPDATE $dbase.".$table_prefix."site_content SET published=1, pub_date=0, unpub_date=0, editedby=".$_SESSION['internalKey'].", editedon=".time()." WHERE id=$id;";
 
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "An error occured while attempting to publish the document.";

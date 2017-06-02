@@ -15,14 +15,14 @@ if($_SESSION['permissions']['delete_template'] != 1 && $_REQUEST['a'] == 21)
 // delete the template, but first check it doesn't have any documents using it
 $id = (int)$_GET['id'];
 $sql = "SELECT id, pagetitle FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.template=".$id." and $dbase.".$table_prefix."site_content.deleted=0;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit > 0)
 {
   echo "This template is in use. Please set the documents using the template to another template. Documents using this template:<br />";
   for ($i=0; $i < $limit; $i++)
   {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     echo $row['id']." - ".$row['pagetitle']."<br />\n";
   }
   exit;
@@ -36,7 +36,7 @@ if($id == $default_template)
 
 //ok, delete the document.
 $sql = "DELETE FROM $dbase.".$table_prefix."site_templates WHERE $dbase.".$table_prefix."site_templates.id=".$id.";";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to delete the template...";

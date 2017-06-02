@@ -49,6 +49,7 @@ else
 
   // Make required changes to contents
   $contents = str_replace("{HOST}", $database_server, $contents);
+  $contents = str_replace("{PORT}", $database_server_port, $contents);
   $contents = str_replace("{USER}", $database_user, $contents);
   $contents = str_replace("{PASS}", $database_password, $contents);
   $contents = str_replace("{DBASE}", trim($dbase, "`"), $contents);

@@ -64,8 +64,8 @@ $sqladd .= $searchlongtitle!="" ? " AND $dbase.".$table_prefix."site_content.lon
 $sqladd .= $searchcontent!="" ? " AND $dbase.".$table_prefix."site_content.content LIKE '%$searchcontent%' " : "" ;
 
 $sql = "SELECT id, pagetitle, description, deleted, published, isfolder, type FROM $dbase.".$table_prefix."site_content where 1=1 ".$sqladd." ORDER BY id;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 ?>
 <div class="sectionHeader"><img src='media/images/misc/dot.gif' alt="." />&nbsp;<?php echo $_lang['search_results']; ?></div><div class="sectionBody">
 <?php
@@ -90,7 +90,7 @@ if($limit<1) {
     <tbody>
     <?php
       for ($i = 0; $i < $limit; $i++) {
-        $logentry = mysql_fetch_assoc($rs);
+        $logentry = mysqli_fetch_assoc($rs);
         $classname = ($i % 2) ? 'class="even" ' : 'class="odd" ';
   // figure out the icon for the document...
   $icon = "";

@@ -28,44 +28,44 @@ if(IN_ETOMITE_SYSTEM!="true") die($_lang["include_ordering_error"]);
 <?php
   // get page titles
   $sql = "SELECT id, pagetitle FROM $dbase.".$table_prefix."site_content";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
   $pagetitles = array();
-  while ($row = mysql_fetch_row($rs)) {
+  while ($row = mysqli_fetch_row($rs)) {
     $pagetitles[$row[0]] = $row[1];
   }
 
   $sql = "SELECT DISTINCT(visitor) AS visitor, MAX(timestamp) AS lasthit FROM $dbase.".$table_prefix."log_access WHERE timestamp > $track_period GROUP BY visitor ORDER BY lasthit DESC";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for($i=0; $i<$limit; $i++) {
-    $tmp = mysql_fetch_assoc($rs);
+    $tmp = mysqli_fetch_assoc($rs);
     $visitor = $tmp['visitor'];
 
     $sql = "SELECT document, referer, timestamp AS lasthit FROM $dbase.".$table_prefix."log_access WHERE timestamp > $track_period AND visitor=$visitor ORDER BY timestamp DESC LIMIT 1";
-    $rs2 = mysql_query($sql);
-    $tmp2 = mysql_fetch_assoc($rs2);
+    $rs2 = mysqli_query($etomiteDBConn, $sql);
+    $tmp2 = mysqli_fetch_assoc($rs2);
     $document = $tmp2['document'];
     $lasthit = $tmp2['lasthit'];
     $referer = $tmp2['referer'];
 
     $sql = "SELECT t1.data AS ua FROM $dbase.".$table_prefix."log_user_agents AS t1, $dbase.".$table_prefix."log_visitors AS t2 WHERE t2.id=$visitor AND t1.id=t2.ua_id";
-    $rs2 = mysql_query($sql);
-    $tmp2 = mysql_fetch_assoc($rs2);
+    $rs2 = mysqli_query($etomiteDBConn, $sql);
+    $tmp2 = mysqli_fetch_assoc($rs2);
     $ua = $tmp2['ua'];
 
     $sql = "SELECT t1.data AS os FROM $dbase.".$table_prefix."log_operating_systems AS t1, $dbase.".$table_prefix."log_visitors AS t2 WHERE t2.id=$visitor AND t1.id=t2.os_id";
-    $rs2 = mysql_query($sql);
-    $tmp2 = mysql_fetch_assoc($rs2);
+    $rs2 = mysqli_query($etomiteDBConn, $sql);
+    $tmp2 = mysqli_fetch_assoc($rs2);
     $os = $tmp2['os'];
 
     $sql = "SELECT t1.data AS hostname FROM $dbase.".$table_prefix."log_hosts AS t1, $dbase.".$table_prefix."log_visitors AS t2 WHERE t2.id=$visitor AND t1.id=t2.host_id";
-    $rs2 = mysql_query($sql);
-    $tmp2 = mysql_fetch_assoc($rs2);
+    $rs2 = mysqli_query($etomiteDBConn, $sql);
+    $tmp2 = mysqli_fetch_assoc($rs2);
     $host = $tmp2['hostname'];
 
     $sql = "SELECT data AS referer FROM $dbase.".$table_prefix."log_referers WHERE id=$referer";
-    $rs2 = mysql_query($sql);
-    $tmp2 = mysql_fetch_assoc($rs2);
+    $rs2 = mysqli_query($etomiteDBConn, $sql);
+    $tmp2 = mysqli_fetch_assoc($rs2);
     $referer = $tmp2['referer'];
     $refererString = $referer!='Internal' && $referer!='Unknown' ? "<span style='font-size:9px;'>".$_lang['referrer']." "."<a href='$referer' target='_blank' style='font-size:9px;'>$referer</a></span>" : "";
 ?>

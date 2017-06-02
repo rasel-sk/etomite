@@ -35,8 +35,8 @@ if(!$udperms->checkPermissions())
 
 // get the timestamp on which the document was deleted.
 $sql = "SELECT deletedon FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.id=".$id." AND deleted=1;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = mysqli_query($etomiteDBConn, $sql);
+$limit = mysqli_num_rows($rs);
 if($limit != 1)
 {
   echo "Couldn't find document to determine it's date of deletion!";
@@ -44,7 +44,7 @@ if($limit != 1)
 }
 else
 {
-  $row=mysql_fetch_assoc($rs);
+  $row=mysqli_fetch_assoc($rs);
   $deltime = $row['deletedon'];
 }
 
@@ -60,14 +60,14 @@ function getChildren($parent)
   $db->debug = true;
 
   $sql = "SELECT id FROM $dbase.".$table_prefix."site_content WHERE $dbase.".$table_prefix."site_content.parent=".$parent." AND deleted=1 AND deletedon=$deltime;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit > 0)
   {
     // the document has children documents, we'll need to delete those too
     for($i = 0; $i < $limit; $i++)
     {
-      $row = mysql_fetch_assoc($rs);
+      $row = mysqli_fetch_assoc($rs);
       $children[] = $row['id'];
       getChildren($row['id']);
       //echo "Found childNode of parentNode $parent: ".$row['id']."<br />";
@@ -81,7 +81,7 @@ if(count($children) > 0)
 {
   $docs_to_undelete = implode(" ,", $children);
   $sql = "UPDATE $dbase.".$table_prefix."site_content SET deleted=0, deletedby=0, deletedon=0 WHERE id IN($docs_to_undelete);";
-  $rs = @mysql_query($sql);
+  $rs = @mysqli_query($etomiteDBConn, $sql);
   if(!$rs)
   {
     echo "Something went wrong while trying to set the document's children to undeleted status...";
@@ -90,7 +90,7 @@ if(count($children) > 0)
 }
 //'undelete' the document.
 $sql = "UPDATE $dbase.".$table_prefix."site_content SET deleted=0, deletedby=0, deletedon=0 WHERE id=$id;";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to set the document to undeleted status...";

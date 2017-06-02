@@ -74,15 +74,15 @@ function showHide(what, onoff){
   <?php
 
   $sql = "select username, id from $dbase.".$table_prefix."manager_users order by username";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit<1){
     echo "The request returned no users!</div>";
     exit;
     include_once("includes/footer.inc.php");
   }
   for($i=0; $i<$limit; $i++) {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
   ?>
     <div>
       <img style="padding-right:5px;" src="media/images/misc/li.gif">
@@ -116,15 +116,15 @@ function showHide(what, onoff){
   <?php
 
   $sql = "select name, id, description from $dbase.".$table_prefix."user_roles order by name";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   if($limit<1){
     echo "The request returned no roles!</div>";
     exit;
     include_once("includes/footer.inc.php");
   }
   for($i=0; $i<$limit; $i++) {
-    $row = mysql_fetch_assoc($rs);
+    $row = mysqli_fetch_assoc($rs);
     if($row['id']==1) {
   ?>
   <div>

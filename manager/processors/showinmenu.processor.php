@@ -49,7 +49,7 @@ if(!$udperms->checkPermissions())
 // update the document
 $sql = "UPDATE $dbase.".$table_prefix."site_content SET showinmenu=$show, editedby=".$_SESSION['internalKey'].", editedon=".time()." WHERE id=$id;";
 
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 
 if(!$rs)
 {

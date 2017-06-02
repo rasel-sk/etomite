@@ -32,7 +32,7 @@ foreach ($_POST as $k => $v)
 {
   $sql = "REPLACE INTO $dbase.".$table_prefix."system_settings(setting_name, setting_value) VALUES('".addslashes($k)."', '".addslashes($v)."')";
 
-  if(!@$rs = mysql_query($sql))
+  if(!@$rs = mysqli_query($etomiteDBConn, $sql))
   {
     echo "Failed to update setting value!";
     exit;

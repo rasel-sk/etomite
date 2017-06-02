@@ -42,7 +42,7 @@ if($sendto == 'u') {
     postdate = $postdate,
     messageread = 0;
   ";
-  $rs = mysql_query($sql);
+  $rs = mysqli_query($etomiteDBConn, $sql);
 }
 
 if($sendto == 'g') {
@@ -51,10 +51,10 @@ if($sendto == 'g') {
     $e->dumpError();
   }
   $sql = "SELECT internalKey FROM ".$db."user_attributes WHERE ".$db."user_attributes.role=$groupid;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for( $i=0; $i<$limit; $i++ ){
-    $row=mysql_fetch_assoc($rs);
+    $row=mysqli_fetch_assoc($rs);
     if($row['internalKey']!=$_SESSION['internalKey']) {
       $sql2 = "INSERT INTO ".$db."user_messages SET
         id = '',
@@ -67,17 +67,17 @@ if($sendto == 'g') {
         postdate = $postdate,
         messageread = 0;
       ";
-      $rs2 =  mysql_query($sql2);
+      $rs2 =  mysqli_query($sql2);
     }
   }
 }
 
 if($sendto == 'a') {
   $sql = "SELECT id FROM ".$db."manager_users;";
-  $rs = mysql_query($sql);
-  $limit = mysql_num_rows($rs);
+  $rs = mysqli_query($etomiteDBConn, $sql);
+  $limit = mysqli_num_rows($rs);
   for( $i=0; $i<$limit; $i++ ){
-    $row=mysql_fetch_assoc($rs);
+    $row=mysqli_fetch_assoc($rs);
     if($row['id'] != $_SESSION['internalKey']) {
       $sql2 = "INSERT INTO ".$db."user_messages SET
         id = '',
@@ -90,7 +90,7 @@ if($sendto == 'a') {
         postdate = $postdate,
         messageread = 0;
       ";
-      $rs2 =  mysql_query($sql2);
+      $rs2 =  mysqli_query($sql2);
     }
   }
 }

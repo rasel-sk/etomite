@@ -13,7 +13,7 @@ if($_SESSION['permissions']['settings'] != 1 && $_REQUEST['a'] == 55)
 }
 
 $sql = "TRUNCATE TABLE $dbase.".$table_prefix."manager_log;";
-$rs = @mysql_query($sql);
+$rs = @mysqli_query($etomiteDBConn, $sql);
 
 $header="Location: index.php?a=13";
 header($header);

@@ -22,13 +22,13 @@ if($id == 1)
 
 
 $sql = "SELECT count(*) FROM $dbase.".$table_prefix."user_attributes WHERE $dbase.".$table_prefix."user_attributes.role=".$id.";";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to find users with this role...";
   exit;
 }
-$row = mysql_fetch_assoc($rs);
+$row = mysqli_fetch_assoc($rs);
 if($row['count(*)'] > 0)
 {
   echo "There are users with this role. It can't be deleted.";
@@ -37,7 +37,7 @@ if($row['count(*)'] > 0)
 
 // delete the attributes
 $sql = "DELETE FROM $dbase.".$table_prefix."user_roles WHERE $dbase.".$table_prefix."user_roles.id=".$id.";";
-$rs = mysql_query($sql);
+$rs = mysqli_query($etomiteDBConn, $sql);
 if(!$rs)
 {
   echo "Something went wrong while trying to delete the role...";
