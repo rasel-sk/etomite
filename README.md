@@ -1,12 +1,14 @@
 # Etomite
 
-2017-06: Etomite for PHP 7.1 by Matej Kolesár
- PHP 7.1.1
+### Modified 2017-06: Etomite for PHP 7.1 by Matej Kolesár
+
+### PHP 7.1.1
 - mysql_ to mysqli_  (add connection),
 - add port support for mysqli (DbConfig),
 - DbConfig for Log a Cache,
 - remove set_magic_quotes_runtime fro PHP > 5.3
- MySQL 5.7
+
+### MySQL 5.7
 - remove ENGINE=MyISAM,
 - dete to datetime,
 - '0000-00-00' -> CURRENT_TIMESTAMP,
