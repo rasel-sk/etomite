@@ -1,7 +1,19 @@
 # Etomite
 
-Modified 2008-05-08 [v1.1] by Ralph Dahlgren
+2017-06: Etomite for PHP 7.1 by Matej Kolesár
+ PHP 7.1.1
+- mysql_ to mysqli_  (add connection),
+- add port support for mysqli (DbConfig),
+- DbConfig for Log a Cache,
+- remove set_magic_quotes_runtime fro PHP > 5.3
+ MySQL 5.7
+- remove ENGINE=MyISAM,
+- dete to datetime,
+- '0000-00-00' -> CURRENT_TIMESTAMP,
+- '0000-00-00 00:00:00' -> CURRENT_TIMESTAMP
+- `ip` from 20 to `30` -> `etomite_active_users` .
 
+Modified 2008-05-08 [v1.1] by Ralph Dahlgren
 
 ## Etomite Prelude v1.1 installation and upgrade notes
 
