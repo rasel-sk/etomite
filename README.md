@@ -1,8 +1,9 @@
-README
+# Etomite
+
 Modified 2008-05-08 [v1.1] by Ralph Dahlgren
 
 
-Etomite Prelude v1.1 installation and upgrade notes
+## Etomite Prelude v1.1 installation and upgrade notes
 
 The Etomite Prelude v1.1 code base includes several database modifications
 which must be performed on any existing installations prior to v1.0 before the
@@ -11,8 +12,7 @@ include these modifications so no further action will be required after the
 installation is complete other than editing and saving the site configuration
 settings as prompted by the installer.
 
-
-New Installations
+## New Installations
 
 IMPORTANT: As of Etomite Prelude v1.1 the code base no longer ships with a
 manager/includes/config.inc.php file. In order to make upgrades easier the
@@ -32,7 +32,7 @@ can be performed.
   http://www.etomite.com/forums
 
 
-Upgrading Previous Releases
+## Upgrading Previous Releases
 
 IMPORTANT: As of Etomite Prelude v1.1 you no longer have to manually perform
 any manager/includes/config.inc.php maintenance during upgrades. All that is
