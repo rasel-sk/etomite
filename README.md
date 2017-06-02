@@ -5,7 +5,7 @@
 ### PHP 7.1.1
 - mysql_ to mysqli_  (add connection),
 - add port support for mysqli (DbConfig),
-- DbConfig for Log a Cache,
+- DbConfig for Log and Cache,
 - remove set_magic_quotes_runtime fro PHP > 5.3
 
 ### MySQL 5.7
