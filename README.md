@@ -1,20 +1,22 @@
 # Etomite
 
 **History:**
-- 2017-10-05: Fix: mysqli_escape_string() and mysqli_insert_id()
+- 2017-10-05: Fix: `mysqli_escape_string()` and `mysqli_insert_id()`
 - 2017-06-02: Fix: port for PHP 7 and MySQL 5.7
-
+- 2010-11-29: Fix: PHP 5.3, first release by Matej Kolesár
+- 2008-05-10: Last official released version by *Ralph A. Dahlgren*
+ 
 ### PHP 7.1.×
-- mysql_ to mysqli_  (add connection),
+- `mysql_*` to `mysqli_*` (procedural style, add connection),
 - add port support for mysqli (DbConfig),
 - DbConfig for Log and Cache,
-- remove set_magic_quotes_runtime fro PHP > 5.3
+- remove `set_magic_quotes_runtime` for PHP > 5.3
 
 ### MySQL 5.7
-- remove ENGINE=MyISAM,
-- dete to datetime,
-- '0000-00-00' -> CURRENT_TIMESTAMP,
-- '0000-00-00 00:00:00' -> CURRENT_TIMESTAMP
+- remove `ENGINE=MyISAM`,
+- `date` to `datetime`,
+- `0000-00-00` -> `CURRENT_TIMESTAMP`,
+- `0000-00-00 00:00:00` -> `CURRENT_TIMESTAMP`
 - `ip` from 20 to `30` -> `etomite_active_users` .
 
 *Etomite for PHP 7.1.× by Matej Kolesár :bowtie:*
