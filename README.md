@@ -84,4 +84,4 @@ export permissions they must be assigned manually within the
 
 
 GOOD LUCK...
-> The Etomite CMS Project Development Team
+*The Etomite CMS Project Development Team*
