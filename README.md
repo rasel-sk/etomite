@@ -2,9 +2,9 @@
 
 *Modified 2017-10: Etomite for PHP 7.1.× by Matej Kolesár*
 
-History:
-2017-10-05: Fix: mysqli_escape_string() and mysqli_insert_id()
-2017-06-02: Fix: port for PHP 7 and MySQL 5.7
+**History:**
+- 2017-10-05: Fix: mysqli_escape_string() and mysqli_insert_id()
+- 2017-06-02: Fix: port for PHP 7 and MySQL 5.7
 
 
 ### PHP 7.1.×
@@ -82,4 +82,4 @@ export permissions they must be assigned manually within the
 
 
 GOOD LUCK...
-The Etomite CMS Project Development Team
+> The Etomite CMS Project Development Team
