@@ -16,9 +16,9 @@ switch ($_POST['mode'])
 {
   case '78':
     //do stuff to save the new doc
-    $snippet = mysqli_escape_string($_POST['post']);
-    $name = mysqli_escape_string(htmlentities($_POST['name']));
-    $description = mysqli_escape_string(htmlentities($_POST['description']));
+    $snippet = mysqli_escape_string($etomiteDBConn, $_POST['post']);
+    $name = mysqli_escape_string($etomiteDBConn, htmlentities($_POST['name']));
+    $description = mysqli_escape_string($etomiteDBConn, htmlentities($_POST['description']));
     $locked = $_POST['locked'] == 'on' ? 1 : 0 ;
     if($name == "")
     {
@@ -33,7 +33,7 @@ switch ($_POST['mode'])
     else
     {
       // get the id
-      if(!$newid = mysqli_insert_id())
+      if(!$newid = mysqli_insert_id($etomiteDBConn))
       {
         echo "Couldn't get last insert key!";
         exit;
@@ -60,9 +60,9 @@ switch ($_POST['mode'])
 
   case '77':
     //do stuff to save the edited doc
-    $snippet = mysqli_escape_string($_POST['post']);
-    $name = mysqli_escape_string(htmlentities($_POST['name']));
-    $description = mysqli_escape_string(htmlentities($_POST['description']));
+    $snippet = mysqli_escape_string($etomiteDBConn, $_POST['post']);
+    $name = mysqli_escape_string($etomiteDBConn, htmlentities($_POST['name']));
+    $description = mysqli_escape_string($etomiteDBConn, htmlentities($_POST['description']));
     $locked = $_POST['locked'] == 'on' ? 1 : 0 ;
     if($name == "")
     {

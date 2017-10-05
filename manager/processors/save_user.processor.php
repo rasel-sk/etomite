@@ -86,7 +86,7 @@ switch ($_POST['mode']) {
     exit;
   }
   // now get the id
-  if(!$key=mysqli_insert_id()) {
+  if(!$key=mysqli_insert_id($etomiteDBConn)) {
     //get the key by sql
   }
   $sql = "INSERT INTO $dbase.".$table_prefix."user_attributes(internalKey, fullname, role, email, phone, mobilephone)

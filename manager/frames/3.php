@@ -130,9 +130,9 @@ if(isset($_POST['id']) && isNumber($_POST['id']) && isset($_POST['orderby']) && 
     exit(0);
   }
 
-  $orderby = mysqli_escape_string($_POST['orderby']);
+  $orderby = mysqli_escape_string($handle, $_POST['orderby']);
 
-  $listingarr = explode('&',str_replace('list[]=','',mysqli_escape_string($_POST['listing'])));
+  $listingarr = explode('&',str_replace('list[]=','',mysqli_escape_string($handle, $_POST['listing'])));
   if($orderby=='DESC') {
     $listingarr = array_reverse($listingarr);
   }
@@ -161,7 +161,7 @@ if(isset($_POST['id']) && isNumber($_POST['id']) && isset($_POST['orderby']) && 
 
   $testtext="";
   $firsttime=true;
-  $displayorder = str_replace('list[]=','',mysqli_escape_string($_POST['listing']));
+  $displayorder = str_replace('list[]=','',mysqli_escape_string($handle, $_POST['listing']));
 
 
 

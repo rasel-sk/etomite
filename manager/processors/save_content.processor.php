@@ -172,7 +172,7 @@ switch($actionToTake)
       echo "An error occured while attempting to save the new document.";
     }
 
-    if(!$key = mysqli_insert_id())
+    if(!$key = mysqli_insert_id($etomiteDBConn))
     {
       echo "Couldn't get last insert key!";
     }
