@@ -1,8 +1,13 @@
 # Etomite
 
-### Modified 2017-06: Etomite for PHP 7.1 by Matej Kolesár
+*Modified 2017-10: Etomite for PHP 7.1.× by Matej Kolesár*
 
-### PHP 7.1.1
+History:
+2017-10-05: Fix: mysqli_escape_string() and mysqli_insert_id()
+2017-06-02: Fix: port for PHP 7 and MySQL 5.7
+
+
+### PHP 7.1.×
 - mysql_ to mysqli_  (add connection),
 - add port support for mysqli (DbConfig),
 - DbConfig for Log and Cache,
@@ -15,9 +20,9 @@
 - '0000-00-00 00:00:00' -> CURRENT_TIMESTAMP
 - `ip` from 20 to `30` -> `etomite_active_users` .
 
-Modified 2008-05-08 [v1.1] by Ralph Dahlgren
-
 ## Etomite Prelude v1.1 installation and upgrade notes
+
+*Modified 2008-05-08 [v1.1] by Ralph Dahlgren*
 
 The Etomite Prelude v1.1 code base includes several database modifications
 which must be performed on any existing installations prior to v1.0 before the
