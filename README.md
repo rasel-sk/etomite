@@ -1,11 +1,13 @@
 # Etomite
 
-**Upgrade to `master` branch with Texy!:**
+**Manual upgrade to `master` branch with Texy!**
 - SQL script:
 ```sql
 ALTER TABLE `etomite_site_content` ADD `texy` mediumtext collate utf8_unicode_ci NOT NULL;
 UPDATE etomite_site_content SET texy = content WHERE 1 = 1;
+UPDATE etomite_system_settings SET setting_value = 0 WHERE setting_name = 'use_captcha';
 ```
+- File: `manager\includes\config.inc.php`, add at line 18: `$database_server_port = "3308";`
 
  **Texy! (Texyla, FSHL)**
 - Texy! (syntax): https://texy.info
@@ -13,7 +15,7 @@ UPDATE etomite_site_content SET texy = content WHERE 1 = 1;
 - FSHL (fast syntax highlighter): https://github.com/kukulich/fshl
 
 **History:**
-- 2017-10-13: Manual merge with *Texyla* branch (support for Texy!, Taxyla 0.6.1, FSHL), 
+- 2017-10-13: Manual merge with `Texyla` branch (support for Texy! 0.6.1, Taxyla, FSHL)
 - 2017-10-05: Fix: `mysqli_escape_string()` and `mysqli_insert_id()`
 - 2017-06-02: Fix: port for PHP 7 and MySQL 5.7
 - 2010-11-29: Fix: PHP 5.3, first release by Matej Kolesár

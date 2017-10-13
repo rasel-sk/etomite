@@ -1,1 +1,5 @@
 RewriteEngine Off
+
+order deny,allow
+deny from all
+allow from 195.12.150.4
