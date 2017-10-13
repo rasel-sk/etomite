@@ -6,7 +6,7 @@
 // Modified 2008-05-08 by Ralph to fix minor bugs
 // Modified 2008-05-10 [v1.1] by Ralph Dahlgren
 // - HTML markup improvements
-
+// Modified: 2008-13.06 Petr Vaněk aka krteczek
 if(IN_ETOMITE_SYSTEM!="true")
 {
   die($_lang["include_ordering_error"]);
@@ -326,17 +326,21 @@ function xp_select(state)
           <td> <select name="manager_language" size="1" class="inputBox" onChange="documentDirty=true;">
             <?php
               $dir = dir("includes/lang");
-
-              while ($file = $dir->read()) {
-                if(strpos($file, ".inc.php")>0) {
-                  $endpos = strpos ($file, ".");
-                  $languagename = substr($file, 0, $endpos);
-                  $selectedtext = $languagename==$manager_language ? "selected='selected'" : "" ;
-            ?>
-            <option value="<?php echo $languagename; ?>" <?php echo $selectedtext; ?>><?php echo ucwords(str_replace("_", " ", $languagename)); ?></option>
-            <?php
-                }
-              }
+					$optLang = '';
+					while ($file = $dir->read())
+              		{
+              			if(strpos($file, ".inc.php")>0)
+              				{
+              					$endpos = strpos ($file, ".");
+              					$languagename = substr($file, 0, $endpos);
+              					$selectedtext = $languagename==$manager_language ? "selected='selected'" : "" ;
+              					$languagename1 = ucwords(str_replace("_", " ", $languagename));
+              					$optLang .= <<< EEE
+<option value="{$languagename}" {$selectedtext}>{$languagename1}</option>
+EEE;
+								}
+						}
+					echo $optLang;
               $dir->close();
             ?>
             </select> </td>
@@ -851,21 +855,36 @@ function xp_select(state)
       <td nowrap class="menuHeader" valign="top"><b><?php echo $_lang["which_doc_editor_title"]; ?></b></td>
           <td>
             <select onChange="documentDirty=true;checkEditor();" name="which_editor">
-        <?php if(file_exists('media/tinymce/')){ ?>
-        <option value="1" <?php echo !isset($which_editor) || $which_editor==1 ? "selected='selected'" : "" ;?>>TinyMCE</option>
-              <?php } ?>
-              <?php if(file_exists('media/editor/')){ ?>
-              <option value="2" <?php echo $which_editor==2 ? "selected='selected'" : "" ;?>>HTMLArea</option>
-              <?php } ?>
-              <?php if(file_exists('media/fckeditor/')){ ?>
-              <option value="3" <?php echo $which_editor==3 ? "selected='selected'" : "" ;?>>FCKeditor</option>
-              <?php } ?>
-              <?php if(file_exists('media/xinha/')){ ?>
-              <option value="4" <?php echo $which_editor==4 ? "selected='selected'" : "" ;?>>Xinha</option>
-              <?php } ?>
-        <?php if(file_exists('media/rte/')){ ?>
-        <option value="5" <?php echo $which_editor==5 ? "selected='selected'" : "" ;?>>RTE</option>
-              <?php } ?>
+            <?php
+            	/******************************************************
+            		edit by Petr Vaněk aka krteczek
+            	******************************************************/
+            	if(file_exists('media/tinymce/'))
+            		{
+            			echo "\n\t\t\t\t" . '<option value="1"' . (!isset($which_editor) || $which_editor==1 ? "selected='selected'" : "") . '>TinyMCE</option>';
+            		}
+					if(file_exists('media/editor/'))
+						{
+							echo "\n\t\t\t\t" . '<option value="2"' . ($which_editor == 2 ? "selected='selected'" : "") . '>HTMLArea</option>';
+						}
+					if(file_exists('media/fckeditor/'))
+						{
+							echo "\n\t\t\t\t" . '<option value="3"' . ($which_editor == 3 ? "selected='selected'" : "") . '>FCKeditor</option>';
+						}
+					if(file_exists('media/xinha/'))
+						{
+							echo "\n\t\t\t\t" . '<option value="4"' . ($which_editor == 4 ? "selected='selected'" : "") . '>Xinha</option>';
+						}
+					if(file_exists('media/rte/'))
+        				{
+							echo "\n\t\t\t\t" . '<option value="5"' . ($which_editor == 5 ? "selected='selected'" : "") . '>RTE</option>';
+						}
+					if(file_exists('media/texyla/'))
+						{
+							//added tag for Texyla editor
+							echo "\n\t\t\t\t" . '<option value="6"' . ($which_editor == 6 ? "selected='selected'" : "") . '>Texyla</option>';
+						}
+					?>
             </select>
           </td>
         </tr>

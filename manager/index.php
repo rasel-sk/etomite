@@ -29,6 +29,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
            content
  Last Modified: 2008-04-18 [v1.0] By: Ralph A. Dahlgren
 /***************************************************************************/
+
+/***************************************************************************
+Upgrade for Texyla & Texy  by Petr Vaněk (aka) krteczek
+Last Modified: 2008-06-13 v1.0-Texyla
+web: http://texyla.jaknato.com
+
+****************************************************************************/
 // start our script timer
 $mtime = microtime();
 $mtime = explode(" ",$mtime);
@@ -49,7 +56,7 @@ header("Pragma: no-cache");
 ini_set('session.cookie_domain',str_replace('www.','.',$_SERVER['HTTP_HOST']));
 
 // set error reporting
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL);
 
 // check PHP version. Etomite is compatible with php 4 (4.1.0 up)
 $php_ver_comp =  version_compare(phpversion(), "4.1.0");
@@ -65,6 +72,11 @@ ini_set("include_path",ini_get("include_path").PATH_SEPARATOR.dirname(__FILE__).
 error_reporting(E_ALL ^ E_NOTICE);
 @set_magic_quotes_runtime(0);
 include_once("includes/quotes_stripper.inc.php");
+
+//načtení Texyly
+require_once(dirname(__FILE__) . '/media/texyla/texyla.php');
+// odstranění magic_quotes_gpc
+removeMagicQuotesGpc();
 
 // include the html_entity_decode fake function :)
 if(!function_exists('html_entity_decode'))
@@ -95,6 +107,7 @@ if(!defined("IN_ETOMITE_SYSTEM")) define("IN_ETOMITE_SYSTEM", "true");
 if(!isset($_SERVER["DOCUMENT_ROOT"]) || empty($_SERVER["DOCUMENT_ROOT"]))
 {
   $_SERVER["DOCUMENT_ROOT"] = str_replace($_SERVER["PATH_INFO"], "", ereg_replace("[\][\]", "/", $_SERVER["PATH_TRANSLATED"]))."/";
+
 }
 
 // include_once config file
@@ -116,7 +129,19 @@ if(@!$etomiteDBConn = mysql_connect($database_server, $database_user, $database_
 else
 {
   mysql_select_db($dbase);
+  mysql_query("SET NAMES 'utf-8'");
 }
+
+function o($var)
+	{
+		# preferoval bych u return (string)"'" . $var . "'" a všude to psát bez
+		# return "'" . (function_exists('mysql_real_escape_string') ? mysql_real_escape_string($var) : (function_exists('mysql_escape_string') ? mysql_escape_string($var) : addslashes($var)) ) . "'";
+		if(is_numeric($var))
+			{
+				return $var;
+			}
+		return (function_exists('mysql_real_escape_string') ? mysql_real_escape_string($var) : (function_exists('mysql_escape_string') ? mysql_escape_string($var) : addslashes($var)) );
+	}
 
 // get the settings from the database
 include_once("includes/settings.inc.php");
@@ -148,7 +173,7 @@ include_once("includes/lang/english.inc.php");
 $length_eng_lang = count($_lang);
 if($manager_language!="english")
 {
-  include_once("includes/lang/".$manager_language.".inc.php");
+  @include_once("includes/lang/".$manager_language.".inc.php");
 }
 
 // include_once the error handler

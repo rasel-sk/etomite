@@ -1,0 +1,73 @@
+
+/*blok s textareaou*/
+.Texyla .textareaParent {text-align:center;}
+.Texyla .textareaParent textarea {margin:0 auto;}
+
+/*Hlavička*/
+.Texyla .heading {font-weight:bold; position:relative;}
+.Texyla .heading img {position:absolute;}
+
+/*náhled*/
+.Texyla .preview, .Texyla .htmlPreview {margin:5px; padding:5px; background:white; overflow:auto;}
+.Texyla .wait {font-weight:bold; text-align:center;}
+
+/*HTML náhled*/
+.Texyla .htmlPreview {font-family:monospace;}
+
+/*tlačítka dole*/
+.Texyla .bottomBar {padding:0 5px 5px;}
+.Texyla .bottomLeftBar {float:left;}
+.Texyla .bottomRightBar {float:right; text-align:right;}
+.Texyla .bottomLeftBar .coolbtn, .Texyla .bottomLeftBar button {margin-right:5px}
+.Texyla .bottomRightBar .coolbtn, .Texyla .bottomRightBar button {margin-left:5px}
+
+/*čitič*/
+.Texyla .cleaner, .TexylaPopup .cleaner {height:0; clear:both; overflow:hidden; width:0;}
+
+/*normální tlačítka*/
+.Texyla button, .TexylaPopup button {overflow:visible; padding:0.4em 0.8em; cursor:pointer;}
+.Texyla button img {vertical-align:middle;}
+
+/*pěkná tlačítka*/
+.coolbtn {cursor:pointer; float:left;}
+.coolbtn-left, .coolbtn-middle, .coolbtn-right {display:block; float:left; position:relative;}
+.coolbtn-right {background-position: 100% 0%;}
+.coolbtn img {position:absolute;}
+.coolbtn.hover .coolbtn-left, .coolbtn.hover .coolbtn-middle {background-position:0% 100%;}
+.coolbtn.hover .coolbtn-right {background-position:100% 100%;}
+
+/*tlačítková lišta (nahoře)*/
+.Texyla .toolbar, .Texyla .toolbar li, .Texyla .toolbar ul {margin:0; padding:0; list-style-type:none;}
+/*ikonka*/
+.Texyla .toolbar li {float:left;}
+.Texyla .toolbar span.link {cursor: pointer; display:block;}
+/*menu*/
+.Texyla .toolbar li.btnmenu {background-repeat:no-repeat; background-position:0% 50%;}
+.Texyla .toolbar li.menu, .Texyla .toolbar .separator {background-repeat:no-repeat; background-position:50% 50%;}
+.Texyla .toolbar ul li {display:block; cursor:pointer;}
+
+/*menu*/
+.Texyla .toolbar ul {z-index:2000; position:absolute; display:none; white-space:nowrap;}
+.Texyla .toolbar li.hover ul {display:block;}
+/*položka*/
+.Texyla .toolbar ul li {padding:1px; float:none; position:relative;}
+.Texyla .toolbar ul li img, .Texyla .toolbar ul li span {vertical-align:middle;}
+
+
+/* popup okno */
+.TexylaPopup {position:absolute; display:block; z-index:20;}
+.TexylaPopup form {margin:0;}
+.TexylaPopup acronym {font-variant:normal; border-bottom:1px dotted gray; cursor:help;}
+
+.TexylaPopup .tabBackground {width:81px; height:81px; position:absolute; font-size:1%;}
+.TexylaPopup .tabSelection {width:16px; height:16px;}
+.TexylaPopup .tabControl {width:81px; height:81px; position:absolute; top:0; left:0; cursor:pointer;}
+
+.TexylaPopup .heading img {position:absolute;}
+.TexylaPopup .heading div {margin: 0 32px; cursor:move; font-weight:bold;}
+
+.TexylaPopup .close {cursor: pointer; position: absolute; display:block; font-size:0;}
+.TexylaPopup .close.hover {background-position:0% 100% ! important;}
+
+.TexylaPopup .emoticons span {display:block; float:left; cursor:pointer;}
+.TexylaPopup .emoticons br {clear:left;}

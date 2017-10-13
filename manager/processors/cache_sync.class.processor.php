@@ -51,9 +51,10 @@ class synccache{
     $rs = mysql_query($sql);
     $limit_tmp = mysql_num_rows($rs);
     while(list($key,$value) = mysql_fetch_row($rs)) {
-       $tmpPHP .= '$this->config[\''.$key.'\']'."='".str_replace("'", "\'", $value)."';\n";
+       $tmpPHP .= '$this->config["'.$key.'"]' . " = '" . str_replace("'", "\'", $value) . "';\n";
+       # $tmpPHP .= '$this->config["'.$key.'"]' . '=' . is_numeric($value) ? $value : ("'" . (!empty($value) ? str_replace("'", "\'", $value) : '') . "'" ) . ";\n";
     }
-
+	
     // get aliases
     // $sql = "SELECT id, alias, template FROM $dbase.".$table_prefix."site_content WHERE LENGTH($dbase.".$table_prefix."site_content.alias) > 1";
     $sql = "SELECT id, alias, template, parent, authenticate FROM $dbase.".$table_prefix."site_content";
@@ -62,9 +63,9 @@ class synccache{
     for ($i_tmp=0; $i_tmp<$limit_tmp; $i_tmp++) {
        $tmp1 = mysql_fetch_assoc($rs);
        if($tmp1['alias']!="") {
-         $tmpPHP .= '$this->documentListing[\''.$tmp1['alias'].'\']'." = ".$tmp1['id'].";\n";
+         $tmpPHP .= '$this->documentListing["' . $tmp1['alias'] . '"]' . " = " . $tmp1['id'] . ";\n";
        }
-       $tmpPHP .= '$this->aliasListing[]'."=array('id'=>".$tmp1['id'].",'alias'=>'".$tmp1['alias']."','template'=>".$tmp1['template'].",'parent'=>".$tmp1['parent'].",'authenticate'=>".$tmp1['authenticate'].");\n";
+       $tmpPHP .= '$this->aliasListing[]' . " = array('id'=>".$tmp1['id'].",'alias'=>'".$tmp1['alias']."','template'=>".$tmp1['template'].",'parent'=>".$tmp1['parent'].",'authenticate'=>".$tmp1['authenticate'].");\n";
     }
 
     // get content types
@@ -105,6 +106,7 @@ class synccache{
 
     // close and write the file
     $tmpPHP .= "?>";
+    # dump($tmpPHP);
     $filename = $this->cachePath.'etomiteCache.idx.php';
     $somecontent = $tmpPHP;
 

@@ -1,0 +1,58 @@
+﻿.win_xp .Texyla .toolbar ﻿ul, li {list-style-image:none;}
+﻿.win_xp .Texyla {background:#ECE9D8;}
+
+/* lišty, hlavičky apod. */
+.win_xp .Texyla .toolbar, .win_xp .Texyla .toolbar li.btnmenu, .win_xp .Texyla .toolbar li.menu, .win_xp .Texyla .toolbar li.separator {height:29px;}
+.win_xp .Texyla .heading {padding-left:26px; padding-top:5px; line-height:24px;}
+.win_xp .Texyla .heading img {left:5px; top:9px;}
+
+/* tlačítko */
+.win_xp .Texyla .toolbar span.link {padding:4px 4px; margin:5px 0 0 5px;}
+.win_xp .Texyla .toolbar li span.link.hover {background:url('toolbar_button.png') 0px 0px no-repeat;}
+/* oddělovač */
+.win_xp .Texyla .toolbar .separator {background-image:url('separator.gif'); background-position:5px 8px; width:6px;}
+/* menu - šipky */
+.win_xp .Texyla .toolbar li.btnmenu, .win_xp .Texyla .toolbar li.menu {background-image:url('menu.gif');}
+.win_xp .Texyla .toolbar li.menu {width:17px; background-position:7px 16px;}
+.win_xp .Texyla .toolbar li.btnmenu {width:12px; background-position:2px 16px;}
+.win_xp .Texyla .toolbar li.btnmenu ul {margin-left:-5px;}
+
+/*menu*/
+.win_xp .Texyla .toolbar ul {background:white; border:1px solid #ACA899; margin-top:29px;}
+.win_xp .Texyla .toolbar ul li {padding:2px 5px 2px 3px; margin:2px;}
+.win_xp .Texyla .toolbar ul li.hover {background:#316AC5; color:white;}
+.win_xp .Texyla .toolbar ul li img {margin-right:5px;}
+
+/*Tlačítka*/
+.win_xp .coolbtn-left, .win_xp .coolbtn-right {width:4px; height:33px; background-image:url('button_sides.png');}
+.win_xp .coolbtn-middle {background-image:url('button_middle.png'); padding:0 5px 0 26px; line-height:33px;}
+.win_xp .coolbtn img {left:5px; top:8px;}
+
+
+/* Popup okno */
+
+.win_xp .TexylaPopup {background:#ECE9D8; border:2px solid #0831D9;}
+
+/*hlavička*/
+.win_xp .TexylaPopup .heading {background-image:url('window_header.png'); line-height:29px;}
+.win_xp .TexylaPopup .heading img {left:4px; top:6px;}
+.win_xp .TexylaPopup .heading div {margin:0 24px; color:white;}
+.win_xp .TexylaPopup .close {top:4px; right:4px; width:21px; height:21px; background:url('close.png');}
+
+/*formulář*/
+.win_xp .TexylaPopup .winForm {margin:5px; padding:5px; background:#F5F4EF; border:1px solid #919B9C;}
+.win_xp .TexylaPopup form th {padding: 5px 5px 5px 10px; text-align:right;}
+.win_xp .TexylaPopup form td {padding: 5px 10px 5px 5px;}
+.win_xp .TexylaPopup .textField {width:180px;}
+.win_xp .TexylaPopup .number {width:50px;}
+.win_xp .TexylaPopup .bottomBar {padding:0 5px 5px;}
+
+/*tabulka*/
+.win_xp .TexylaPopup form .table {margin-right:101px;}
+.win_xp .TexylaPopup .tabBackground {background:white url('table_background.gif'); top:47px; right:16px;}
+.win_xp .TexylaPopup .tabSelection {background:#B2C4D6 url('table_selection.gif');}
+
+/*smajlíky*/
+.win_xp .TexylaPopup .emoticons {padding:0px 5px; font-size:0;}
+.win_xp .TexylaPopup .emoticons span {padding:5px;}
+.win_xp .TexylaPopup .emoticons span.hover {background:#316AC5;}

@@ -1,6 +1,8 @@
 <?php
 // save_settings.processor.php
 // Last Modified: 2006-04-18 by Ralph Dahlgren
+// edit by Petr Vaněk aka krteczek
+// Last Modified: 2008-06-13
 
 if(IN_ETOMITE_SYSTEM != "true")
 {
@@ -30,7 +32,7 @@ unset($_POST['submit']);
 
 foreach ($_POST as $k => $v)
 {
-  $sql = "REPLACE INTO $dbase.".$table_prefix."system_settings(setting_name, setting_value) VALUES('".addslashes($k)."', '".addslashes($v)."')";
+  $sql = "REPLACE INTO $dbase.".$table_prefix."system_settings(setting_name, setting_value) VALUES('".o($k)."', '".o($v)."')";
 
   if(!@$rs = mysql_query($sql))
   {

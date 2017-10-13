@@ -1,6 +1,9 @@
 -- etomite_lite.sql
 -- 2008-04-04
 
+-- edit by krteczek:
+-- add colum `texy` to TABLE `{PREFIX}site_content`
+-- 2008-06-13
 
 -- START::CREATE TABLE SECTION
 
@@ -156,6 +159,7 @@ CREATE TABLE `{PREFIX}site_content` (
   `parent` int(10) NOT NULL default '0',
   `isfolder` int(1) NOT NULL default '0',
   `content` mediumtext collate utf8_unicode_ci NOT NULL,
+  `texy` mediumtext collate utf8_unicode_ci NOT NULL, 
   `richtext` tinyint(1) NOT NULL default '1',
   `template` int(10) NOT NULL default '1',
   `menuindex` int(10) NOT NULL default '0',
@@ -314,13 +318,13 @@ INSERT INTO `{PREFIX}user_roles` VALUES(1, 'Administrator', 'Site administrators
 
 -- START::INSERT site_content DATA
 
-INSERT INTO `{PREFIX}site_content` VALUES (1, 'document', 'text/html', 'Etomite CMS', 'Fast, Free, and Infinitely Flexible', 'Introduction to Etomite', 'home', 1, 0, 0, 0, 0, '<p><strong>Welcome to Etomite!</strong></p>\r\n\r\n<p>This is the default installation site. If you''re reading this, it means you''ve successfully installed Etomite, and have also configured the site. Now all you need to do is to add your content, design a unique template for your site, perhaps write some snippets which make your site stand out, and, most of all, enjoy using Etomite!</p>\r\n\r\n<p>To log into the manager, point your browser to <a href="manager">yoursite/manager</a>.</p>', 1, 1, 1, 1, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
+INSERT INTO `{PREFIX}site_content` VALUES (1, 'document', 'text/html', 'Etomite CMS', 'Fast, Free, and Infinitely Flexible', 'Introduction to Etomite', 'home', 1, 0, 0, 0, 0, '<p><strong>Welcome to Etomite!</strong></p>\r\n\r\n<p>This is the default installation site. If you''re reading this, it means you''ve successfully installed Etomite, and have also configured the site. Now all you need to do is to add your content, design a unique template for your site, perhaps write some snippets which make your site stand out, and, most of all, enjoy using Etomite!</p>\r\n\r\n<p>To log into the manager, point your browser to <a href="manager">yoursite/manager</a>.</p>', 'Welcome to Etomite!\r\n###################\r\n\r\nThis is the default installation site. If you''re reading this, it means you''ve successfully installed Etomite, and have also configured the site. Now all you need to do is to add your content, design a unique template for your site, perhaps write some snippets which make your site stand out, and, most of all, enjoy using Etomite!\r\n\r\nTo log into the manager, point your browser to "yoursite/manager":manager', 1, 1, 1, 1, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
 
-INSERT INTO `{PREFIX}site_content` VALUES (2, 'document', 'text/html', 'Repository', 'The secret Repository', 'Folder for other stuff :)', '', 0, 0, 0, 0, 1, 'Why are you reading this?', 0, 1, 0, 0, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
+INSERT INTO `{PREFIX}site_content` VALUES (2, 'document', 'text/html', 'Repository', 'The secret Repository', 'Folder for other stuff :)', '', 0, 0, 0, 0, 1, 'Why are you reading this?', 'Why are you reading this?', 0, 1, 0, 0, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
 
-INSERT INTO `{PREFIX}site_content` VALUES (3, 'document', 'text/html', 'Error 404 - Page Not Found', 'Unable to locate the page you requested.', 'The error page which is displayed when the requested page cannot be found', 'http404', 1, 0, 0, 2, 0, '\r\n<p><strong>404 Error - File not Found</strong></p><p>Hm. The page you''ve requested wasn''t found. Perhaps the page has moved, or you mistyped the URL. Or, you could try going back to the main site and trying to find the page you were looking for from there.[[DontLogPageHit]]</p>', 1, 1, 0, 0, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
+INSERT INTO `{PREFIX}site_content` VALUES (3, 'document', 'text/html', 'Error 404 - Page Not Found', 'Unable to locate the page you requested.', 'The error page which is displayed when the requested page cannot be found', 'http404', 1, 0, 0, 2, 0, '\r\n<p><strong>404 Error - File not Found</strong></p><p>Hm. The page you''ve requested wasn''t found. Perhaps the page has moved, or you mistyped the URL. Or, you could try going back to the main site and trying to find the page you were looking for from there.[[DontLogPageHit]]</p>', '\r\n404 Error - File not Found\r\n###########################\r\n\r\nHm. The page you''ve requested wasn''t found. Perhaps the page has moved, or you mistyped the URL. Or, you could try going back to the main site and trying to find the page you were looking for from there. [[DontLogPageHit]]', 1, 1, 0, 0, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
 
-INSERT INTO `{PREFIX}site_content` VALUES (4, 'document', 'text/xml', 'Google Site Map', '', '', 'google-sitemap', 1, 0, 0, 2, 0, '', 0, 2, 10, 0, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
+INSERT INTO `{PREFIX}site_content` VALUES (4, 'document', 'text/xml', 'Google Site Map', '', '', 'google-sitemap', 1, 0, 0, 2, 0, '', '', 0, 2, 10, 0, 0, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP(), 0, 0, 0, 0, 1);
 
 -- END::INSERT site_content DATA
 

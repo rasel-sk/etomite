@@ -5,6 +5,7 @@
 // Modified 2007_11_18 by Cris D to remove editor integration to includes() files
 // Modified 2008-04-28 [v1.0] by Ralph (too many to list)
 // Modified 2008-05-08 by Ralph to fix minor bugs
+// Modified 2008-06-13 by Petr Vaněk aka krteczek to added Texyla
 
 // START::Date and Time format information
 // $date_format = "%Y-%m-%d"; // stored in site_settings
@@ -534,9 +535,13 @@ if($use_code_editor && ((isset($content['richtext']) && $content['richtext'] == 
 {
   $syntax = 'html';
   if(isset($content['contentType']) && $content['contentType'] == 'text/xml')
+  	{
     $syntax = 'xml';
+   }
   else if(isset($content['contentType']) && $content['contentType'] == 'text/plain')
+  	{
     $syntax = 'none';
+   }
 
 ?>
 
@@ -649,7 +654,7 @@ editAreaLoader.init({
 <?php
 if(($content['richtext']==1 || $_GET['a']==4) && $use_doc_editor==1)
 {
-
+ 
   # Start - RTE
   if($which_editor==5)
   {
@@ -686,6 +691,12 @@ if(($content['richtext']==1 || $_GET['a']==4) && $use_doc_editor==1)
   {
     include('tinyMCE_mutate_settings.php');
   }
+# Start - Texyla load
+  elseif($which_editor == 6)
+  {
+    //include texyla textarea + settings for javascript
+    require_once('texyla_mutate_settings.php');
+  }
 
 }
 else
@@ -698,7 +709,9 @@ else
   <textarea id="ta" name="ta" style="width:100%; " onChange="documentDirty=true;"><?php if(!isset($syntax) || $content['content']!='') echo htmlspecialchars($content['content']); else echo " "; ?></textarea>
   </div>
 
-<?php } ?>
+<?php } 
+ 
+?>
 
 <!--    </div>-->
 </div>

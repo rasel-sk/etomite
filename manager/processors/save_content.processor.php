@@ -4,6 +4,9 @@
 // Last Modified: 2007-11-15 [0615] by Ralph for alternate createdon functionality for
 // Modified 2008-04-25 [v1.0] by Ralph to use new system date|time formatting features
 // * All dates are now passed in unix timestamp format
+// Modified: 2008-06-13 [v1.1] by: Petr Vaněk aka krteczek added Texyla, added function o()
+// Modified: 2008-06-14 [v1.1] by: Petr Vaněk aka krteczek: patch the Texy error when non use Texyla editor
+//Modified: 2008-10-02 [v1.1] by: Petr Vaněk aka krteczek: patch the error when reference
 
 if(IN_ETOMITE_SYSTEM != "true")
 {
@@ -17,30 +20,55 @@ if($_SESSION['permissions']['save_document'] != 1 && $_REQUEST['a'] == 5)
 }
 
 $id = $_POST['id'];
-$content = addslashes($_POST['ta']);
-$pagetitle = addslashes($_POST['pagetitle']);
-$description = addslashes($_POST['description']);
-$alias = addslashes($_POST['alias']);
-$isfolder = $_POST['isfolder'];
-$richtext = $_POST['richtext'];
-$published = $_POST['published'];
-$parent = $_POST['parent']!='' ? $_POST['parent'] : 0;
-$template = $_POST['template'];
-$menuindex = $_POST['menuindex'];
+
+//edit by krteczek: path to use Texyla
+if($which_editor == 6)
+	{
+		/* edit by krteczek 2008-10-02
+		$content = o(texyla($_POST['ta'], 'admin', 'utf-8'));
+		*/
+		if($_POST['type'] === 'reference')
+			{
+				# jedná se o odkaz (reference) tak nebudeme upravovat text
+				$content = o($_POST['ta']);
+			}
+		else
+			{
+				# when use Texyla
+				$content = o(texyla($_POST['ta'], 'admin', 'utf-8'));
+			}		
+		$texy = o($_POST['ta']); //added for Texyla
+	}
+else
+	{
+		# non use Texyla
+		$content = o($_POST['ta']);
+		$texy = o($_POST['ta']); //added for Texyla
+	}
+
+$pagetitle = o($_POST['pagetitle']);
+$description = o($_POST['description']);
+$alias = o($_POST['alias']);
+$isfolder = o($_POST['isfolder']);
+$richtext = o($_POST['richtext']);
+$published = o($_POST['published']);
+$parent = $_POST['parent']!='' ? o($_POST['parent']) : 0;
+$template = o($_POST['template']);
+$menuindex = o($_POST['menuindex']);
 if(empty($menuindex)) $menuindex = 0;
-$searchable = $_POST['searchable'];
-$cacheable = $_POST['cacheable'];
-$syncsite = $_POST['syncsite'];
-$createdon = $_POST['createdon'];
-$pub_date = $_POST['pub_date'];
-$unpub_date = $_POST['unpub_date'];
-$document_groups = $_POST['document_groups'];
-$type = $_POST['type'];
-$keywords = $_POST['keywords'];
-$contentType = $_POST['contentType'];
-$longtitle = addslashes($_POST['setitle']);
-$authenticate = $_POST['authenticate'];
-$showinmenu = $_POST['showinmenu'];
+$searchable = o($_POST['searchable']);
+$cacheable = o($_POST['cacheable']);
+$syncsite = o($_POST['syncsite']);
+$createdon = o($_POST['createdon']);
+$pub_date = o($_POST['pub_date']);
+$unpub_date = o($_POST['unpub_date']);
+$document_groups = o($_POST['document_groups']);
+$type = o($_POST['type']);
+$keywords = o($_POST['keywords']);
+$contentType = o($_POST['contentType']);
+$longtitle = o($_POST['setitle']);
+$authenticate = o($_POST['authenticate']);
+$showinmenu = o($_POST['showinmenu']);
 
 // if no page title was provided, use default
 if(trim($pagetitle == ""))
@@ -163,8 +191,8 @@ if($use_udperms == 1)
 switch($actionToTake)
 {
   case 'new':
-    $sql = "INSERT INTO $dbase.".$table_prefix."site_content(content, pagetitle, longtitle, type, description, alias, isfolder, richtext, published, parent, template, menuindex, searchable, cacheable, createdby, createdon, editedby, editedon, pub_date, unpub_date, contentType, authenticate, showinmenu)
-        VALUES('".$content."', '".$pagetitle."', '".$longtitle."', '".$type."', '".$description."', '".$alias."', '".$isfolder."', '".$richtext."', '".$published."', '".$parent."', '".$template."', '".$menuindex."', '".$searchable."', '".$cacheable."', ".$_SESSION['internalKey'].", ".time().", ".$_SESSION['internalKey'].", ".$createdon.", $pub_date, $unpub_date, '$contentType', '$authenticate', '$showinmenu')";
+    $sql = "INSERT INTO $dbase.".$table_prefix."site_content(content, texy, pagetitle, longtitle, type, description, alias, isfolder, richtext, published, parent, template, menuindex, searchable, cacheable, createdby, createdon, editedby, editedon, pub_date, unpub_date, contentType, authenticate, showinmenu)
+        VALUES('".$content."', '" . $texy . "', '".$pagetitle."', '".$longtitle."', '".$type."', '".$description."', '".$alias."', '".$isfolder."', '".$richtext."', '".$published."', '".$parent."', '".$template."', '".$menuindex."', '".$searchable."', '".$cacheable."', ".$_SESSION['internalKey'].", ".time().", ".$_SESSION['internalKey'].", ".$createdon.", $pub_date, $unpub_date, '$contentType', '$authenticate', '$showinmenu')";
 
     $rs = mysql_query($sql);
     if(!$rs)
@@ -242,7 +270,7 @@ switch($actionToTake)
   break;
 
   case 'edit':
-    // first, get the document's current parent.
+      // first, get the document's current parent.
     $sql = "SELECT parent FROM $dbase.".$table_prefix."site_content WHERE id=".$_REQUEST['id'].";";
     $rs = mysql_query($sql);
     if(!$rs)
@@ -287,9 +315,20 @@ switch($actionToTake)
     $createdon = isset($_POST['resetCreatedon']) ? time() : $createdon;
 
     // update the document
-    $sql = "UPDATE $dbase.".$table_prefix."site_content SET content='$content', pagetitle='$pagetitle', longtitle='$longtitle', type='$type', description='$description', alias='$alias',
-    isfolder=$isfolder, richtext=$richtext, published=$published, pub_date=$pub_date, unpub_date=$unpub_date, parent=$parent, template=$template, menuindex=$menuindex,
-    searchable=$searchable, cacheable=$cacheable, createdby=$createdby, createdon=$createdon, editedby=".$_SESSION['internalKey'].", editedon=".time().", contentType='$contentType', authenticate=$authenticate, showinmenu=$showinmenu WHERE id=$id;";
+		//edit by krteczek 2008-06-15
+	if($which_editor == 6)
+  		{
+			$sql = "UPDATE $dbase.".$table_prefix."site_content SET content='$content',texy='$texy', pagetitle='$pagetitle', longtitle='$longtitle', type='$type', description='$description', alias='$alias',
+			isfolder=$isfolder, richtext=$richtext, published=$published, pub_date=$pub_date, unpub_date=$unpub_date, parent=$parent, template=$template, menuindex=$menuindex,
+			searchable=$searchable, cacheable=$cacheable, createdby=$createdby, createdon=$createdon, editedby=".$_SESSION['internalKey'].", editedon=".time().", contentType='$contentType', authenticate=$authenticate, showinmenu=$showinmenu WHERE id=$id;";
+  		}
+  	else
+  		{
+			$sql = "UPDATE $dbase.".$table_prefix."site_content SET content='$content',pagetitle='$pagetitle', longtitle='$longtitle', type='$type', description='$description', alias='$alias',
+			isfolder=$isfolder, richtext=$richtext, published=$published, pub_date=$pub_date, unpub_date=$unpub_date, parent=$parent, template=$template, menuindex=$menuindex,
+			searchable=$searchable, cacheable=$cacheable, createdby=$createdby, createdon=$createdon, editedby=".$_SESSION['internalKey'].", editedon=".time().", contentType='$contentType', authenticate=$authenticate, showinmenu=$showinmenu WHERE id=$id;";
+  		}
+
 
     $rs = mysql_query($sql);
     if(!$rs)

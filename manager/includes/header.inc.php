@@ -39,6 +39,13 @@ if(strstr($_SERVER['HTTP_USER_AGENT'],'MSIE 7') && isset($_REQUEST['a']) && ($_R
   <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $etomite_charset; ?>">
   <link rel="stylesheet" type="text/css" href="./media/style/style.css">
   <link type="text/css" rel="stylesheet" href="media/style/tabs.css" />
+ <?php
+  # Start - Texyla load
+  if($which_editor == 6)
+  {
+    echo '<script type="text/javascript" src="http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/media/texyla/texyla-source.js" ></script>' . "\n";
+  }
+?>
   <script type="text/javascript" src="./media/script/ieemu.js"></script>
 
 <?php if(file_exists('media/edit_area/')) { ?>
