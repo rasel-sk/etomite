@@ -1,6 +1,10 @@
 -- etomite_bare.sql
 -- 2008-04-04
 
+-- edit by krteczek:
+-- add colum `texy` to TABLE `{PREFIX}site_content`
+-- 2008-06-13
+
 
 -- START::CREATE TABLE SECTION
 
@@ -156,6 +160,7 @@ CREATE TABLE `{PREFIX}site_content` (
   `parent` int(10) NOT NULL default '0',
   `isfolder` int(1) NOT NULL default '0',
   `content` mediumtext collate utf8_unicode_ci NOT NULL,
+  `texy` mediumtext collate utf8_unicode_ci NOT NULL, 
   `richtext` tinyint(1) NOT NULL default '1',
   `template` int(10) NOT NULL default '1',
   `menuindex` int(10) NOT NULL default '0',

@@ -12,13 +12,15 @@ function & kill_magic_quotes(&$str) {
   return $str;
 }
 
+/* edit by krteczek
+	nahrazeno removeMagicQuotesGpc();
 if(get_magic_quotes_gpc()) {
   kill_magic_quotes($_GET);
   kill_magic_quotes($_POST);
   kill_magic_quotes($_COOKIE);
   kill_magic_quotes($_REQUEST);
 }
-
+*/
 function checkImagePath($hash) { return; }
 
 ?>

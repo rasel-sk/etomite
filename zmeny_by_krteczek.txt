@@ -1,0 +1,95 @@
+Změny v Etomite:
+****************
+
+2008-10-02
+***********
+1) další patch /manager/processor/save_content.processor.php:
+ - při vytvoření odkazu na nějakou stránku se adresa odkazu automaticky převedla na <a href..., 
+  - přidána kontrola o jaký typ obsahu se jedná. Pokud je to reference nepřevádí se obsah na html. 
+
+
+2008-07-07
+**********
+1) /manager/actions/dynamic/texyla_mutate_settings.php
+ - Po několika dnech jsem se dostal k počítači a zjistil, že jsem zapoměl vložit zpracovanou Texy syntax do editoru :( (textarea)
+ - + $contentTexy
+ - + add $contentTexy to textarea
+ 
+2) /manager/includes/header.inc.php
+ - 42 add FSHL css
+ 
+3) /manager/media/texyla/fshl/
+ - vložena aktuální verze FSHL bez zbytečností a upraveny cesty tak aby to fungovalo správně
+ 
+4) /manager/media/texyla/themes/base.css
+ - patch problem 3x click mouse button for open window (table, image) in Texyla 
+ 	- line 58: change: .TexylaPopup {position:absolute; display:block;} to .TexylaPopup {position:absolute; display:block; z-index:20;} z-index:20; in
+
+
+2008-06-16
+**********
+1) /manager/media/texyla/eto-texyla-settings-admin.inc.php
+  - rename to: "texyla_mutate_settings.php"
+  - move to: "/manager/actions/dynamic/"
+
+2) /manager/actions/dynamic/mutate_content.dynamic.action.php
+  - line 698: require_once('./media/texyla/eto-texyla-settings-admin.inc.php');
+  - changed to: require_once('./media/texyla/texyla_mutate_settings.php');
+ 
+3) "/manager/media/texyla/texyla.php"
+  - line 110, 116, 136, 315: rename "texy.compact.php" to "texy.php"
+ 
+5) include new version FSHL (0.4.20, 5. 3. 2008) 
+
+2008-06-15
+**********
+1) další patch /manager/processor/save_content.processor.php:
+ - - 305-306 nahrazeno 305-315: při updatu jiným editorem než texyla se vložil do sloupce `texy` prázdný záznam
+ 
+ 
+2008-06-14
+**********
+
+1) edit /manager/processor/save_content.processor.php:
+ - patch save problem texy: **Fatal error: Maximum execution time of 30 seconds exceeded in W:\Wamp\www\xylet\manager\media\texyla\texy\texy.compact.php on line 263**
+ 
+2) patch install problem: /install/sql/etomite_full.sql:
+ - prostě byla v dotaze jedna proměnná navíc, přehlídl jsem při editaci.. opraveno
+
+
+2008-06-13
+##########
+1) /manager/index.php: .[#index]
+ - + 76-80 include Texyla, use removeMagicQuotesGpc(): //include_once("includes/quotes_stripper.inc.php"); => zrušené to jejich odstranění
+ - + 132 add mysql_query("SET NAMES 'utf-8'");
+ - + 135-144 add function o() => mysql_real_escape_string()
+ 
+2) /manager/includes/quotes_stripper.inc.php 
+ - - 15-23 koment this code, with use "removeMagicQuotesGpc()":#index
+ 
+3) /manager/actions/dynamic/mutate_settings.dynamic.action.php .[#mutate]
+ - + 329-343 edit generators <option> menu
+ - + 858-887 edit generators <option> menu, added Texyla
+ 
+4) /manager/actions/dynamic/mutate_content.dynamic.action.php
+ - 693-698 added elseif($which_editor == 6) >>> textarea + texyla settings code javascripts
+ 
+5) /manager/media/texyla/
+ - + add Texyla directory + all Texyla files
+ - + add eto-texyla-settings-admin.inc.php => texyla javascript settings + textarea code 
+ 
+6) /manager/processor/save_content.processor.php
+ - START - END: add function o()
+ - add var $texy
+ - edit sql to add column texy: 
+  - $sql = "INSERT INTO $dbase.".$table_prefix."site_content(content, texy,...
+  - $sql = "UPDATE $dbase.".$table_prefix."site_content SET content='$content',texy='$texy',
+
+7) Edit /install/sql/ add colum `texy` to TABLE `{PREFIX}site_content`
+ - etomite_bare.sql
+ - etomite_full.sql
+ - etomite_lite.sql
+
+8) edit 2008-06-20: edit: /manager/includes/header.inc.php
+ - 43-48 add load Texyla javascript
+ 

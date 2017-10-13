@@ -14,6 +14,9 @@ ALTER TABLE `{PREFIX}site_content` ADD `authenticate` int(1) NOT NULL DEFAULT '0
 
 ALTER TABLE `{PREFIX}site_content` ADD `showinmenu` int(1) NOT NULL DEFAULT '1' ;
 
+ALTER TABLE `{PREFIX}site_content` ADD `texy` mediumtext collate utf8_unicode_ci NOT NULL, 
+
+
 CREATE TABLE `{PREFIX}keyword_xref` (
   `content_id` int(11) NOT NULL default '0',
   `keyword_id` int(11) NOT NULL default '0',
