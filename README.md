@@ -1,6 +1,19 @@
 # Etomite
 
+**Upgrade to `master` branch with Texy!:**
+- SQL script:
+```sql
+ALTER TABLE `etomite_site_content` ADD `texy` mediumtext collate utf8_unicode_ci NOT NULL;
+UPDATE etomite_site_content SET texy = content WHERE 1 = 1;
+```
+
+ **Texy! (Texyla, FSHL)**
+- Texy! (syntax): https://texy.info
+- Texyla (editor): https://github.com/janmarek/Texyla/wiki
+- FSHL (fast syntax highlighter): https://github.com/kukulich/fshl
+
 **History:**
+- 2017-10-13: Manual merge with *Texyla* branch (support for Texy!, Taxyla 0.6.1, FSHL), 
 - 2017-10-05: Fix: `mysqli_escape_string()` and `mysqli_insert_id()`
 - 2017-06-02: Fix: port for PHP 7 and MySQL 5.7
 - 2010-11-29: Fix: PHP 5.3, first release by Matej Kolesár
@@ -8,8 +21,8 @@
  
 ### PHP 7.1.×
 - `mysql_*` to `mysqli_*` (procedural style, add connection),
-- add port support for mysqli (DbConfig),
-- DbConfig for Log and Cache,
+- add port support for mysqli,
+- db config for *log* and *cache*,
 - remove `set_magic_quotes_runtime` for PHP > 5.3
 
 ### MySQL 5.7
@@ -17,7 +30,7 @@
 - `date` to `datetime`,
 - `0000-00-00` -> `CURRENT_TIMESTAMP`,
 - `0000-00-00 00:00:00` -> `CURRENT_TIMESTAMP`
-- `ip` from 20 to `30` -> `etomite_active_users` .
+- `ip` from `20` to `30` -> `etomite_active_users` .
 
 *Etomite for PHP 7.1.× by Matej Kolesár :bowtie:*
 
